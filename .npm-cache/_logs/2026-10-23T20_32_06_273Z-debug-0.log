@@ -1,0 +1,1145 @@
+0 verbose cli /home/kali/.config/nvm/versions/node/v24.19.0/bin/node /home/kali/.config/nvm/versions/node/v24.19.0/bin/npm
+1 info using npm@11.17.0
+2 info using node@v24.19.0
+3 silly config load:file:/home/kali/.config/nvm/versions/node/v24.19.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/kali/Desktop/projects/cwspos/.npmrc
+5 silly config load:file:/home/kali/.npmrc
+6 silly config load:file:/home/kali/.config/nvm/versions/node/v24.19.0/etc/npmrc
+7 verbose title npm install @playwright/test@1.52.0
+8 verbose argv "install" "--save-dev" "@playwright/test@1.52.0" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:/home/kali/Desktop/projects/cwspos/.npm-cache/_logs/2026-10-23T20_32_06_273Z-
+10 verbose logfile /home/kali/Desktop/projects/cwspos/.npm-cache/_logs/2026-10-23T20_32_06_273Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+14 silly idealTree buildDeps
+15 silly fetch manifest @playwright/test@1.52.0
+16 silly packumentCache full:https://registry.npmjs.org/@playwright%2ftest cache-miss
+17 http fetch GET 200 https://registry.npmjs.org/npm 1260ms
+18 http fetch GET 200 https://registry.npmjs.org/@playwright%2ftest 1825ms (cache miss)
+19 silly packumentCache full:https://registry.npmjs.org/@playwright%2ftest set size:undefined disposed:false
+20 silly placeDep ROOT @playwright/test@1.52.0 OK for:  want: 1.52.0
+21 silly fetch manifest playwright@1.52.0
+22 silly packumentCache full:https://registry.npmjs.org/playwright cache-miss
+23 http fetch GET 200 https://registry.npmjs.org/playwright 1887ms (cache miss)
+24 silly packumentCache full:https://registry.npmjs.org/playwright set size:undefined disposed:false
+25 silly fetch manifest throttleit@^1.0.0
+26 silly packumentCache full:https://registry.npmjs.org/throttleit cache-miss
+27 http fetch GET 200 https://registry.npmjs.org/throttleit 167ms (cache miss)
+28 silly packumentCache full:https://registry.npmjs.org/throttleit set size:undefined disposed:false
+29 silly placeDep ROOT throttleit@1.0.1 KEEP for: @ai-sdk/react@4.0.147 want: ^1.0.0
+30 silly placeDep ROOT playwright@1.52.0 OK for: @playwright/test@1.52.0 want: 1.52.0
+31 silly fetch manifest playwright-core@1.52.0
+32 silly packumentCache full:https://registry.npmjs.org/playwright-core cache-miss
+33 silly fetch manifest fsevents@2.3.2
+34 silly packumentCache full:https://registry.npmjs.org/fsevents cache-miss
+35 http fetch GET 200 https://registry.npmjs.org/fsevents 204ms (cache miss)
+36 silly packumentCache full:https://registry.npmjs.org/fsevents set size:undefined disposed:false
+37 http fetch GET 200 https://registry.npmjs.org/playwright-core 1932ms (cache miss)
+38 silly packumentCache full:https://registry.npmjs.org/playwright-core set size:undefined disposed:false
+39 silly placeDep node_modules/playwright fsevents@2.3.2 OK for: playwright@1.52.0 want: 2.3.2
+40 silly placeDep ROOT playwright-core@1.52.0 OK for: playwright@1.52.0 want: 1.52.0
+41 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/ai' ]
+42 silly reify mark retired [
+42 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/babel-plugin-react-compiler'
+42 silly reify ]
+43 silly reify mark retired [
+43 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/class-variance-authority'
+43 silly reify ]
+44 silly reify mark retired [
+44 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/cn',
+44 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/cn'
+44 silly reify ]
+45 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/clsx' ]
+46 silly reify mark retired [
+46 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/concurrently',
+46 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/concurrently',
+46 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/conc'
+46 silly reify ]
+47 silly reify mark retired [
+47 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/laravel-vite-plugin',
+47 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/clean-orphaned-assets'
+47 silly reify ]
+48 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/input-otp' ]
+49 silly reify mark retired [
+49 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/lightningcss-linux-x64-gnu'
+49 silly reify ]
+50 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/lucide-react' ]
+51 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/react' ]
+52 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/radix-ui' ]
+53 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/react-dom' ]
+54 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/sonner' ]
+55 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/swr' ]
+56 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/tailwind-merge' ]
+57 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/tailwindcss' ]
+58 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/throttleit' ]
+59 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/tw-animate-css' ]
+60 silly reify mark retired [
+60 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/typescript',
+60 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/tsc',
+60 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/tsserver'
+60 silly reify ]
+61 silly reify mark retired [
+61 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/use-sync-external-store'
+61 silly reify ]
+62 silly reify mark retired [
+62 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/vite',
+62 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/vite'
+62 silly reify ]
+63 silly reify mark retired [
+63 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/vite-plus',
+63 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/oxfmt',
+63 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/oxlint',
+63 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/vp',
+63 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/vpr'
+63 silly reify ]
+64 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/zod' ]
+65 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/@ai-sdk/react' ]
+66 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/@inertiajs/react' ]
+67 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/@inertiajs/vite' ]
+68 silly reify mark retired [
+68 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/vite-plugin-wayfinder'
+68 silly reify ]
+69 silly reify mark retired [
+69 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/multiplex',
+69 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/multiplex'
+69 silly reify ]
+70 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/passkeys' ]
+71 silly reify mark retired [
+71 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-avatar'
+71 silly reify ]
+72 silly reify mark retired [
+72 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-collapsible'
+72 silly reify ]
+73 silly reify mark retired [
+73 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-checkbox'
+73 silly reify ]
+74 silly reify mark retired [
+74 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-dialog'
+74 silly reify ]
+75 silly reify mark retired [
+75 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-dropdown-menu'
+75 silly reify ]
+76 silly reify mark retired [
+76 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-label'
+76 silly reify ]
+77 silly reify mark retired [
+77 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-navigation-menu'
+77 silly reify ]
+78 silly reify mark retired [
+78 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-select'
+78 silly reify ]
+79 silly reify mark retired [
+79 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-separator'
+79 silly reify ]
+80 silly reify mark retired [
+80 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-slot'
+80 silly reify ]
+81 silly reify mark retired [
+81 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-toggle'
+81 silly reify ]
+82 silly reify mark retired [
+82 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-toggle-group'
+82 silly reify ]
+83 silly reify mark retired [
+83 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-tooltip'
+83 silly reify ]
+84 silly reify mark retired [
+84 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@rolldown/plugin-babel'
+84 silly reify ]
+85 silly reify mark retired [
+85 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@rollup/rollup-linux-x64-gnu'
+85 silly reify ]
+86 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/@tailwindcss/vite' ]
+87 silly reify mark retired [
+87 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@tailwindcss/oxide-linux-x64-gnu'
+87 silly reify ]
+88 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/@types/node' ]
+89 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/@types/react-dom' ]
+90 silly reify mark retired [ '/home/kali/Desktop/projects/cwspos/node_modules/@types/react' ]
+91 silly reify mark retired [
+91 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@vitejs/plugin-react'
+91 silly reify ]
+92 silly reify moves {
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/ai': '/home/kali/Desktop/projects/cwspos/node_modules/.ai-axtPjfGU',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/babel-plugin-react-compiler': '/home/kali/Desktop/projects/cwspos/node_modules/.babel-plugin-react-compiler-D2GPmuSj',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/class-variance-authority': '/home/kali/Desktop/projects/cwspos/node_modules/.class-variance-authority-Fj1CX1K1',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/cn': '/home/kali/Desktop/projects/cwspos/node_modules/.cn-Kph5eGRI',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/cn': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.cn-pUWcG8jb',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/clsx': '/home/kali/Desktop/projects/cwspos/node_modules/.clsx-H9xsc3MX',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/concurrently': '/home/kali/Desktop/projects/cwspos/node_modules/.concurrently-Hg1niIhv',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/concurrently': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.concurrently-4hdbQDcY',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/conc': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.conc-YNeh52ti',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/laravel-vite-plugin': '/home/kali/Desktop/projects/cwspos/node_modules/.laravel-vite-plugin-ASTyjCtG',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/clean-orphaned-assets': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.clean-orphaned-assets-rBAUvRPM',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/input-otp': '/home/kali/Desktop/projects/cwspos/node_modules/.input-otp-JkVoVFWN',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/lightningcss-linux-x64-gnu': '/home/kali/Desktop/projects/cwspos/node_modules/.lightningcss-linux-x64-gnu-aVjsPqQn',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/lucide-react': '/home/kali/Desktop/projects/cwspos/node_modules/.lucide-react-7E8rFkMV',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/react': '/home/kali/Desktop/projects/cwspos/node_modules/.react-OpWB9RsC',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/radix-ui': '/home/kali/Desktop/projects/cwspos/node_modules/.radix-ui-0dBn63Z4',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/react-dom': '/home/kali/Desktop/projects/cwspos/node_modules/.react-dom-wg3GvSWk',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/sonner': '/home/kali/Desktop/projects/cwspos/node_modules/.sonner-uzI1qbif',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/swr': '/home/kali/Desktop/projects/cwspos/node_modules/.swr-VMRRx9TO',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/tailwind-merge': '/home/kali/Desktop/projects/cwspos/node_modules/.tailwind-merge-iZZg7Rd5',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/tailwindcss': '/home/kali/Desktop/projects/cwspos/node_modules/.tailwindcss-QpK5jjyJ',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/throttleit': '/home/kali/Desktop/projects/cwspos/node_modules/.throttleit-l3MnmAUK',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/tw-animate-css': '/home/kali/Desktop/projects/cwspos/node_modules/.tw-animate-css-2PuVO9Ea',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/typescript': '/home/kali/Desktop/projects/cwspos/node_modules/.typescript-tV1IpVtI',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/tsc': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.tsc-sbKqAoNS',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/tsserver': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.tsserver-fqDdy9hh',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/use-sync-external-store': '/home/kali/Desktop/projects/cwspos/node_modules/.use-sync-external-store-bVNukoE6',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/vite': '/home/kali/Desktop/projects/cwspos/node_modules/.vite-UrwmNjze',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/vite': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.vite-NFXUAcWA',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/vite-plus': '/home/kali/Desktop/projects/cwspos/node_modules/.vite-plus-X6WnCdIf',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/oxfmt': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.oxfmt-1J25QScW',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/oxlint': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.oxlint-ew1lmg1B',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/vp': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.vp-oz0kO4Kv',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/vpr': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.vpr-pAcqIN5e',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/zod': '/home/kali/Desktop/projects/cwspos/node_modules/.zod-JIZzk7jN',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@ai-sdk/react': '/home/kali/Desktop/projects/cwspos/node_modules/@ai-sdk/.react-R23aXx3f',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@inertiajs/react': '/home/kali/Desktop/projects/cwspos/node_modules/@inertiajs/.react-BNgzGkiu',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@inertiajs/vite': '/home/kali/Desktop/projects/cwspos/node_modules/@inertiajs/.vite-VODkF5uD',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/vite-plugin-wayfinder': '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/.vite-plugin-wayfinder-wrtsBmM5',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/multiplex': '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/.multiplex-L9IOxsbc',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/multiplex': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.multiplex-UjGmQzbW',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/passkeys': '/home/kali/Desktop/projects/cwspos/node_modules/@laravel/.passkeys-gpVbCJQP',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-avatar': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-avatar-LJOyW28Y',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-collapsible': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-collapsible-hbO3ql5v',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-checkbox': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-checkbox-oi47CwEu',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-dialog': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-dialog-wTWmhFF4',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-dropdown-menu': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-dropdown-menu-gB5A1qN4',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-label': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-label-ck8Lsbcy',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-navigation-menu': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-navigation-menu-0uEYeKfk',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-select': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-select-SZHFIneE',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-separator': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-separator-YYCj821w',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-slot': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-slot-9ZRNsKFf',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-toggle': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-toggle-NB84T0uL',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-toggle-group': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-toggle-group-8KscrBP4',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/react-tooltip': '/home/kali/Desktop/projects/cwspos/node_modules/@radix-ui/.react-tooltip-EsLsaFBb',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@rolldown/plugin-babel': '/home/kali/Desktop/projects/cwspos/node_modules/@rolldown/.plugin-babel-j7mgtuW3',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@rollup/rollup-linux-x64-gnu': '/home/kali/Desktop/projects/cwspos/node_modules/@rollup/.rollup-linux-x64-gnu-lXg9UU4M',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@tailwindcss/vite': '/home/kali/Desktop/projects/cwspos/node_modules/@tailwindcss/.vite-SxKYZQdq',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@tailwindcss/oxide-linux-x64-gnu': '/home/kali/Desktop/projects/cwspos/node_modules/@tailwindcss/.oxide-linux-x64-gnu-StvFoE9T',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@types/node': '/home/kali/Desktop/projects/cwspos/node_modules/@types/.node-fugURiFm',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@types/react-dom': '/home/kali/Desktop/projects/cwspos/node_modules/@types/.react-dom-An4B4e6C',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@types/react': '/home/kali/Desktop/projects/cwspos/node_modules/@types/.react-gySXx9Dj',
+92 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@vitejs/plugin-react': '/home/kali/Desktop/projects/cwspos/node_modules/@vitejs/.plugin-react-cf8eliJU'
+92 silly reify }
+93 silly audit bulk request {
+93 silly audit   '@ai-sdk/gateway': [ '4.0.116' ],
+93 silly audit   '@ai-sdk/mcp': [ '2.0.78' ],
+93 silly audit   '@ai-sdk/provider': [ '4.0.29' ],
+93 silly audit   '@ai-sdk/provider-utils': [ '5.0.62' ],
+93 silly audit   '@ai-sdk/react': [ '4.0.147' ],
+93 silly audit   swr: [ '2.5.1', '2.6.0-beta.0' ],
+93 silly audit   throttleit: [ '2.1.0', '1.0.1' ],
+93 silly audit   '@alcalzone/ansi-tokenize': [ '0.3.1' ],
+93 silly audit   'ansi-styles': [ '6.2.3', '7.0.0', '5.2.0' ],
+93 silly audit   '@babel/code-frame': [ '8.0.6', '7.29.7' ],
+93 silly audit   '@babel/compat-data': [ '8.0.5' ],
+93 silly audit   '@babel/core': [ '8.0.6' ],
+93 silly audit   '@babel/generator': [ '8.0.6' ],
+93 silly audit   '@babel/helper-compilation-targets': [ '8.0.6' ],
+93 silly audit   '@babel/helper-globals': [ '8.0.6' ],
+93 silly audit   '@babel/helper-string-parser': [ '8.0.6', '7.29.7' ],
+93 silly audit   '@babel/helper-validator-identifier': [ '8.0.6', '7.29.7' ],
+93 silly audit   '@babel/helper-validator-option': [ '8.0.0' ],
+93 silly audit   '@babel/helpers': [ '8.0.5' ],
+93 silly audit   '@babel/parser': [ '8.0.6' ],
+93 silly audit   '@babel/runtime': [ '7.29.7' ],
+93 silly audit   '@babel/template': [ '8.0.0' ],
+93 silly audit   '@babel/traverse': [ '8.0.6' ],
+93 silly audit   '@babel/types': [ '8.0.6', '7.29.8' ],
+93 silly audit   '@blazediff/core': [ '1.9.1' ],
+93 silly audit   '@floating-ui/core': [ '1.8.0' ],
+93 silly audit   '@floating-ui/dom': [ '1.8.0' ],
+93 silly audit   '@floating-ui/react-dom': [ '2.1.9' ],
+93 silly audit   '@floating-ui/utils': [ '0.2.12' ],
+93 silly audit   '@inertiajs/core': [ '3.7.1' ],
+93 silly audit   '@inertiajs/react': [ '3.7.1' ],
+93 silly audit   '@inertiajs/vite': [ '3.7.1' ],
+93 silly audit   '@jridgewell/gen-mapping': [ '0.4.0-beta.0', '0.3.13' ],
+93 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+93 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+93 silly audit   '@jridgewell/sourcemap-codec': [ '1.6.0' ],
+93 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+93 silly audit   '@laravel/multiplex': [ '0.4.4' ],
+93 silly audit   '@laravel/passkeys': [ '0.2.0' ],
+93 silly audit   '@laravel/vite-plugin-wayfinder': [ '0.1.10' ],
+93 silly audit   '@oxc-project/runtime': [ '0.146.0' ],
+93 silly audit   '@oxc-project/types': [ '0.150.0', '0.146.0' ],
+93 silly audit   '@oxfmt/binding-android-arm-eabi': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-android-arm64': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-darwin-arm64': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-darwin-x64': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-freebsd-x64': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-arm-gnueabihf': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-arm-musleabihf': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-arm64-gnu': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-arm64-musl': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-ppc64-gnu': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-riscv64-gnu': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-riscv64-musl': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-s390x-gnu': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-x64-gnu': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-linux-x64-musl': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-openharmony-arm64': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-win32-arm64-msvc': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-win32-ia32-msvc': [ '0.64.0' ],
+93 silly audit   '@oxfmt/binding-win32-x64-msvc': [ '0.64.0' ],
+93 silly audit   '@oxlint-tsgolint/darwin-arm64': [ '7.0.2001' ],
+93 silly audit   '@oxlint-tsgolint/darwin-x64': [ '7.0.2001' ],
+93 silly audit   '@oxlint-tsgolint/linux-arm64': [ '7.0.2001' ],
+93 silly audit   '@oxlint-tsgolint/linux-x64': [ '7.0.2001' ],
+93 silly audit   '@oxlint-tsgolint/win32-arm64': [ '7.0.2001' ],
+93 silly audit   '@oxlint-tsgolint/win32-x64': [ '7.0.2001' ],
+93 silly audit   '@oxlint/binding-android-arm-eabi': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-android-arm64': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-darwin-arm64': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-darwin-x64': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-freebsd-x64': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-arm-gnueabihf': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-arm-musleabihf': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-arm64-gnu': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-arm64-musl': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-ppc64-gnu': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-riscv64-gnu': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-riscv64-musl': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-s390x-gnu': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-x64-gnu': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-linux-x64-musl': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-openharmony-arm64': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-win32-arm64-msvc': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-win32-ia32-msvc': [ '1.79.0' ],
+93 silly audit   '@oxlint/binding-win32-x64-msvc': [ '1.79.0' ],
+93 silly audit   '@oxlint/plugins': [ '1.79.0' ],
+93 silly audit   '@polka/url': [ '1.0.0-next.29' ],
+93 silly audit   '@radix-ui/number': [ '1.1.3' ],
+93 silly audit   '@radix-ui/primitive': [ '1.2.0' ],
+93 silly audit   '@radix-ui/react-accessible-icon': [ '1.2.0' ],
+93 silly audit   '@radix-ui/react-accordion': [ '1.3.1' ],
+93 silly audit   '@radix-ui/react-alert-dialog': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-arrow': [ '1.1.17' ],
+93 silly audit   '@radix-ui/react-aspect-ratio': [ '1.2.0' ],
+93 silly audit   '@radix-ui/react-avatar': [ '1.3.1' ],
+93 silly audit   '@radix-ui/react-checkbox': [ '1.4.1' ],
+93 silly audit   '@radix-ui/react-collapsible': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-collection': [ '1.2.0' ],
+93 silly audit   '@radix-ui/react-compose-refs': [ '1.1.5' ],
+93 silly audit   '@radix-ui/react-context': [ '1.3.0' ],
+93 silly audit   '@radix-ui/react-context-menu': [ '2.4.1' ],
+93 silly audit   '@radix-ui/react-dialog': [ '1.3.1' ],
+93 silly audit   '@radix-ui/react-direction': [ '1.2.0' ],
+93 silly audit   '@radix-ui/react-dismissable-layer': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-dropdown-menu': [ '2.2.1' ],
+93 silly audit   '@radix-ui/react-focus-guards': [ '1.2.0' ],
+93 silly audit   '@radix-ui/react-focus-scope': [ '1.3.1' ],
+93 silly audit   '@radix-ui/react-form': [ '0.3.0' ],
+93 silly audit   '@radix-ui/react-hover-card': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-id': [ '1.1.4' ],
+93 silly audit   '@radix-ui/react-label': [ '2.1.17' ],
+93 silly audit   '@radix-ui/react-menu': [ '2.2.1' ],
+93 silly audit   '@radix-ui/react-menubar': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-navigation-menu': [ '1.4.1' ],
+93 silly audit   '@radix-ui/react-one-time-password-field': [ '0.2.1' ],
+93 silly audit   '@radix-ui/react-password-toggle-field': [ '0.2.1' ],
+93 silly audit   '@radix-ui/react-popover': [ '1.3.1' ],
+93 silly audit   '@radix-ui/react-popper': [ '1.4.0' ],
+93 silly audit   '@radix-ui/react-portal': [ '1.2.0' ],
+93 silly audit   '@radix-ui/react-presence': [ '1.1.11' ],
+93 silly audit   '@radix-ui/react-primitive': [ '2.2.0' ],
+93 silly audit   '@radix-ui/react-progress': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-radio-group': [ '1.5.1' ],
+93 silly audit   '@radix-ui/react-roving-focus': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-scroll-area': [ '1.4.0' ],
+93 silly audit   '@radix-ui/react-select': [ '2.4.1' ],
+93 silly audit   '@radix-ui/react-separator': [ '1.2.0' ],
+93 silly audit   '@radix-ui/react-slider': [ '1.6.1' ],
+93 silly audit   '@radix-ui/react-slot': [ '1.5.0' ],
+93 silly audit   '@radix-ui/react-switch': [ '1.4.1' ],
+93 silly audit   '@radix-ui/react-tabs': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-toast': [ '1.3.1' ],
+93 silly audit   '@radix-ui/react-toggle': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-toggle-group': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-toolbar': [ '1.2.1' ],
+93 silly audit   '@radix-ui/react-tooltip': [ '1.4.1' ],
+93 silly audit   '@radix-ui/react-use-callback-ref': [ '1.1.5' ],
+93 silly audit   '@radix-ui/react-use-controllable-state': [ '1.3.0' ],
+93 silly audit   '@radix-ui/react-use-effect-event': [ '0.0.5' ],
+93 silly audit   '@radix-ui/react-use-escape-keydown': [ '1.1.6' ],
+93 silly audit   '@radix-ui/react-use-is-hydrated': [ '0.1.3' ],
+93 silly audit   '@radix-ui/react-use-layout-effect': [ '1.1.4' ],
+93 silly audit   '@radix-ui/react-use-previous': [ '1.1.4' ],
+93 silly audit   '@radix-ui/react-use-rect': [ '1.1.4' ],
+93 silly audit   '@radix-ui/react-use-size': [ '1.1.5' ],
+93 silly audit   '@radix-ui/react-visually-hidden': [ '1.2.13' ],
+93 silly audit   '@radix-ui/rect': [ '1.1.3' ],
+93 silly audit   '@rolldown/binding-android-arm-eabi': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-android-arm64': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-darwin-arm64': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-darwin-x64': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-freebsd-x64': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-linux-arm-gnueabihf': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-linux-arm64-gnu': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-linux-arm64-musl': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-linux-ppc64-gnu': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-linux-s390x-gnu': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-linux-x64-gnu': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-linux-x64-musl': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-openharmony-arm64': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-win32-arm64-msvc': [ '1.2.9' ],
+93 silly audit   '@rolldown/binding-win32-x64-msvc': [ '1.2.9' ],
+93 silly audit   '@rolldown/plugin-babel': [ '0.2.4' ],
+93 silly audit   '@rolldown/pluginutils': [ '1.0.1' ],
+93 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.9.5' ],
+93 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.9.5' ],
+93 silly audit   '@simplewebauthn/browser': [ '13.3.0' ],
+93 silly audit   '@standard-schema/spec': [ '1.1.0' ],
+93 silly audit   '@tailwindcss/node': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-android-arm64': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-darwin-arm64': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-darwin-x64': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-freebsd-x64': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-linux-arm-gnueabihf': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-linux-arm64-gnu': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-linux-arm64-musl': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-linux-x64-gnu': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-linux-x64-musl': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-wasm32-wasi': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-win32-arm64-msvc': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/oxide-win32-x64-msvc': [ '4.3.3' ],
+93 silly audit   '@tailwindcss/vite': [ '4.3.3' ],
+93 silly audit   '@testing-library/dom': [ '10.4.2' ],
+93 silly audit   'js-tokens': [ '4.0.0', '10.0.0' ],
+93 silly audit   '@testing-library/user-event': [ '14.6.7' ],
+93 silly audit   '@types/aria-query': [ '5.0.4' ],
+93 silly audit   '@types/chai': [ '5.2.3' ],
+93 silly audit   '@types/deep-eql': [ '4.0.2' ],
+93 silly audit   '@types/estree': [ '1.0.9' ],
+93 silly audit   '@types/gensync': [ '1.0.5' ],
+93 silly audit   '@types/jsesc': [ '2.5.1' ],
+93 silly audit   '@types/node': [ '22.20.4' ],
+93 silly audit   '@types/react': [ '19.3.0' ],
+93 silly audit   '@types/react-dom': [ '19.3.0' ],
+93 silly audit   '@vercel/oidc': [ '3.2.0' ],
+93 silly audit   '@vitejs/plugin-react': [ '6.1.1' ],
+93 silly audit   '@vitest/browser': [ '4.1.11' ],
+93 silly audit   '@vitest/browser-preview': [ '4.1.11' ],
+93 silly audit   '@vitest/expect': [ '4.1.11' ],
+93 silly audit   '@vitest/mocker': [ '4.1.11' ],
+93 silly audit   '@vitest/pretty-format': [ '4.1.11' ],
+93 silly audit   '@vitest/runner': [ '4.1.11' ],
+93 silly audit   '@vitest/snapshot': [ '4.1.11' ],
+93 silly audit   '@vitest/spy': [ '4.1.11' ],
+93 silly audit   '@vitest/utils': [ '4.1.11' ],
+93 silly audit   '@voidzero-dev/vite-plus-core': [ '0.3.0' ],
+93 silly audit   lightningcss: [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-android-arm64': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-darwin-arm64': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-darwin-x64': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-freebsd-x64': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-linux-arm64-gnu': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-linux-arm64-musl': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-linux-x64-musl': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-win32-arm64-msvc': [ '1.33.0', '1.32.0' ],
+93 silly audit   '@voidzero-dev/vite-plus-darwin-arm64': [ '0.3.0' ],
+93 silly audit   '@voidzero-dev/vite-plus-darwin-x64': [ '0.3.0' ],
+93 silly audit   '@voidzero-dev/vite-plus-linux-arm64-gnu': [ '0.3.0' ],
+93 silly audit   '@voidzero-dev/vite-plus-linux-arm64-musl': [ '0.3.0' ],
+93 silly audit   '@voidzero-dev/vite-plus-linux-x64-gnu': [ '0.3.0' ],
+93 silly audit   '@voidzero-dev/vite-plus-linux-x64-musl': [ '0.3.0' ],
+93 silly audit   '@voidzero-dev/vite-plus-win32-arm64-msvc': [ '0.3.0' ],
+93 silly audit   '@voidzero-dev/vite-plus-win32-x64-msvc': [ '0.3.0' ],
+93 silly audit   '@workflow/serde': [ '4.1.0' ],
+93 silly audit   '@yuku-codegen/binding-darwin-arm64': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-darwin-x64': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-freebsd-x64': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-linux-arm-gnu': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-linux-arm-musl': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-linux-arm64-gnu': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-linux-arm64-musl': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-linux-x64-gnu': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-linux-x64-musl': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-win32-arm64': [ '0.5.48' ],
+93 silly audit   '@yuku-codegen/binding-win32-x64': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-darwin-arm64': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-darwin-x64': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-freebsd-x64': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-linux-arm-gnu': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-linux-arm-musl': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-linux-arm64-gnu': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-linux-arm64-musl': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-linux-x64-gnu': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-linux-x64-musl': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-win32-arm64': [ '0.5.48' ],
+93 silly audit   '@yuku-parser/binding-win32-x64': [ '0.5.48' ],
+93 silly audit   '@yuku-toolchain/types': [ '0.5.43' ],
+93 silly audit   ai: [ '7.0.143' ],
+93 silly audit   'ansi-escapes': [ '7.3.0' ],
+93 silly audit   'ansi-regex': [ '6.3.0', '5.0.1' ],
+93 silly audit   'aria-hidden': [ '1.2.6' ],
+93 silly audit   'aria-query': [ '5.3.0' ],
+93 silly audit   'assertion-error': [ '2.0.1' ],
+93 silly audit   'auto-bind': [ '5.0.1' ],
+93 silly audit   'babel-plugin-react-compiler': [ '1.0.0' ],
+93 silly audit   'baseline-browser-mapping': [ '2.11.25' ],
+93 silly audit   browserslist: [ '4.29.0' ],
+93 silly audit   'caniuse-lite': [ '1.0.30001810' ],
+93 silly audit   chai: [ '6.2.2' ],
+93 silly audit   chalk: [ '5.6.2' ],
+93 silly audit   'class-variance-authority': [ '0.7.1' ],
+93 silly audit   'cli-boxes': [ '4.0.1' ],
+93 silly audit   'cli-cursor': [ '4.0.0' ],
+93 silly audit   'cli-truncate': [ '6.1.1' ],
+93 silly audit   cliui: [ '9.0.1' ],
+93 silly audit   'string-width': [ '7.2.0', '8.2.2' ],
+93 silly audit   'wrap-ansi': [ '9.0.2', '10.0.2' ],
+93 silly audit   clsx: [ '2.1.1' ],
+93 silly audit   cn: [ '0.4.0' ],
+93 silly audit   'code-excerpt': [ '4.0.0' ],
+93 silly audit   commander: [ '15.0.0' ],
+93 silly audit   concurrently: [ '10.0.5' ],
+93 silly audit   'convert-source-map': [ '2.0.0' ],
+93 silly audit   'convert-to-spaces': [ '2.0.1' ],
+93 silly audit   'cross-spawn': [ '7.0.6' ],
+93 silly audit   csstype: [ '3.2.3' ],
+93 silly audit   dequal: [ '2.0.3' ],
+93 silly audit   'detect-libc': [ '2.1.2' ],
+93 silly audit   'detect-node-es': [ '1.1.0' ],
+93 silly audit   'dom-accessibility-api': [ '0.5.16' ],
+93 silly audit   'electron-to-chromium': [ '1.5.435' ],
+93 silly audit   'emoji-regex': [ '10.6.0' ],
+93 silly audit   empathic: [ '2.1.0' ],
+93 silly audit   'enhanced-resolve': [ '5.25.1' ],
+93 silly audit   environment: [ '1.1.0' ],
+93 silly audit   'es-module-lexer': [ '2.3.2' ],
+93 silly audit   'es-toolkit': [ '1.52.0' ],
+93 silly audit   escalade: [ '3.2.0' ],
+93 silly audit   'escape-string-regexp': [ '2.0.0' ],
+93 silly audit   'estree-walker': [ '3.0.3' ],
+93 silly audit   'eventsource-parser': [ '3.1.1' ],
+93 silly audit   'expect-type': [ '1.4.0' ],
+93 silly audit   fdir: [ '6.5.0' ],
+93 silly audit   flru: [ '1.0.2' ],
+93 silly audit   fsevents: [ '2.3.3', '2.3.2' ],
+93 silly audit   gensync: [ '1.0.0-beta.2' ],
+93 silly audit   'get-caller-file': [ '2.0.5' ],
+93 silly audit   'get-east-asian-width': [ '1.7.0' ],
+93 silly audit   'get-nonce': [ '1.0.1' ],
+93 silly audit   'graceful-fs': [ '4.2.11' ],
+93 silly audit   'import-meta-resolve': [ '4.2.0' ],
+93 silly audit   'indent-string': [ '5.0.0' ],
+93 silly audit   ink: [ '7.1.1' ],
+93 silly audit   'input-otp': [ '1.5.0' ],
+93 silly audit   'is-fullwidth-code-point': [ '5.1.0' ],
+93 silly audit   'is-in-ci': [ '2.0.0' ],
+93 silly audit   isexe: [ '2.0.0' ],
+93 silly audit   jiti: [ '2.7.0' ],
+93 silly audit   jsesc: [ '3.1.0' ],
+93 silly audit   'json-schema': [ '0.4.0' ],
+93 silly audit   json5: [ '2.2.3' ],
+93 silly audit   'laravel-precognition': [ '2.0.0' ],
+93 silly audit   'laravel-vite-plugin': [ '3.2.0' ],
+93 silly audit   'lightningcss-linux-x64-gnu': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lightningcss-win32-x64-msvc': [ '1.33.0', '1.32.0' ],
+93 silly audit   'lucide-react': [ '0.475.0' ],
+93 silly audit   'lz-string': [ '1.5.0' ],
+93 silly audit   'magic-string': [ '0.30.21' ],
+93 silly audit   'mimic-fn': [ '2.1.0' ],
+93 silly audit   mrmime: [ '2.0.1' ],
+93 silly audit   nanoid: [ '3.3.19' ],
+93 silly audit   'node-releases': [ '2.0.56' ],
+93 silly audit   obug: [ '2.2.1' ],
+93 silly audit   onetime: [ '5.1.2' ],
+93 silly audit   oxfmt: [ '0.64.0' ],
+93 silly audit   oxlint: [ '1.79.0' ],
+93 silly audit   'oxlint-tsgolint': [ '7.0.2001' ],
+93 silly audit   'patch-console': [ '2.0.0' ],
+93 silly audit   'path-key': [ '3.1.1' ],
+93 silly audit   pathe: [ '2.0.3' ],
+93 silly audit   picocolors: [ '1.1.1' ],
+93 silly audit   picomatch: [ '4.0.7', '2.3.2' ],
+93 silly audit   'pkce-challenge': [ '5.0.1' ],
+93 silly audit   pngjs: [ '7.0.0' ],
+93 silly audit   postcss: [ '8.5.28' ],
+93 silly audit   'pretty-format': [ '27.5.1' ],
+93 silly audit   'radix-ui': [ '1.8.1' ],
+93 silly audit   react: [ '19.3.0' ],
+93 silly audit   'react-dom': [ '19.3.0' ],
+93 silly audit   scheduler: [ '0.28.0', '0.27.0' ],
+93 silly audit   'react-is': [ '17.0.2' ],
+93 silly audit   'react-reconciler': [ '0.33.0' ],
+93 silly audit   'react-remove-scroll': [ '2.7.2' ],
+93 silly audit   'react-remove-scroll-bar': [ '2.3.8' ],
+93 silly audit   'react-style-singleton': [ '2.2.3' ],
+93 silly audit   'restore-cursor': [ '4.0.0' ],
+93 silly audit   rolldown: [ '1.2.9' ],
+93 silly audit   rxjs: [ '7.8.2' ],
+93 silly audit   'shebang-command': [ '2.0.0' ],
+93 silly audit   'shebang-regex': [ '3.0.0' ],
+93 silly audit   'shell-quote': [ '1.9.0' ],
+93 silly audit   siginfo: [ '2.0.0' ],
+93 silly audit   'signal-exit': [ '3.0.7' ],
+93 silly audit   sirv: [ '3.0.2' ],
+93 silly audit   'slice-ansi': [ '9.0.1' ],
+93 silly audit   sonner: [ '2.0.8' ],
+93 silly audit   'source-map-js': [ '1.2.1' ],
+93 silly audit   'stack-utils': [ '2.0.6' ],
+93 silly audit   stackback: [ '0.0.2' ],
+93 silly audit   'std-env': [ '4.2.0' ],
+93 silly audit   'strip-ansi': [ '7.2.0' ],
+93 silly audit   'supports-color': [ '10.2.2' ],
+93 silly audit   'tagged-tag': [ '1.0.0' ],
+93 silly audit   'tailwind-merge': [ '3.7.0' ],
+93 silly audit   tailwindcss: [ '4.3.3' ],
+93 silly audit   tapable: [ '2.3.3' ],
+93 silly audit   'terminal-size': [ '4.0.1' ],
+93 silly audit   tinybench: [ '2.9.0' ],
+93 silly audit   tinyexec: [ '1.3.1' ],
+93 silly audit   tinyglobby: [ '0.2.17' ],
+93 silly audit   tinypool: [ '2.1.0' ],
+93 silly audit   tinyrainbow: [ '3.1.1' ],
+93 silly audit   totalist: [ '3.0.1' ],
+93 silly audit   'tree-kill': [ '1.2.2' ],
+93 silly audit   tslib: [ '2.8.1' ],
+93 silly audit   'tw-animate-css': [ '1.4.0' ],
+93 silly audit   'type-fest': [ '5.10.0' ],
+93 silly audit   typescript: [ '5.9.3' ],
+93 silly audit   undici: [ '7.30.1' ],
+93 silly audit   'undici-types': [ '6.21.0' ],
+93 silly audit   'update-browserslist-db': [ '1.3.3' ],
+93 silly audit   'use-callback-ref': [ '1.3.3' ],
+93 silly audit   'use-sidecar': [ '1.1.3' ],
+93 silly audit   'use-sync-external-store': [ '1.7.0' ],
+93 silly audit   verkit: [ '0.3.2' ],
+93 silly audit   vite: [ '8.3.0' ],
+93 silly audit   'vite-plugin-full-reload': [ '1.2.0' ],
+93 silly audit   'vite-plus': [ '0.3.0' ],
+93 silly audit   vitest: [ '4.1.11' ],
+93 silly audit   which: [ '2.0.2' ],
+93 silly audit   'why-is-node-running': [ '2.3.0' ],
+93 silly audit   'widest-line': [ '6.0.0' ],
+93 silly audit   ws: [ '8.21.3' ],
+93 silly audit   y18n: [ '5.0.8' ],
+93 silly audit   yargs: [ '18.0.0' ],
+93 silly audit   'yargs-parser': [ '22.0.0' ],
+93 silly audit   'yoga-layout': [ '3.2.1' ],
+93 silly audit   'yuku-codegen': [ '0.5.48' ],
+93 silly audit   'yuku-parser': [ '0.5.48' ],
+93 silly audit   zod: [ '4.6.7' ],
+93 silly audit   '@playwright/test': [ '1.52.0' ],
+93 silly audit   playwright: [ '1.52.0' ],
+93 silly audit   'playwright-core': [ '1.52.0' ]
+93 silly audit }
+94 http cache playwright@https://registry.npmjs.org/playwright/-/playwright-1.52.0.tgz 0ms (cache hit)
+95 http cache playwright-core@https://registry.npmjs.org/playwright-core/-/playwright-core-1.52.0.tgz 0ms (cache hit)
+96 http cache @playwright/test@https://registry.npmjs.org/@playwright/test/-/test-1.52.0.tgz 0ms (cache hit)
+97 http cache @vitejs/plugin-react@https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.1.1.tgz 0ms (cache hit)
+98 http cache @types/react@https://registry.npmjs.org/@types/react/-/react-19.3.0.tgz 0ms (cache hit)
+99 http cache @types/react-dom@https://registry.npmjs.org/@types/react-dom/-/react-dom-19.3.0.tgz 0ms (cache hit)
+100 http cache @types/node@https://registry.npmjs.org/@types/node/-/node-22.20.4.tgz 0ms (cache hit)
+101 http cache @tailwindcss/oxide-linux-x64-gnu@https://registry.npmjs.org/@tailwindcss/oxide-linux-x64-gnu/-/oxide-linux-x64-gnu-4.3.3.tgz 0ms (cache hit)
+102 http cache @tailwindcss/vite@https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.3.3.tgz 0ms (cache hit)
+103 http cache @rollup/rollup-linux-x64-gnu@https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.9.5.tgz 0ms (cache hit)
+104 http cache @rolldown/plugin-babel@https://registry.npmjs.org/@rolldown/plugin-babel/-/plugin-babel-0.2.4.tgz 0ms (cache hit)
+105 http cache @radix-ui/react-tooltip@https://registry.npmjs.org/@radix-ui/react-tooltip/-/react-tooltip-1.4.1.tgz 0ms (cache hit)
+106 http cache @radix-ui/react-toggle-group@https://registry.npmjs.org/@radix-ui/react-toggle-group/-/react-toggle-group-1.2.1.tgz 0ms (cache hit)
+107 http cache @radix-ui/react-toggle@https://registry.npmjs.org/@radix-ui/react-toggle/-/react-toggle-1.2.1.tgz 0ms (cache hit)
+108 http cache @radix-ui/react-slot@https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.5.0.tgz 0ms (cache hit)
+109 http cache @radix-ui/react-separator@https://registry.npmjs.org/@radix-ui/react-separator/-/react-separator-1.2.0.tgz 0ms (cache hit)
+110 http cache @radix-ui/react-select@https://registry.npmjs.org/@radix-ui/react-select/-/react-select-2.4.1.tgz 0ms (cache hit)
+111 http cache @radix-ui/react-navigation-menu@https://registry.npmjs.org/@radix-ui/react-navigation-menu/-/react-navigation-menu-1.4.1.tgz 0ms (cache hit)
+112 http cache @radix-ui/react-label@https://registry.npmjs.org/@radix-ui/react-label/-/react-label-2.1.17.tgz 0ms (cache hit)
+113 http cache @radix-ui/react-dropdown-menu@https://registry.npmjs.org/@radix-ui/react-dropdown-menu/-/react-dropdown-menu-2.2.1.tgz 0ms (cache hit)
+114 http cache @radix-ui/react-dialog@https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialog-1.3.1.tgz 0ms (cache hit)
+115 http cache @radix-ui/react-checkbox@https://registry.npmjs.org/@radix-ui/react-checkbox/-/react-checkbox-1.4.1.tgz 0ms (cache hit)
+116 http cache @radix-ui/react-collapsible@https://registry.npmjs.org/@radix-ui/react-collapsible/-/react-collapsible-1.2.1.tgz 0ms (cache hit)
+117 http cache @radix-ui/react-avatar@https://registry.npmjs.org/@radix-ui/react-avatar/-/react-avatar-1.3.1.tgz 0ms (cache hit)
+118 http cache @laravel/passkeys@https://registry.npmjs.org/@laravel/passkeys/-/passkeys-0.2.0.tgz 0ms (cache hit)
+119 http cache @laravel/multiplex@https://registry.npmjs.org/@laravel/multiplex/-/multiplex-0.4.4.tgz 0ms (cache hit)
+120 http cache @laravel/vite-plugin-wayfinder@https://registry.npmjs.org/@laravel/vite-plugin-wayfinder/-/vite-plugin-wayfinder-0.1.10.tgz 1ms (cache hit)
+121 http cache @inertiajs/vite@https://registry.npmjs.org/@inertiajs/vite/-/vite-3.7.1.tgz 0ms (cache hit)
+122 http cache @inertiajs/react@https://registry.npmjs.org/@inertiajs/react/-/react-3.7.1.tgz 0ms (cache hit)
+123 http cache @ai-sdk/react@https://registry.npmjs.org/@ai-sdk/react/-/react-4.0.147.tgz 0ms (cache hit)
+124 http cache zod@https://registry.npmjs.org/zod/-/zod-4.6.7.tgz 0ms (cache hit)
+125 http cache vite-plus@https://registry.npmjs.org/vite-plus/-/vite-plus-0.3.0.tgz 0ms (cache hit)
+126 http cache vite@https://registry.npmjs.org/vite/-/vite-8.3.0.tgz 0ms (cache hit)
+127 http cache use-sync-external-store@https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.7.0.tgz 0ms (cache hit)
+128 http cache typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz 0ms (cache hit)
+129 http cache tw-animate-css@https://registry.npmjs.org/tw-animate-css/-/tw-animate-css-1.4.0.tgz 0ms (cache hit)
+130 http cache throttleit@https://registry.npmjs.org/throttleit/-/throttleit-1.0.1.tgz 0ms (cache hit)
+131 http cache tailwindcss@https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.3.3.tgz 0ms (cache hit)
+132 http cache tailwind-merge@https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.7.0.tgz 0ms (cache hit)
+133 http cache swr@https://registry.npmjs.org/swr/-/swr-2.6.0-beta.0.tgz 0ms (cache hit)
+134 http cache sonner@https://registry.npmjs.org/sonner/-/sonner-2.0.8.tgz 0ms (cache hit)
+135 http cache react-dom@https://registry.npmjs.org/react-dom/-/react-dom-19.3.0.tgz 0ms (cache hit)
+136 http cache radix-ui@https://registry.npmjs.org/radix-ui/-/radix-ui-1.8.1.tgz 0ms (cache hit)
+137 http cache react@https://registry.npmjs.org/react/-/react-19.3.0.tgz 0ms (cache hit)
+138 http cache lucide-react@https://registry.npmjs.org/lucide-react/-/lucide-react-0.475.0.tgz 0ms (cache hit)
+139 http cache lightningcss-linux-x64-gnu@https://registry.npmjs.org/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.33.0.tgz 0ms (cache hit)
+140 http cache input-otp@https://registry.npmjs.org/input-otp/-/input-otp-1.5.0.tgz 0ms (cache hit)
+141 http cache laravel-vite-plugin@https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-3.2.0.tgz 0ms (cache hit)
+142 http cache concurrently@https://registry.npmjs.org/concurrently/-/concurrently-10.0.5.tgz 0ms (cache hit)
+143 http cache clsx@https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz 0ms (cache hit)
+144 http cache cn@https://registry.npmjs.org/cn/-/cn-0.4.0.tgz 0ms (cache hit)
+145 http cache class-variance-authority@https://registry.npmjs.org/class-variance-authority/-/class-variance-authority-0.7.1.tgz 0ms (cache hit)
+146 http cache babel-plugin-react-compiler@https://registry.npmjs.org/babel-plugin-react-compiler/-/babel-plugin-react-compiler-1.0.0.tgz 0ms (cache hit)
+147 http cache ai@https://registry.npmjs.org/ai/-/ai-7.0.143.tgz 0ms (cache hit)
+148 http cache throttleit@https://registry.npmjs.org/throttleit/-/throttleit-2.1.0.tgz 0ms (cache hit)
+149 http cache swr@https://registry.npmjs.org/swr/-/swr-2.5.1.tgz 0ms (cache hit)
+150 http cache @oxc-project/types@https://registry.npmjs.org/@oxc-project/types/-/types-0.146.0.tgz 0ms (cache hit)
+151 http cache lightningcss@https://registry.npmjs.org/lightningcss/-/lightningcss-1.33.0.tgz 0ms (cache hit)
+152 http cache scheduler@https://registry.npmjs.org/scheduler/-/scheduler-0.28.0.tgz 0ms (cache hit)
+153 http cache @babel/types@https://registry.npmjs.org/@babel/types/-/types-7.29.8.tgz 0ms (cache hit)
+154 http cache @babel/helper-validator-identifier@https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.29.7.tgz 0ms (cache hit)
+155 http cache @babel/helper-string-parser@https://registry.npmjs.org/@babel/helper-string-parser/-/helper-string-parser-7.29.7.tgz 0ms (cache hit)
+156 silly tarball no local data for playwright@https://registry.npmjs.org/playwright/-/playwright-1.52.0.tgz. Extracting by manifest.
+157 silly tarball no local data for playwright-core@https://registry.npmjs.org/playwright-core/-/playwright-core-1.52.0.tgz. Extracting by manifest.
+158 silly tarball no local data for @playwright/test@https://registry.npmjs.org/@playwright/test/-/test-1.52.0.tgz. Extracting by manifest.
+159 silly tarball no local data for @vitejs/plugin-react@https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.1.1.tgz. Extracting by manifest.
+160 silly tarball no local data for @types/react@https://registry.npmjs.org/@types/react/-/react-19.3.0.tgz. Extracting by manifest.
+161 silly tarball no local data for @types/react-dom@https://registry.npmjs.org/@types/react-dom/-/react-dom-19.3.0.tgz. Extracting by manifest.
+162 silly tarball no local data for @types/node@https://registry.npmjs.org/@types/node/-/node-22.20.4.tgz. Extracting by manifest.
+163 silly tarball no local data for @tailwindcss/oxide-linux-x64-gnu@https://registry.npmjs.org/@tailwindcss/oxide-linux-x64-gnu/-/oxide-linux-x64-gnu-4.3.3.tgz. Extracting by manifest.
+164 silly tarball no local data for @tailwindcss/vite@https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.3.3.tgz. Extracting by manifest.
+165 silly tarball no local data for @rollup/rollup-linux-x64-gnu@https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.9.5.tgz. Extracting by manifest.
+166 silly tarball no local data for @rolldown/plugin-babel@https://registry.npmjs.org/@rolldown/plugin-babel/-/plugin-babel-0.2.4.tgz. Extracting by manifest.
+167 silly tarball no local data for @radix-ui/react-tooltip@https://registry.npmjs.org/@radix-ui/react-tooltip/-/react-tooltip-1.4.1.tgz. Extracting by manifest.
+168 silly tarball no local data for @radix-ui/react-toggle-group@https://registry.npmjs.org/@radix-ui/react-toggle-group/-/react-toggle-group-1.2.1.tgz. Extracting by manifest.
+169 silly tarball no local data for @radix-ui/react-toggle@https://registry.npmjs.org/@radix-ui/react-toggle/-/react-toggle-1.2.1.tgz. Extracting by manifest.
+170 silly tarball no local data for @radix-ui/react-slot@https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.5.0.tgz. Extracting by manifest.
+171 silly tarball no local data for @radix-ui/react-separator@https://registry.npmjs.org/@radix-ui/react-separator/-/react-separator-1.2.0.tgz. Extracting by manifest.
+172 silly tarball no local data for @radix-ui/react-select@https://registry.npmjs.org/@radix-ui/react-select/-/react-select-2.4.1.tgz. Extracting by manifest.
+173 silly tarball no local data for @radix-ui/react-navigation-menu@https://registry.npmjs.org/@radix-ui/react-navigation-menu/-/react-navigation-menu-1.4.1.tgz. Extracting by manifest.
+174 silly tarball no local data for @radix-ui/react-label@https://registry.npmjs.org/@radix-ui/react-label/-/react-label-2.1.17.tgz. Extracting by manifest.
+175 silly tarball no local data for @radix-ui/react-dropdown-menu@https://registry.npmjs.org/@radix-ui/react-dropdown-menu/-/react-dropdown-menu-2.2.1.tgz. Extracting by manifest.
+176 silly tarball no local data for @radix-ui/react-dialog@https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialog-1.3.1.tgz. Extracting by manifest.
+177 silly tarball no local data for @radix-ui/react-checkbox@https://registry.npmjs.org/@radix-ui/react-checkbox/-/react-checkbox-1.4.1.tgz. Extracting by manifest.
+178 silly tarball no local data for @radix-ui/react-collapsible@https://registry.npmjs.org/@radix-ui/react-collapsible/-/react-collapsible-1.2.1.tgz. Extracting by manifest.
+179 silly tarball no local data for @radix-ui/react-avatar@https://registry.npmjs.org/@radix-ui/react-avatar/-/react-avatar-1.3.1.tgz. Extracting by manifest.
+180 silly tarball no local data for @laravel/passkeys@https://registry.npmjs.org/@laravel/passkeys/-/passkeys-0.2.0.tgz. Extracting by manifest.
+181 silly tarball no local data for @laravel/multiplex@https://registry.npmjs.org/@laravel/multiplex/-/multiplex-0.4.4.tgz. Extracting by manifest.
+182 silly tarball no local data for @laravel/vite-plugin-wayfinder@https://registry.npmjs.org/@laravel/vite-plugin-wayfinder/-/vite-plugin-wayfinder-0.1.10.tgz. Extracting by manifest.
+183 silly tarball no local data for @inertiajs/vite@https://registry.npmjs.org/@inertiajs/vite/-/vite-3.7.1.tgz. Extracting by manifest.
+184 silly tarball no local data for @inertiajs/react@https://registry.npmjs.org/@inertiajs/react/-/react-3.7.1.tgz. Extracting by manifest.
+185 silly tarball no local data for @ai-sdk/react@https://registry.npmjs.org/@ai-sdk/react/-/react-4.0.147.tgz. Extracting by manifest.
+186 silly tarball no local data for zod@https://registry.npmjs.org/zod/-/zod-4.6.7.tgz. Extracting by manifest.
+187 silly tarball no local data for vite-plus@https://registry.npmjs.org/vite-plus/-/vite-plus-0.3.0.tgz. Extracting by manifest.
+188 silly tarball no local data for use-sync-external-store@https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.7.0.tgz. Extracting by manifest.
+189 silly tarball no local data for vite@https://registry.npmjs.org/vite/-/vite-8.3.0.tgz. Extracting by manifest.
+190 silly tarball no local data for typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz. Extracting by manifest.
+191 silly tarball no local data for tw-animate-css@https://registry.npmjs.org/tw-animate-css/-/tw-animate-css-1.4.0.tgz. Extracting by manifest.
+192 silly tarball no local data for throttleit@https://registry.npmjs.org/throttleit/-/throttleit-1.0.1.tgz. Extracting by manifest.
+193 silly tarball no local data for tailwindcss@https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.3.3.tgz. Extracting by manifest.
+194 silly tarball no local data for tailwind-merge@https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.7.0.tgz. Extracting by manifest.
+195 silly tarball no local data for swr@https://registry.npmjs.org/swr/-/swr-2.6.0-beta.0.tgz. Extracting by manifest.
+196 silly tarball no local data for sonner@https://registry.npmjs.org/sonner/-/sonner-2.0.8.tgz. Extracting by manifest.
+197 silly tarball no local data for react-dom@https://registry.npmjs.org/react-dom/-/react-dom-19.3.0.tgz. Extracting by manifest.
+198 silly tarball no local data for radix-ui@https://registry.npmjs.org/radix-ui/-/radix-ui-1.8.1.tgz. Extracting by manifest.
+199 silly tarball no local data for react@https://registry.npmjs.org/react/-/react-19.3.0.tgz. Extracting by manifest.
+200 silly tarball no local data for lucide-react@https://registry.npmjs.org/lucide-react/-/lucide-react-0.475.0.tgz. Extracting by manifest.
+201 silly tarball no local data for lightningcss-linux-x64-gnu@https://registry.npmjs.org/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.33.0.tgz. Extracting by manifest.
+202 silly tarball no local data for input-otp@https://registry.npmjs.org/input-otp/-/input-otp-1.5.0.tgz. Extracting by manifest.
+203 silly tarball no local data for laravel-vite-plugin@https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-3.2.0.tgz. Extracting by manifest.
+204 silly tarball no local data for concurrently@https://registry.npmjs.org/concurrently/-/concurrently-10.0.5.tgz. Extracting by manifest.
+205 silly tarball no local data for clsx@https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz. Extracting by manifest.
+206 silly tarball no local data for cn@https://registry.npmjs.org/cn/-/cn-0.4.0.tgz. Extracting by manifest.
+207 silly tarball no local data for class-variance-authority@https://registry.npmjs.org/class-variance-authority/-/class-variance-authority-0.7.1.tgz. Extracting by manifest.
+208 silly tarball no local data for babel-plugin-react-compiler@https://registry.npmjs.org/babel-plugin-react-compiler/-/babel-plugin-react-compiler-1.0.0.tgz. Extracting by manifest.
+209 silly tarball no local data for ai@https://registry.npmjs.org/ai/-/ai-7.0.143.tgz. Extracting by manifest.
+210 silly tarball no local data for throttleit@https://registry.npmjs.org/throttleit/-/throttleit-2.1.0.tgz. Extracting by manifest.
+211 silly tarball no local data for swr@https://registry.npmjs.org/swr/-/swr-2.5.1.tgz. Extracting by manifest.
+212 silly tarball no local data for @oxc-project/types@https://registry.npmjs.org/@oxc-project/types/-/types-0.146.0.tgz. Extracting by manifest.
+213 silly tarball no local data for lightningcss@https://registry.npmjs.org/lightningcss/-/lightningcss-1.33.0.tgz. Extracting by manifest.
+214 silly tarball no local data for scheduler@https://registry.npmjs.org/scheduler/-/scheduler-0.28.0.tgz. Extracting by manifest.
+215 silly tarball no local data for @babel/types@https://registry.npmjs.org/@babel/types/-/types-7.29.8.tgz. Extracting by manifest.
+216 silly tarball no local data for @babel/helper-validator-identifier@https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.29.7.tgz. Extracting by manifest.
+217 silly tarball no local data for @babel/helper-string-parser@https://registry.npmjs.org/@babel/helper-string-parser/-/helper-string-parser-7.29.7.tgz. Extracting by manifest.
+218 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 634ms
+219 silly audit report {
+219 silly audit report   '@vitest/mocker': [
+219 silly audit report     {
+219 silly audit report       id: 1242767,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-qxg6-89mg-rqv8',
+219 silly audit report       title: 'Vitest: Code injection via unauthenticated manual mock registration',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '>=2.1.0-beta.7 <4.1.12',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242769,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-xp26-3454-mjgp',
+219 silly audit report       title: 'Vitest: Windows backslash traversal bypasses the @vitest/mocker redirect allowlist fix',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '>=4.1.11 <4.1.12',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     }
+219 silly audit report   ],
+219 silly audit report   'shell-quote': [
+219 silly audit report     {
+219 silly audit report       id: 1241332,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-pqg4-j6r4-53mv',
+219 silly audit report       title: 'shell-quote: `quote()` command injection via a line terminator in a token after a `{ comment }` token',
+219 silly audit report       severity: 'critical',
+219 silly audit report       vulnerable_versions: '>=1.8.4 <1.11.0',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     }
+219 silly audit report   ],
+219 silly audit report   'source-map-js': [
+219 silly audit report     {
+219 silly audit report       id: 1241209,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-68fv-2mgg-jv7q',
+219 silly audit report       title: 'source-map-js allows event-loop denial of service through indexed source-map section offsets',
+219 silly audit report       severity: 'high',
+219 silly audit report       vulnerable_versions: '>=1.0.0 <1.2.2',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     }
+219 silly audit report   ],
+219 silly audit report   tinypool: [
+219 silly audit report     {
+219 silly audit report       id: 1241260,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-5gmw-xhrv-c9v3',
+219 silly audit report       title: 'Tinypool: Prototype Pollution gadget in worker options leads to Remote Code Execution',
+219 silly audit report       severity: 'critical',
+219 silly audit report       vulnerable_versions: '<=2.1.0',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1241261,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-85c8-ppgw-ccpr',
+219 silly audit report       title: 'Tinypool: Prototype Pollution Gadget to RCE in run() options',
+219 silly audit report       severity: 'critical',
+219 silly audit report       vulnerable_versions: '<2.1.2',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     }
+219 silly audit report   ],
+219 silly audit report   vite: [
+219 silly audit report     {
+219 silly audit report       id: 1242728,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-9jrq-w75r-8gcw',
+219 silly audit report       title: 'Vite: Cross origin script execution through Vite custom middleware',
+219 silly audit report       severity: 'low',
+219 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242734,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-rq7h-c2jc-7f22',
+219 silly audit report       title: 'Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242626,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-698v-4r3x-3vcv',
+219 silly audit report       title: 'launch-editor: escapeCmdArgs() omits % escaping on Windows',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242655,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-r825-w8mm-5pxw',
+219 silly audit report       title: 'launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242662,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-587h-7wmj-h5pm',
+219 silly audit report       title: 'launch-editor: `fs.existsSync()` existence check can be bypassed on Windows',
+219 silly audit report       severity: 'high',
+219 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242737,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-vfpm-58rq-9qcg',
+219 silly audit report       title: 'Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance`',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     }
+219 silly audit report   ],
+219 silly audit report   'vite-plus': [
+219 silly audit report     {
+219 silly audit report       id: 1242723,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-9jrq-w75r-8gcw',
+219 silly audit report       title: 'Vite: Cross origin script execution through Vite custom middleware',
+219 silly audit report       severity: 'low',
+219 silly audit report       vulnerable_versions: '<=1.0.0',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242729,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-rq7h-c2jc-7f22',
+219 silly audit report       title: 'Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '<=1.0.0',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242621,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-698v-4r3x-3vcv',
+219 silly audit report       title: 'launch-editor: escapeCmdArgs() omits % escaping on Windows',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '<=1.0.0',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242650,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-r825-w8mm-5pxw',
+219 silly audit report       title: 'launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '<=1.0.0',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242657,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-587h-7wmj-h5pm',
+219 silly audit report       title: 'launch-editor: `fs.existsSync()` existence check can be bypassed on Windows',
+219 silly audit report       severity: 'high',
+219 silly audit report       vulnerable_versions: '<=1.0.0',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     },
+219 silly audit report     {
+219 silly audit report       id: 1242735,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-vfpm-58rq-9qcg',
+219 silly audit report       title: 'Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance`',
+219 silly audit report       severity: 'moderate',
+219 silly audit report       vulnerable_versions: '>=0.2.8 <=1.0.0',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     }
+219 silly audit report   ],
+219 silly audit report   playwright: [
+219 silly audit report     {
+219 silly audit report       id: 1109208,
+219 silly audit report       url: 'https://github.com/advisories/GHSA-7mvr-c777-76hp',
+219 silly audit report       title: 'Playwright downloads and installs browsers without verifying the authenticity of the SSL certificate',
+219 silly audit report       severity: 'high',
+219 silly audit report       vulnerable_versions: '<1.55.1',
+219 silly audit report       cwe: [Array],
+219 silly audit report       cvss: [Object]
+219 silly audit report     }
+219 silly audit report   ]
+219 silly audit report }
+220 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fmocker cache-miss
+221 silly packumentCache corgi:https://registry.npmjs.org/shell-quote cache-miss
+222 silly packumentCache corgi:https://registry.npmjs.org/source-map-js cache-miss
+223 silly packumentCache corgi:https://registry.npmjs.org/tinypool cache-miss
+224 silly packumentCache corgi:https://registry.npmjs.org/vite cache-miss
+225 silly packumentCache corgi:https://registry.npmjs.org/vite-plus cache-miss
+226 silly packumentCache corgi:https://registry.npmjs.org/playwright cache-miss
+227 http fetch GET 200 https://registry.npmjs.org/playwright/-/playwright-1.52.0.tgz 568ms (cache miss)
+228 http fetch GET 200 https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.3.3.tgz 790ms (cache miss)
+229 http fetch GET 200 https://registry.npmjs.org/@types/react-dom/-/react-dom-19.3.0.tgz 796ms (cache miss)
+230 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.5.0.tgz 988ms (cache miss)
+231 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-tooltip/-/react-tooltip-1.4.1.tgz 1145ms (cache miss)
+232 http fetch GET 200 https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.1.1.tgz 1155ms (cache miss)
+233 http fetch GET 200 https://registry.npmjs.org/@playwright/test/-/test-1.52.0.tgz 1160ms (cache miss)
+234 http fetch GET 200 https://registry.npmjs.org/@types/react/-/react-19.3.0.tgz 1295ms (cache miss)
+235 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-separator/-/react-separator-1.2.0.tgz 1287ms (cache miss)
+236 http fetch GET 200 https://registry.npmjs.org/@rolldown/plugin-babel/-/plugin-babel-0.2.4.tgz 1302ms (cache miss)
+237 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-toggle-group/-/react-toggle-group-1.2.1.tgz 1309ms (cache miss)
+238 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-navigation-menu/-/react-navigation-menu-1.4.1.tgz 1568ms (cache miss)
+239 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-label/-/react-label-2.1.17.tgz 1570ms (cache miss)
+240 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-toggle/-/react-toggle-1.2.1.tgz 1708ms (cache miss)
+241 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-dropdown-menu/-/react-dropdown-menu-2.2.1.tgz 1725ms (cache miss)
+242 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-checkbox/-/react-checkbox-1.4.1.tgz 1724ms (cache miss)
+243 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialog-1.3.1.tgz 1727ms (cache miss)
+244 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-collapsible/-/react-collapsible-1.2.1.tgz 1728ms (cache miss)
+245 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-avatar/-/react-avatar-1.3.1.tgz 1769ms (cache miss)
+246 http fetch GET 200 https://registry.npmjs.org/@radix-ui/react-select/-/react-select-2.4.1.tgz 1989ms (cache miss)
+247 http fetch GET 200 https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.7.0.tgz 1988ms (cache miss)
+248 http fetch GET 200 https://registry.npmjs.org/@types/node/-/node-22.20.4.tgz 2206ms (cache miss)
+249 http fetch GET 200 https://registry.npmjs.org/@laravel/multiplex/-/multiplex-0.4.4.tgz 2233ms (cache miss)
+250 http fetch GET 200 https://registry.npmjs.org/tw-animate-css/-/tw-animate-css-1.4.0.tgz 2461ms (cache miss)
+251 http fetch GET 200 https://registry.npmjs.org/vite/-/vite-8.3.0.tgz 2580ms (cache miss)
+252 http fetch GET 200 https://registry.npmjs.org/@inertiajs/vite/-/vite-3.7.1.tgz 2681ms (cache miss)
+253 http fetch GET 200 https://registry.npmjs.org/throttleit/-/throttleit-1.0.1.tgz 2757ms (cache miss)
+254 http fetch GET 200 https://registry.npmjs.org/@laravel/passkeys/-/passkeys-0.2.0.tgz 2842ms (cache miss)
+255 http fetch GET 200 https://registry.npmjs.org/sonner/-/sonner-2.0.8.tgz 3065ms (cache miss)
+256 http fetch GET 200 https://registry.npmjs.org/@ai-sdk/react/-/react-4.0.147.tgz 3405ms (cache miss)
+257 http fetch GET 200 https://registry.npmjs.org/radix-ui/-/radix-ui-1.8.1.tgz 3421ms (cache miss)
+258 http fetch GET 200 https://registry.npmjs.org/swr/-/swr-2.6.0-beta.0.tgz 3540ms (cache miss)
+259 http fetch GET 200 https://registry.npmjs.org/@laravel/vite-plugin-wayfinder/-/vite-plugin-wayfinder-0.1.10.tgz 3644ms (cache miss)
+260 http fetch GET 200 https://registry.npmjs.org/react/-/react-19.3.0.tgz 3634ms (cache miss)
+261 http fetch GET 200 https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.3.3.tgz 3712ms (cache miss)
+262 http fetch GET 200 https://registry.npmjs.org/@inertiajs/react/-/react-3.7.1.tgz 3820ms (cache miss)
+263 http fetch GET 200 https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.7.0.tgz 4001ms (cache miss)
+264 http fetch GET 200 https://registry.npmjs.org/input-otp/-/input-otp-1.5.0.tgz 4142ms (cache miss)
+265 http fetch GET 200 https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-3.2.0.tgz 4144ms (cache miss)
+266 http fetch GET 200 https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz 4288ms (cache miss)
+267 http fetch GET 200 https://registry.npmjs.org/playwright-core/-/playwright-core-1.52.0.tgz 4360ms (cache miss)
+268 http fetch GET 200 https://registry.npmjs.org/class-variance-authority/-/class-variance-authority-0.7.1.tgz 4609ms (cache miss)
+269 http fetch GET 200 https://registry.npmjs.org/throttleit/-/throttleit-2.1.0.tgz 5419ms (cache miss)
+270 http fetch GET 200 https://registry.npmjs.org/cn/-/cn-0.4.0.tgz 5504ms (cache miss)
+271 http fetch GET 200 https://registry.npmjs.org/swr/-/swr-2.5.1.tgz 5622ms (cache miss)
+272 http fetch GET 200 https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.9.5.tgz 5883ms (cache miss)
+273 http fetch GET 200 https://registry.npmjs.org/@oxc-project/types/-/types-0.146.0.tgz 5935ms (cache miss)
+274 http fetch GET 200 https://registry.npmjs.org/babel-plugin-react-compiler/-/babel-plugin-react-compiler-1.0.0.tgz 5982ms (cache miss)
+275 http fetch GET 200 https://registry.npmjs.org/scheduler/-/scheduler-0.28.0.tgz 6192ms (cache miss)
+276 http fetch GET 200 https://registry.npmjs.org/lightningcss/-/lightningcss-1.33.0.tgz 6238ms (cache miss)
+277 http fetch GET 200 https://registry.npmjs.org/@babel/helper-string-parser/-/helper-string-parser-7.29.7.tgz 6581ms (cache miss)
+278 http fetch GET 200 https://registry.npmjs.org/@vitest%2fmocker 6179ms (cache miss)
+279 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fmocker set size:undefined disposed:false
+280 http fetch GET 200 https://registry.npmjs.org/source-map-js 6333ms (cache miss)
+281 silly packumentCache corgi:https://registry.npmjs.org/source-map-js set size:undefined disposed:false
+282 http fetch GET 200 https://registry.npmjs.org/shell-quote 6339ms (cache miss)
+283 silly packumentCache corgi:https://registry.npmjs.org/shell-quote set size:undefined disposed:false
+284 http fetch GET 200 https://registry.npmjs.org/concurrently/-/concurrently-10.0.5.tgz 6941ms (cache miss)
+285 http fetch GET 200 https://registry.npmjs.org/@babel/types/-/types-7.29.8.tgz 7035ms (cache miss)
+286 http fetch GET 200 https://registry.npmjs.org/vite-plus/-/vite-plus-0.3.0.tgz 7093ms (cache miss)
+287 http fetch GET 200 https://registry.npmjs.org/ai/-/ai-7.0.143.tgz 7369ms (cache miss)
+288 http fetch GET 200 https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.29.7.tgz 7401ms (cache miss)
+289 http fetch GET 200 https://registry.npmjs.org/tinypool 7032ms (cache miss)
+290 silly packumentCache corgi:https://registry.npmjs.org/tinypool set size:undefined disposed:false
+291 http fetch GET 200 https://registry.npmjs.org/vite 7239ms (cache miss)
+292 silly packumentCache corgi:https://registry.npmjs.org/vite set size:undefined disposed:false
+293 http fetch GET 200 https://registry.npmjs.org/vite-plus 7423ms (cache miss)
+294 silly packumentCache corgi:https://registry.npmjs.org/vite-plus set size:undefined disposed:false
+295 http fetch GET 200 https://registry.npmjs.org/@tailwindcss/oxide-linux-x64-gnu/-/oxide-linux-x64-gnu-4.3.3.tgz 8165ms (cache miss)
+296 http fetch GET 200 https://registry.npmjs.org/react-dom/-/react-dom-19.3.0.tgz 8602ms (cache miss)
+297 http fetch GET 200 https://registry.npmjs.org/zod/-/zod-4.6.7.tgz 10997ms (cache miss)
+298 http fetch GET 200 https://registry.npmjs.org/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.33.0.tgz 12078ms (cache miss)
+299 http fetch GET 200 https://registry.npmjs.org/playwright 11857ms (cache miss)
+300 silly packumentCache corgi:https://registry.npmjs.org/playwright set size:undefined disposed:false
+301 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fbrowser cache-miss
+302 silly packumentCache corgi:https://registry.npmjs.org/vitest cache-miss
+303 http fetch GET 200 https://registry.npmjs.org/vitest 678ms (cache miss)
+304 silly packumentCache corgi:https://registry.npmjs.org/vitest set size:undefined disposed:false
+305 http fetch GET 200 https://registry.npmjs.org/@vitest%2fbrowser 967ms (cache miss)
+306 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fbrowser set size:undefined disposed:false
+307 silly packumentCache corgi:https://registry.npmjs.org/concurrently cache-miss
+308 http fetch GET 200 https://registry.npmjs.org/lucide-react/-/lucide-react-0.475.0.tgz 14374ms (cache miss)
+309 http fetch GET 200 https://registry.npmjs.org/concurrently 731ms (cache miss)
+310 silly packumentCache corgi:https://registry.npmjs.org/concurrently set size:undefined disposed:false
+311 silly packumentCache corgi:https://registry.npmjs.org/@tailwindcss%2fnode cache-miss
+312 silly packumentCache corgi:https://registry.npmjs.org/postcss cache-miss
+313 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2fnode 305ms (cache miss)
+314 silly packumentCache corgi:https://registry.npmjs.org/@tailwindcss%2fnode set size:undefined disposed:false
+315 http fetch GET 200 https://registry.npmjs.org/postcss 392ms (cache miss)
+316 silly packumentCache corgi:https://registry.npmjs.org/postcss set size:undefined disposed:false
+317 silly packumentCache corgi:https://registry.npmjs.org/oxfmt cache-miss
+318 http fetch GET 200 https://registry.npmjs.org/oxfmt 502ms (cache miss)
+319 silly packumentCache corgi:https://registry.npmjs.org/oxfmt set size:undefined disposed:false
+320 silly packumentCache corgi:https://registry.npmjs.org/@inertiajs%2fvite cache-miss
+321 silly packumentCache corgi:https://registry.npmjs.org/@rolldown%2fplugin-babel cache-miss
+322 silly packumentCache corgi:https://registry.npmjs.org/@tailwindcss%2fvite cache-miss
+323 silly packumentCache corgi:https://registry.npmjs.org/@vitejs%2fplugin-react cache-miss
+324 silly packumentCache corgi:https://registry.npmjs.org/laravel-vite-plugin cache-miss
+325 http fetch GET 200 https://registry.npmjs.org/@vitejs%2fplugin-react 311ms (cache miss)
+326 silly packumentCache corgi:https://registry.npmjs.org/@vitejs%2fplugin-react set size:undefined disposed:false
+327 http fetch GET 200 https://registry.npmjs.org/laravel-vite-plugin 394ms (cache miss)
+328 silly packumentCache corgi:https://registry.npmjs.org/laravel-vite-plugin set size:undefined disposed:false
+329 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2fvite 805ms (cache miss)
+330 silly packumentCache corgi:https://registry.npmjs.org/@tailwindcss%2fvite set size:undefined disposed:false
+331 http fetch GET 200 https://registry.npmjs.org/@rolldown%2fplugin-babel 870ms (cache miss)
+332 silly packumentCache corgi:https://registry.npmjs.org/@rolldown%2fplugin-babel set size:undefined disposed:false
+333 http fetch GET 200 https://registry.npmjs.org/@inertiajs%2fvite 873ms (cache miss)
+334 silly packumentCache corgi:https://registry.npmjs.org/@inertiajs%2fvite set size:undefined disposed:false
+335 silly packumentCache corgi:https://registry.npmjs.org/oxlint cache-miss
+336 http fetch GET 200 https://registry.npmjs.org/oxlint 538ms (cache miss)
+337 silly packumentCache corgi:https://registry.npmjs.org/oxlint set size:undefined disposed:false
+338 silly packumentCache corgi:https://registry.npmjs.org/@playwright%2ftest cache-miss
+339 http fetch GET 200 https://registry.npmjs.org/@playwright%2ftest 1613ms (cache miss)
+340 silly packumentCache corgi:https://registry.npmjs.org/@playwright%2ftest set size:undefined disposed:false
+341 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fbrowser-preview cache-miss
+342 http fetch GET 200 https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz 28682ms (cache miss)
+343 http fetch GET 200 https://registry.npmjs.org/@vitest%2fbrowser-preview 874ms (cache miss)
+344 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fbrowser-preview set size:undefined disposed:false
+345 silly ADD node_modules/playwright-core
+346 silly ADD node_modules/playwright
+347 silly ADD node_modules/@playwright/test
+348 silly CHANGE node_modules/@vitejs/plugin-react
+349 silly CHANGE node_modules/@types/react
+350 silly CHANGE node_modules/@types/react-dom
+351 silly CHANGE node_modules/@types/node
+352 silly CHANGE node_modules/@tailwindcss/oxide-linux-x64-gnu
+353 silly CHANGE node_modules/@tailwindcss/vite
+354 silly CHANGE node_modules/@rollup/rollup-linux-x64-gnu
+355 silly CHANGE node_modules/@rolldown/plugin-babel
+356 silly CHANGE node_modules/@radix-ui/react-tooltip
+357 silly CHANGE node_modules/@radix-ui/react-toggle-group
+358 silly CHANGE node_modules/@radix-ui/react-toggle
+359 silly CHANGE node_modules/@radix-ui/react-slot
+360 silly CHANGE node_modules/@radix-ui/react-separator
+361 silly CHANGE node_modules/@radix-ui/react-select
+362 silly CHANGE node_modules/@radix-ui/react-navigation-menu
+363 silly CHANGE node_modules/@radix-ui/react-label
+364 silly CHANGE node_modules/@radix-ui/react-dropdown-menu
+365 silly CHANGE node_modules/@radix-ui/react-dialog
+366 silly CHANGE node_modules/@radix-ui/react-checkbox
+367 silly CHANGE node_modules/@radix-ui/react-collapsible
+368 silly CHANGE node_modules/@radix-ui/react-avatar
+369 silly CHANGE node_modules/@laravel/passkeys
+370 silly CHANGE node_modules/@laravel/multiplex
+371 silly CHANGE node_modules/@laravel/vite-plugin-wayfinder
+372 silly CHANGE node_modules/@inertiajs/vite
+373 silly CHANGE node_modules/@inertiajs/react
+374 silly CHANGE node_modules/@ai-sdk/react
+375 silly ADD node_modules/@ai-sdk/react/node_modules/throttleit
+376 silly ADD node_modules/@ai-sdk/react/node_modules/swr
+377 silly CHANGE node_modules/zod
+378 silly CHANGE node_modules/vite-plus
+379 silly ADD node_modules/vite-plus/node_modules/@oxc-project/types
+380 silly CHANGE node_modules/vite
+381 silly ADD node_modules/vite/node_modules/lightningcss
+382 silly CHANGE node_modules/use-sync-external-store
+383 silly CHANGE node_modules/typescript
+384 silly CHANGE node_modules/tw-animate-css
+385 silly CHANGE node_modules/throttleit
+386 silly CHANGE node_modules/tailwindcss
+387 silly CHANGE node_modules/tailwind-merge
+388 silly CHANGE node_modules/swr
+389 silly CHANGE node_modules/sonner
+390 silly CHANGE node_modules/react-dom
+391 silly ADD node_modules/react-dom/node_modules/scheduler
+392 silly CHANGE node_modules/radix-ui
+393 silly CHANGE node_modules/react
+394 silly CHANGE node_modules/lucide-react
+395 silly CHANGE node_modules/lightningcss-linux-x64-gnu
+396 silly CHANGE node_modules/input-otp
+397 silly CHANGE node_modules/laravel-vite-plugin
+398 silly CHANGE node_modules/concurrently
+399 silly CHANGE node_modules/clsx
+400 silly CHANGE node_modules/cn
+401 silly CHANGE node_modules/class-variance-authority
+402 silly CHANGE node_modules/babel-plugin-react-compiler
+403 silly ADD node_modules/babel-plugin-react-compiler/node_modules/@babel/types
+404 silly ADD node_modules/babel-plugin-react-compiler/node_modules/@babel/helper-validator-identifier
+405 silly ADD node_modules/babel-plugin-react-compiler/node_modules/@babel/helper-string-parser
+406 silly CHANGE node_modules/ai
+407 verbose cwd /home/kali/Desktop/projects/cwspos
+408 verbose os Linux 7.1.5+kali-amd64
+409 verbose node v24.19.0
+410 verbose npm  v11.17.0
+411 notice
+411 notice New major version of npm available! 11.17.0 -> 12.2.1
+411 notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+411 notice To update run: npm install -g npm@12.2.1
+411 notice  { force: true, Symbol(proc-log.meta): true }
+412 verbose exit 0
+413 info ok

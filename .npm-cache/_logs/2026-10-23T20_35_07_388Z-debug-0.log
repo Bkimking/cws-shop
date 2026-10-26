@@ -1,0 +1,686 @@
+0 verbose cli /home/kali/.config/nvm/versions/node/v24.19.0/bin/node /home/kali/.config/nvm/versions/node/v24.19.0/bin/npm
+1 info using npm@11.17.0
+2 info using node@v24.19.0
+3 silly config load:file:/home/kali/.config/nvm/versions/node/v24.19.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/kali/Desktop/projects/cwspos/.npmrc
+5 silly config load:file:/home/kali/.npmrc
+6 silly config load:file:/home/kali/.config/nvm/versions/node/v24.19.0/etc/npmrc
+7 verbose title npm uninstall @playwright/test
+8 verbose argv "uninstall" "--save-dev" "@playwright/test" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:/home/kali/Desktop/projects/cwspos/.npm-cache/_logs/2026-10-23T20_35_07_388Z-
+10 verbose logfile /home/kali/Desktop/projects/cwspos/.npm-cache/_logs/2026-10-23T20_35_07_388Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 silly fetch manifest throttleit@^1.0.0
+15 silly packumentCache full:https://registry.npmjs.org/throttleit cache-miss
+16 http cache https://registry.npmjs.org/throttleit 147ms (cache hit)
+17 silly packumentCache full:https://registry.npmjs.org/throttleit set size:15979 disposed:false
+18 silly placeDep ROOT throttleit@1.0.1 KEEP for: @ai-sdk/react@4.0.147 want: ^1.0.0
+19 silly reify mark retired [
+19 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@playwright/test',
+19 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/playwright'
+19 silly reify ]
+20 silly reify mark retired [
+20 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/playwright',
+20 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/playwright'
+20 silly reify ]
+21 silly reify mark retired [
+21 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/playwright-core',
+21 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/playwright-core'
+21 silly reify ]
+22 silly reify moves {
+22 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/@playwright/test': '/home/kali/Desktop/projects/cwspos/node_modules/@playwright/.test-78potdRh',
+22 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/playwright': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.playwright-u2pJhOLK',
+22 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/playwright': '/home/kali/Desktop/projects/cwspos/node_modules/.playwright-VYzQIpev',
+22 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/playwright-core': '/home/kali/Desktop/projects/cwspos/node_modules/.playwright-core-OUltH84s',
+22 silly reify   '/home/kali/Desktop/projects/cwspos/node_modules/.bin/playwright-core': '/home/kali/Desktop/projects/cwspos/node_modules/.bin/.playwright-core-O1OkKksV'
+22 silly reify }
+23 silly audit bulk request {
+23 silly audit   '@ai-sdk/gateway': [ '4.0.116' ],
+23 silly audit   '@ai-sdk/mcp': [ '2.0.78' ],
+23 silly audit   '@ai-sdk/provider': [ '4.0.29' ],
+23 silly audit   '@ai-sdk/provider-utils': [ '5.0.62' ],
+23 silly audit   '@ai-sdk/react': [ '4.0.147' ],
+23 silly audit   swr: [ '2.5.1', '2.6.0-beta.0' ],
+23 silly audit   throttleit: [ '2.1.0', '1.0.1' ],
+23 silly audit   '@alcalzone/ansi-tokenize': [ '0.3.1' ],
+23 silly audit   'ansi-styles': [ '6.2.3', '7.0.0', '5.2.0' ],
+23 silly audit   '@babel/code-frame': [ '8.0.6', '7.29.7' ],
+23 silly audit   '@babel/compat-data': [ '8.0.5' ],
+23 silly audit   '@babel/core': [ '8.0.6' ],
+23 silly audit   '@babel/generator': [ '8.0.6' ],
+23 silly audit   '@babel/helper-compilation-targets': [ '8.0.6' ],
+23 silly audit   '@babel/helper-globals': [ '8.0.6' ],
+23 silly audit   '@babel/helper-string-parser': [ '8.0.6', '7.29.7' ],
+23 silly audit   '@babel/helper-validator-identifier': [ '8.0.6', '7.29.7' ],
+23 silly audit   '@babel/helper-validator-option': [ '8.0.0' ],
+23 silly audit   '@babel/helpers': [ '8.0.5' ],
+23 silly audit   '@babel/parser': [ '8.0.6' ],
+23 silly audit   '@babel/runtime': [ '7.29.7' ],
+23 silly audit   '@babel/template': [ '8.0.0' ],
+23 silly audit   '@babel/traverse': [ '8.0.6' ],
+23 silly audit   '@babel/types': [ '8.0.6', '7.29.8' ],
+23 silly audit   '@blazediff/core': [ '1.9.1' ],
+23 silly audit   '@floating-ui/core': [ '1.8.0' ],
+23 silly audit   '@floating-ui/dom': [ '1.8.0' ],
+23 silly audit   '@floating-ui/react-dom': [ '2.1.9' ],
+23 silly audit   '@floating-ui/utils': [ '0.2.12' ],
+23 silly audit   '@inertiajs/core': [ '3.7.1' ],
+23 silly audit   '@inertiajs/react': [ '3.7.1' ],
+23 silly audit   '@inertiajs/vite': [ '3.7.1' ],
+23 silly audit   '@jridgewell/gen-mapping': [ '0.4.0-beta.0', '0.3.13' ],
+23 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+23 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+23 silly audit   '@jridgewell/sourcemap-codec': [ '1.6.0' ],
+23 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+23 silly audit   '@laravel/multiplex': [ '0.4.4' ],
+23 silly audit   '@laravel/passkeys': [ '0.2.0' ],
+23 silly audit   '@laravel/vite-plugin-wayfinder': [ '0.1.10' ],
+23 silly audit   '@oxc-project/runtime': [ '0.146.0' ],
+23 silly audit   '@oxc-project/types': [ '0.150.0', '0.146.0' ],
+23 silly audit   '@oxfmt/binding-android-arm-eabi': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-android-arm64': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-darwin-arm64': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-darwin-x64': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-freebsd-x64': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-arm-gnueabihf': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-arm-musleabihf': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-arm64-gnu': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-arm64-musl': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-ppc64-gnu': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-riscv64-gnu': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-riscv64-musl': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-s390x-gnu': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-x64-gnu': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-linux-x64-musl': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-openharmony-arm64': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-win32-arm64-msvc': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-win32-ia32-msvc': [ '0.64.0' ],
+23 silly audit   '@oxfmt/binding-win32-x64-msvc': [ '0.64.0' ],
+23 silly audit   '@oxlint-tsgolint/darwin-arm64': [ '7.0.2001' ],
+23 silly audit   '@oxlint-tsgolint/darwin-x64': [ '7.0.2001' ],
+23 silly audit   '@oxlint-tsgolint/linux-arm64': [ '7.0.2001' ],
+23 silly audit   '@oxlint-tsgolint/linux-x64': [ '7.0.2001' ],
+23 silly audit   '@oxlint-tsgolint/win32-arm64': [ '7.0.2001' ],
+23 silly audit   '@oxlint-tsgolint/win32-x64': [ '7.0.2001' ],
+23 silly audit   '@oxlint/binding-android-arm-eabi': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-android-arm64': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-darwin-arm64': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-darwin-x64': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-freebsd-x64': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-arm-gnueabihf': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-arm-musleabihf': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-arm64-gnu': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-arm64-musl': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-ppc64-gnu': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-riscv64-gnu': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-riscv64-musl': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-s390x-gnu': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-x64-gnu': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-linux-x64-musl': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-openharmony-arm64': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-win32-arm64-msvc': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-win32-ia32-msvc': [ '1.79.0' ],
+23 silly audit   '@oxlint/binding-win32-x64-msvc': [ '1.79.0' ],
+23 silly audit   '@oxlint/plugins': [ '1.79.0' ],
+23 silly audit   '@polka/url': [ '1.0.0-next.29' ],
+23 silly audit   '@radix-ui/number': [ '1.1.3' ],
+23 silly audit   '@radix-ui/primitive': [ '1.2.0' ],
+23 silly audit   '@radix-ui/react-accessible-icon': [ '1.2.0' ],
+23 silly audit   '@radix-ui/react-accordion': [ '1.3.1' ],
+23 silly audit   '@radix-ui/react-alert-dialog': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-arrow': [ '1.1.17' ],
+23 silly audit   '@radix-ui/react-aspect-ratio': [ '1.2.0' ],
+23 silly audit   '@radix-ui/react-avatar': [ '1.3.1' ],
+23 silly audit   '@radix-ui/react-checkbox': [ '1.4.1' ],
+23 silly audit   '@radix-ui/react-collapsible': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-collection': [ '1.2.0' ],
+23 silly audit   '@radix-ui/react-compose-refs': [ '1.1.5' ],
+23 silly audit   '@radix-ui/react-context': [ '1.3.0' ],
+23 silly audit   '@radix-ui/react-context-menu': [ '2.4.1' ],
+23 silly audit   '@radix-ui/react-dialog': [ '1.3.1' ],
+23 silly audit   '@radix-ui/react-direction': [ '1.2.0' ],
+23 silly audit   '@radix-ui/react-dismissable-layer': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-dropdown-menu': [ '2.2.1' ],
+23 silly audit   '@radix-ui/react-focus-guards': [ '1.2.0' ],
+23 silly audit   '@radix-ui/react-focus-scope': [ '1.3.1' ],
+23 silly audit   '@radix-ui/react-form': [ '0.3.0' ],
+23 silly audit   '@radix-ui/react-hover-card': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-id': [ '1.1.4' ],
+23 silly audit   '@radix-ui/react-label': [ '2.1.17' ],
+23 silly audit   '@radix-ui/react-menu': [ '2.2.1' ],
+23 silly audit   '@radix-ui/react-menubar': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-navigation-menu': [ '1.4.1' ],
+23 silly audit   '@radix-ui/react-one-time-password-field': [ '0.2.1' ],
+23 silly audit   '@radix-ui/react-password-toggle-field': [ '0.2.1' ],
+23 silly audit   '@radix-ui/react-popover': [ '1.3.1' ],
+23 silly audit   '@radix-ui/react-popper': [ '1.4.0' ],
+23 silly audit   '@radix-ui/react-portal': [ '1.2.0' ],
+23 silly audit   '@radix-ui/react-presence': [ '1.1.11' ],
+23 silly audit   '@radix-ui/react-primitive': [ '2.2.0' ],
+23 silly audit   '@radix-ui/react-progress': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-radio-group': [ '1.5.1' ],
+23 silly audit   '@radix-ui/react-roving-focus': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-scroll-area': [ '1.4.0' ],
+23 silly audit   '@radix-ui/react-select': [ '2.4.1' ],
+23 silly audit   '@radix-ui/react-separator': [ '1.2.0' ],
+23 silly audit   '@radix-ui/react-slider': [ '1.6.1' ],
+23 silly audit   '@radix-ui/react-slot': [ '1.5.0' ],
+23 silly audit   '@radix-ui/react-switch': [ '1.4.1' ],
+23 silly audit   '@radix-ui/react-tabs': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-toast': [ '1.3.1' ],
+23 silly audit   '@radix-ui/react-toggle': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-toggle-group': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-toolbar': [ '1.2.1' ],
+23 silly audit   '@radix-ui/react-tooltip': [ '1.4.1' ],
+23 silly audit   '@radix-ui/react-use-callback-ref': [ '1.1.5' ],
+23 silly audit   '@radix-ui/react-use-controllable-state': [ '1.3.0' ],
+23 silly audit   '@radix-ui/react-use-effect-event': [ '0.0.5' ],
+23 silly audit   '@radix-ui/react-use-escape-keydown': [ '1.1.6' ],
+23 silly audit   '@radix-ui/react-use-is-hydrated': [ '0.1.3' ],
+23 silly audit   '@radix-ui/react-use-layout-effect': [ '1.1.4' ],
+23 silly audit   '@radix-ui/react-use-previous': [ '1.1.4' ],
+23 silly audit   '@radix-ui/react-use-rect': [ '1.1.4' ],
+23 silly audit   '@radix-ui/react-use-size': [ '1.1.5' ],
+23 silly audit   '@radix-ui/react-visually-hidden': [ '1.2.13' ],
+23 silly audit   '@radix-ui/rect': [ '1.1.3' ],
+23 silly audit   '@rolldown/binding-android-arm-eabi': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-android-arm64': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-darwin-arm64': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-darwin-x64': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-freebsd-x64': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-linux-arm-gnueabihf': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-linux-arm64-gnu': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-linux-arm64-musl': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-linux-ppc64-gnu': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-linux-s390x-gnu': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-linux-x64-gnu': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-linux-x64-musl': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-openharmony-arm64': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-win32-arm64-msvc': [ '1.2.9' ],
+23 silly audit   '@rolldown/binding-win32-x64-msvc': [ '1.2.9' ],
+23 silly audit   '@rolldown/plugin-babel': [ '0.2.4' ],
+23 silly audit   '@rolldown/pluginutils': [ '1.0.1' ],
+23 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.9.5' ],
+23 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.9.5' ],
+23 silly audit   '@simplewebauthn/browser': [ '13.3.0' ],
+23 silly audit   '@standard-schema/spec': [ '1.1.0' ],
+23 silly audit   '@tailwindcss/node': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-android-arm64': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-darwin-arm64': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-darwin-x64': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-freebsd-x64': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-linux-arm-gnueabihf': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-linux-arm64-gnu': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-linux-arm64-musl': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-linux-x64-gnu': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-linux-x64-musl': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-wasm32-wasi': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-win32-arm64-msvc': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/oxide-win32-x64-msvc': [ '4.3.3' ],
+23 silly audit   '@tailwindcss/vite': [ '4.3.3' ],
+23 silly audit   '@testing-library/dom': [ '10.4.2' ],
+23 silly audit   'js-tokens': [ '4.0.0', '10.0.0' ],
+23 silly audit   '@testing-library/user-event': [ '14.6.7' ],
+23 silly audit   '@types/aria-query': [ '5.0.4' ],
+23 silly audit   '@types/chai': [ '5.2.3' ],
+23 silly audit   '@types/deep-eql': [ '4.0.2' ],
+23 silly audit   '@types/estree': [ '1.0.9' ],
+23 silly audit   '@types/gensync': [ '1.0.5' ],
+23 silly audit   '@types/jsesc': [ '2.5.1' ],
+23 silly audit   '@types/node': [ '22.20.4' ],
+23 silly audit   '@types/react': [ '19.3.0' ],
+23 silly audit   '@types/react-dom': [ '19.3.0' ],
+23 silly audit   '@vercel/oidc': [ '3.2.0' ],
+23 silly audit   '@vitejs/plugin-react': [ '6.1.1' ],
+23 silly audit   '@vitest/browser': [ '4.1.11' ],
+23 silly audit   '@vitest/browser-preview': [ '4.1.11' ],
+23 silly audit   '@vitest/expect': [ '4.1.11' ],
+23 silly audit   '@vitest/mocker': [ '4.1.11' ],
+23 silly audit   '@vitest/pretty-format': [ '4.1.11' ],
+23 silly audit   '@vitest/runner': [ '4.1.11' ],
+23 silly audit   '@vitest/snapshot': [ '4.1.11' ],
+23 silly audit   '@vitest/spy': [ '4.1.11' ],
+23 silly audit   '@vitest/utils': [ '4.1.11' ],
+23 silly audit   '@voidzero-dev/vite-plus-core': [ '0.3.0' ],
+23 silly audit   lightningcss: [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-android-arm64': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-darwin-arm64': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-darwin-x64': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-freebsd-x64': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-linux-arm64-gnu': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-linux-arm64-musl': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-linux-x64-musl': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-win32-arm64-msvc': [ '1.33.0', '1.32.0' ],
+23 silly audit   '@voidzero-dev/vite-plus-darwin-arm64': [ '0.3.0' ],
+23 silly audit   '@voidzero-dev/vite-plus-darwin-x64': [ '0.3.0' ],
+23 silly audit   '@voidzero-dev/vite-plus-linux-arm64-gnu': [ '0.3.0' ],
+23 silly audit   '@voidzero-dev/vite-plus-linux-arm64-musl': [ '0.3.0' ],
+23 silly audit   '@voidzero-dev/vite-plus-linux-x64-gnu': [ '0.3.0' ],
+23 silly audit   '@voidzero-dev/vite-plus-linux-x64-musl': [ '0.3.0' ],
+23 silly audit   '@voidzero-dev/vite-plus-win32-arm64-msvc': [ '0.3.0' ],
+23 silly audit   '@voidzero-dev/vite-plus-win32-x64-msvc': [ '0.3.0' ],
+23 silly audit   '@workflow/serde': [ '4.1.0' ],
+23 silly audit   '@yuku-codegen/binding-darwin-arm64': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-darwin-x64': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-freebsd-x64': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-linux-arm-gnu': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-linux-arm-musl': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-linux-arm64-gnu': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-linux-arm64-musl': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-linux-x64-gnu': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-linux-x64-musl': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-win32-arm64': [ '0.5.48' ],
+23 silly audit   '@yuku-codegen/binding-win32-x64': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-darwin-arm64': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-darwin-x64': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-freebsd-x64': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-linux-arm-gnu': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-linux-arm-musl': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-linux-arm64-gnu': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-linux-arm64-musl': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-linux-x64-gnu': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-linux-x64-musl': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-win32-arm64': [ '0.5.48' ],
+23 silly audit   '@yuku-parser/binding-win32-x64': [ '0.5.48' ],
+23 silly audit   '@yuku-toolchain/types': [ '0.5.43' ],
+23 silly audit   ai: [ '7.0.143' ],
+23 silly audit   'ansi-escapes': [ '7.3.0' ],
+23 silly audit   'ansi-regex': [ '6.3.0', '5.0.1' ],
+23 silly audit   'aria-hidden': [ '1.2.6' ],
+23 silly audit   'aria-query': [ '5.3.0' ],
+23 silly audit   'assertion-error': [ '2.0.1' ],
+23 silly audit   'auto-bind': [ '5.0.1' ],
+23 silly audit   'babel-plugin-react-compiler': [ '1.0.0' ],
+23 silly audit   'baseline-browser-mapping': [ '2.11.25' ],
+23 silly audit   browserslist: [ '4.29.0' ],
+23 silly audit   'caniuse-lite': [ '1.0.30001810' ],
+23 silly audit   chai: [ '6.2.2' ],
+23 silly audit   chalk: [ '5.6.2' ],
+23 silly audit   'class-variance-authority': [ '0.7.1' ],
+23 silly audit   'cli-boxes': [ '4.0.1' ],
+23 silly audit   'cli-cursor': [ '4.0.0' ],
+23 silly audit   'cli-truncate': [ '6.1.1' ],
+23 silly audit   cliui: [ '9.0.1' ],
+23 silly audit   'string-width': [ '7.2.0', '8.2.2' ],
+23 silly audit   'wrap-ansi': [ '9.0.2', '10.0.2' ],
+23 silly audit   clsx: [ '2.1.1' ],
+23 silly audit   cn: [ '0.4.0' ],
+23 silly audit   'code-excerpt': [ '4.0.0' ],
+23 silly audit   commander: [ '15.0.0' ],
+23 silly audit   concurrently: [ '10.0.5' ],
+23 silly audit   'convert-source-map': [ '2.0.0' ],
+23 silly audit   'convert-to-spaces': [ '2.0.1' ],
+23 silly audit   'cross-spawn': [ '7.0.6' ],
+23 silly audit   csstype: [ '3.2.3' ],
+23 silly audit   dequal: [ '2.0.3' ],
+23 silly audit   'detect-libc': [ '2.1.2' ],
+23 silly audit   'detect-node-es': [ '1.1.0' ],
+23 silly audit   'dom-accessibility-api': [ '0.5.16' ],
+23 silly audit   'electron-to-chromium': [ '1.5.435' ],
+23 silly audit   'emoji-regex': [ '10.6.0' ],
+23 silly audit   empathic: [ '2.1.0' ],
+23 silly audit   'enhanced-resolve': [ '5.25.1' ],
+23 silly audit   environment: [ '1.1.0' ],
+23 silly audit   'es-module-lexer': [ '2.3.2' ],
+23 silly audit   'es-toolkit': [ '1.52.0' ],
+23 silly audit   escalade: [ '3.2.0' ],
+23 silly audit   'escape-string-regexp': [ '2.0.0' ],
+23 silly audit   'estree-walker': [ '3.0.3' ],
+23 silly audit   'eventsource-parser': [ '3.1.1' ],
+23 silly audit   'expect-type': [ '1.4.0' ],
+23 silly audit   fdir: [ '6.5.0' ],
+23 silly audit   flru: [ '1.0.2' ],
+23 silly audit   fsevents: [ '2.3.3' ],
+23 silly audit   gensync: [ '1.0.0-beta.2' ],
+23 silly audit   'get-caller-file': [ '2.0.5' ],
+23 silly audit   'get-east-asian-width': [ '1.7.0' ],
+23 silly audit   'get-nonce': [ '1.0.1' ],
+23 silly audit   'graceful-fs': [ '4.2.11' ],
+23 silly audit   'import-meta-resolve': [ '4.2.0' ],
+23 silly audit   'indent-string': [ '5.0.0' ],
+23 silly audit   ink: [ '7.1.1' ],
+23 silly audit   'input-otp': [ '1.5.0' ],
+23 silly audit   'is-fullwidth-code-point': [ '5.1.0' ],
+23 silly audit   'is-in-ci': [ '2.0.0' ],
+23 silly audit   isexe: [ '2.0.0' ],
+23 silly audit   jiti: [ '2.7.0' ],
+23 silly audit   jsesc: [ '3.1.0' ],
+23 silly audit   'json-schema': [ '0.4.0' ],
+23 silly audit   json5: [ '2.2.3' ],
+23 silly audit   'laravel-precognition': [ '2.0.0' ],
+23 silly audit   'laravel-vite-plugin': [ '3.2.0' ],
+23 silly audit   'lightningcss-linux-x64-gnu': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lightningcss-win32-x64-msvc': [ '1.33.0', '1.32.0' ],
+23 silly audit   'lucide-react': [ '0.475.0' ],
+23 silly audit   'lz-string': [ '1.5.0' ],
+23 silly audit   'magic-string': [ '0.30.21' ],
+23 silly audit   'mimic-fn': [ '2.1.0' ],
+23 silly audit   mrmime: [ '2.0.1' ],
+23 silly audit   nanoid: [ '3.3.19' ],
+23 silly audit   'node-releases': [ '2.0.56' ],
+23 silly audit   obug: [ '2.2.1' ],
+23 silly audit   onetime: [ '5.1.2' ],
+23 silly audit   oxfmt: [ '0.64.0' ],
+23 silly audit   oxlint: [ '1.79.0' ],
+23 silly audit   'oxlint-tsgolint': [ '7.0.2001' ],
+23 silly audit   'patch-console': [ '2.0.0' ],
+23 silly audit   'path-key': [ '3.1.1' ],
+23 silly audit   pathe: [ '2.0.3' ],
+23 silly audit   picocolors: [ '1.1.1' ],
+23 silly audit   picomatch: [ '4.0.7', '2.3.2' ],
+23 silly audit   'pkce-challenge': [ '5.0.1' ],
+23 silly audit   pngjs: [ '7.0.0' ],
+23 silly audit   postcss: [ '8.5.28' ],
+23 silly audit   'pretty-format': [ '27.5.1' ],
+23 silly audit   'radix-ui': [ '1.8.1' ],
+23 silly audit   react: [ '19.3.0' ],
+23 silly audit   'react-dom': [ '19.3.0' ],
+23 silly audit   scheduler: [ '0.28.0', '0.27.0' ],
+23 silly audit   'react-is': [ '17.0.2' ],
+23 silly audit   'react-reconciler': [ '0.33.0' ],
+23 silly audit   'react-remove-scroll': [ '2.7.2' ],
+23 silly audit   'react-remove-scroll-bar': [ '2.3.8' ],
+23 silly audit   'react-style-singleton': [ '2.2.3' ],
+23 silly audit   'restore-cursor': [ '4.0.0' ],
+23 silly audit   rolldown: [ '1.2.9' ],
+23 silly audit   rxjs: [ '7.8.2' ],
+23 silly audit   'shebang-command': [ '2.0.0' ],
+23 silly audit   'shebang-regex': [ '3.0.0' ],
+23 silly audit   'shell-quote': [ '1.9.0' ],
+23 silly audit   siginfo: [ '2.0.0' ],
+23 silly audit   'signal-exit': [ '3.0.7' ],
+23 silly audit   sirv: [ '3.0.2' ],
+23 silly audit   'slice-ansi': [ '9.0.1' ],
+23 silly audit   sonner: [ '2.0.8' ],
+23 silly audit   'source-map-js': [ '1.2.1' ],
+23 silly audit   'stack-utils': [ '2.0.6' ],
+23 silly audit   stackback: [ '0.0.2' ],
+23 silly audit   'std-env': [ '4.2.0' ],
+23 silly audit   'strip-ansi': [ '7.2.0' ],
+23 silly audit   'supports-color': [ '10.2.2' ],
+23 silly audit   'tagged-tag': [ '1.0.0' ],
+23 silly audit   'tailwind-merge': [ '3.7.0' ],
+23 silly audit   tailwindcss: [ '4.3.3' ],
+23 silly audit   tapable: [ '2.3.3' ],
+23 silly audit   'terminal-size': [ '4.0.1' ],
+23 silly audit   tinybench: [ '2.9.0' ],
+23 silly audit   tinyexec: [ '1.3.1' ],
+23 silly audit   tinyglobby: [ '0.2.17' ],
+23 silly audit   tinypool: [ '2.1.0' ],
+23 silly audit   tinyrainbow: [ '3.1.1' ],
+23 silly audit   totalist: [ '3.0.1' ],
+23 silly audit   'tree-kill': [ '1.2.2' ],
+23 silly audit   tslib: [ '2.8.1' ],
+23 silly audit   'tw-animate-css': [ '1.4.0' ],
+23 silly audit   'type-fest': [ '5.10.0' ],
+23 silly audit   typescript: [ '5.9.3' ],
+23 silly audit   undici: [ '7.30.1' ],
+23 silly audit   'undici-types': [ '6.21.0' ],
+23 silly audit   'update-browserslist-db': [ '1.3.3' ],
+23 silly audit   'use-callback-ref': [ '1.3.3' ],
+23 silly audit   'use-sidecar': [ '1.1.3' ],
+23 silly audit   'use-sync-external-store': [ '1.7.0' ],
+23 silly audit   verkit: [ '0.3.2' ],
+23 silly audit   vite: [ '8.3.0' ],
+23 silly audit   'vite-plugin-full-reload': [ '1.2.0' ],
+23 silly audit   'vite-plus': [ '0.3.0' ],
+23 silly audit   vitest: [ '4.1.11' ],
+23 silly audit   which: [ '2.0.2' ],
+23 silly audit   'why-is-node-running': [ '2.3.0' ],
+23 silly audit   'widest-line': [ '6.0.0' ],
+23 silly audit   ws: [ '8.21.3' ],
+23 silly audit   y18n: [ '5.0.8' ],
+23 silly audit   yargs: [ '18.0.0' ],
+23 silly audit   'yargs-parser': [ '22.0.0' ],
+23 silly audit   'yoga-layout': [ '3.2.1' ],
+23 silly audit   'yuku-codegen': [ '0.5.48' ],
+23 silly audit   'yuku-parser': [ '0.5.48' ],
+23 silly audit   zod: [ '4.6.7' ]
+23 silly audit }
+24 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 1286ms
+25 silly audit report {
+25 silly audit report   '@vitest/mocker': [
+25 silly audit report     {
+25 silly audit report       id: 1242767,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-qxg6-89mg-rqv8',
+25 silly audit report       title: 'Vitest: Code injection via unauthenticated manual mock registration',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '>=2.1.0-beta.7 <4.1.12',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242769,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-xp26-3454-mjgp',
+25 silly audit report       title: 'Vitest: Windows backslash traversal bypasses the @vitest/mocker redirect allowlist fix',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '>=4.1.11 <4.1.12',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     }
+25 silly audit report   ],
+25 silly audit report   'shell-quote': [
+25 silly audit report     {
+25 silly audit report       id: 1241332,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-pqg4-j6r4-53mv',
+25 silly audit report       title: 'shell-quote: `quote()` command injection via a line terminator in a token after a `{ comment }` token',
+25 silly audit report       severity: 'critical',
+25 silly audit report       vulnerable_versions: '>=1.8.4 <1.11.0',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     }
+25 silly audit report   ],
+25 silly audit report   'source-map-js': [
+25 silly audit report     {
+25 silly audit report       id: 1241209,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-68fv-2mgg-jv7q',
+25 silly audit report       title: 'source-map-js allows event-loop denial of service through indexed source-map section offsets',
+25 silly audit report       severity: 'high',
+25 silly audit report       vulnerable_versions: '>=1.0.0 <1.2.2',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     }
+25 silly audit report   ],
+25 silly audit report   tinypool: [
+25 silly audit report     {
+25 silly audit report       id: 1241260,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-5gmw-xhrv-c9v3',
+25 silly audit report       title: 'Tinypool: Prototype Pollution gadget in worker options leads to Remote Code Execution',
+25 silly audit report       severity: 'critical',
+25 silly audit report       vulnerable_versions: '<=2.1.0',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1241261,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-85c8-ppgw-ccpr',
+25 silly audit report       title: 'Tinypool: Prototype Pollution Gadget to RCE in run() options',
+25 silly audit report       severity: 'critical',
+25 silly audit report       vulnerable_versions: '<2.1.2',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     }
+25 silly audit report   ],
+25 silly audit report   vite: [
+25 silly audit report     {
+25 silly audit report       id: 1242728,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-9jrq-w75r-8gcw',
+25 silly audit report       title: 'Vite: Cross origin script execution through Vite custom middleware',
+25 silly audit report       severity: 'low',
+25 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242734,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-rq7h-c2jc-7f22',
+25 silly audit report       title: 'Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242626,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-698v-4r3x-3vcv',
+25 silly audit report       title: 'launch-editor: escapeCmdArgs() omits % escaping on Windows',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242655,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-r825-w8mm-5pxw',
+25 silly audit report       title: 'launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242662,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-587h-7wmj-h5pm',
+25 silly audit report       title: 'launch-editor: `fs.existsSync()` existence check can be bypassed on Windows',
+25 silly audit report       severity: 'high',
+25 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242737,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-vfpm-58rq-9qcg',
+25 silly audit report       title: 'Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance`',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '>=8.3.0 <=8.3.2',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     }
+25 silly audit report   ],
+25 silly audit report   'vite-plus': [
+25 silly audit report     {
+25 silly audit report       id: 1242723,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-9jrq-w75r-8gcw',
+25 silly audit report       title: 'Vite: Cross origin script execution through Vite custom middleware',
+25 silly audit report       severity: 'low',
+25 silly audit report       vulnerable_versions: '<=1.0.0',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242729,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-rq7h-c2jc-7f22',
+25 silly audit report       title: 'Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '<=1.0.0',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242621,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-698v-4r3x-3vcv',
+25 silly audit report       title: 'launch-editor: escapeCmdArgs() omits % escaping on Windows',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '<=1.0.0',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242650,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-r825-w8mm-5pxw',
+25 silly audit report       title: 'launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '<=1.0.0',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242657,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-587h-7wmj-h5pm',
+25 silly audit report       title: 'launch-editor: `fs.existsSync()` existence check can be bypassed on Windows',
+25 silly audit report       severity: 'high',
+25 silly audit report       vulnerable_versions: '<=1.0.0',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     },
+25 silly audit report     {
+25 silly audit report       id: 1242735,
+25 silly audit report       url: 'https://github.com/advisories/GHSA-vfpm-58rq-9qcg',
+25 silly audit report       title: 'Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance`',
+25 silly audit report       severity: 'moderate',
+25 silly audit report       vulnerable_versions: '>=0.2.8 <=1.0.0',
+25 silly audit report       cwe: [Array],
+25 silly audit report       cvss: [Object]
+25 silly audit report     }
+25 silly audit report   ]
+25 silly audit report }
+26 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fmocker cache-miss
+27 silly packumentCache corgi:https://registry.npmjs.org/shell-quote cache-miss
+28 silly packumentCache corgi:https://registry.npmjs.org/source-map-js cache-miss
+29 silly packumentCache corgi:https://registry.npmjs.org/tinypool cache-miss
+30 silly packumentCache corgi:https://registry.npmjs.org/vite cache-miss
+31 silly packumentCache corgi:https://registry.npmjs.org/vite-plus cache-miss
+32 http cache https://registry.npmjs.org/@vitest%2fmocker 21ms (cache hit)
+33 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fmocker set size:138763 disposed:false
+34 http cache https://registry.npmjs.org/source-map-js 24ms (cache hit)
+35 silly packumentCache corgi:https://registry.npmjs.org/source-map-js set size:8534 disposed:false
+36 http cache https://registry.npmjs.org/shell-quote 26ms (cache hit)
+37 silly packumentCache corgi:https://registry.npmjs.org/shell-quote set size:31082 disposed:false
+38 http cache https://registry.npmjs.org/vite-plus 24ms (cache hit)
+39 silly packumentCache corgi:https://registry.npmjs.org/vite-plus set size:315963 disposed:false
+40 http cache https://registry.npmjs.org/vite 38ms (cache hit)
+41 silly packumentCache corgi:https://registry.npmjs.org/vite set size:2339552 disposed:false
+42 http cache https://registry.npmjs.org/tinypool 84ms (cache hit)
+43 silly packumentCache corgi:https://registry.npmjs.org/tinypool set size:45619 disposed:false
+44 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fbrowser cache-miss
+45 silly packumentCache corgi:https://registry.npmjs.org/vitest cache-miss
+46 http cache https://registry.npmjs.org/@vitest%2fbrowser 8ms (cache hit)
+47 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fbrowser set size:349481 disposed:false
+48 http cache https://registry.npmjs.org/vitest 14ms (cache hit)
+49 silly packumentCache corgi:https://registry.npmjs.org/vitest set size:1301005 disposed:false
+50 silly packumentCache corgi:https://registry.npmjs.org/concurrently cache-miss
+51 http cache https://registry.npmjs.org/concurrently 3ms (cache hit)
+52 silly packumentCache corgi:https://registry.npmjs.org/concurrently set size:118045 disposed:false
+53 silly packumentCache corgi:https://registry.npmjs.org/@tailwindcss%2fnode cache-miss
+54 silly packumentCache corgi:https://registry.npmjs.org/postcss cache-miss
+55 http cache https://registry.npmjs.org/postcss 4ms (cache hit)
+56 silly packumentCache corgi:https://registry.npmjs.org/postcss set size:360665 disposed:false
+57 http cache https://registry.npmjs.org/@tailwindcss%2fnode 12ms (cache hit)
+58 silly packumentCache corgi:https://registry.npmjs.org/@tailwindcss%2fnode set size:855417 disposed:false
+59 silly packumentCache corgi:https://registry.npmjs.org/oxfmt cache-miss
+60 http cache https://registry.npmjs.org/oxfmt 7ms (cache hit)
+61 silly packumentCache corgi:https://registry.npmjs.org/oxfmt set size:111913 disposed:false
+62 silly packumentCache corgi:https://registry.npmjs.org/@inertiajs%2fvite cache-miss
+63 silly packumentCache corgi:https://registry.npmjs.org/@rolldown%2fplugin-babel cache-miss
+64 silly packumentCache corgi:https://registry.npmjs.org/@tailwindcss%2fvite cache-miss
+65 silly packumentCache corgi:https://registry.npmjs.org/@vitejs%2fplugin-react cache-miss
+66 silly packumentCache corgi:https://registry.npmjs.org/laravel-vite-plugin cache-miss
+67 http cache https://registry.npmjs.org/@inertiajs%2fvite 20ms (cache hit)
+68 silly packumentCache corgi:https://registry.npmjs.org/@inertiajs%2fvite set size:25121 disposed:false
+69 http cache https://registry.npmjs.org/laravel-vite-plugin 25ms (cache hit)
+70 silly packumentCache corgi:https://registry.npmjs.org/laravel-vite-plugin set size:70623 disposed:false
+71 http cache https://registry.npmjs.org/@rolldown%2fplugin-babel 32ms (cache hit)
+72 silly packumentCache corgi:https://registry.npmjs.org/@rolldown%2fplugin-babel set size:15767 disposed:false
+73 http cache https://registry.npmjs.org/@vitejs%2fplugin-react 38ms (cache hit)
+74 silly packumentCache corgi:https://registry.npmjs.org/@vitejs%2fplugin-react set size:122379 disposed:false
+75 http cache https://registry.npmjs.org/@tailwindcss%2fvite 42ms (cache hit)
+76 silly packumentCache corgi:https://registry.npmjs.org/@tailwindcss%2fvite set size:959925 disposed:false
+77 silly packumentCache corgi:https://registry.npmjs.org/oxlint cache-miss
+78 http cache https://registry.npmjs.org/oxlint 26ms (cache hit)
+79 silly packumentCache corgi:https://registry.npmjs.org/oxlint set size:268080 disposed:false
+80 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fbrowser-preview cache-miss
+81 http cache https://registry.npmjs.org/@vitest%2fbrowser-preview 5ms (cache hit)
+82 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fbrowser-preview set size:60059 disposed:false
+83 silly REMOVE node_modules/playwright-core
+84 silly REMOVE node_modules/playwright
+85 silly REMOVE node_modules/@playwright/test
+86 verbose cwd /home/kali/Desktop/projects/cwspos
+87 verbose os Linux 7.1.5+kali-amd64
+88 verbose node v24.19.0
+89 verbose npm  v11.17.0
+90 verbose exit 0
+91 info ok

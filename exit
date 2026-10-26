@@ -1,0 +1,191 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#9010
+    [34mall[39m: [
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8943
+        [34mid[39m: [35m1[39m,
+        [34mname[39m: [32m"[39m[32maccess admin panel[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8941
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m1[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8939
+        [34mid[39m: [35m2[39m,
+        [34mname[39m: [32m"[39m[32mmanage regions[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8989
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m2[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8938
+        [34mid[39m: [35m3[39m,
+        [34mname[39m: [32m"[39m[32mmanage branches[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8985
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m3[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8937
+        [34mid[39m: [35m4[39m,
+        [34mname[39m: [32m"[39m[32mmanage users[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8987
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m4[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8936
+        [34mid[39m: [35m5[39m,
+        [34mname[39m: [32m"[39m[32mview products[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8973
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m5[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8935
+        [34mid[39m: [35m6[39m,
+        [34mname[39m: [32m"[39m[32mcreate products[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8974
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m6[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8934
+        [34mid[39m: [35m7[39m,
+        [34mname[39m: [32m"[39m[32medit products[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8977
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m7[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8933
+        [34mid[39m: [35m8[39m,
+        [34mname[39m: [32m"[39m[32mdelete products[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8978
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m8[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8932
+        [34mid[39m: [35m9[39m,
+        [34mname[39m: [32m"[39m[32mview stock[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8979
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m9[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8931
+        [34mid[39m: [35m10[39m,
+        [34mname[39m: [32m"[39m[32madjust stock[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8980
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m10[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8930
+        [34mid[39m: [35m11[39m,
+        [34mname[39m: [32m"[39m[32mtransfer stock[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8981
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m11[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8929
+        [34mid[39m: [35m12[39m,
+        [34mname[39m: [32m"[39m[32mview orders[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8982
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m12[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8928
+        [34mid[39m: [35m13[39m,
+        [34mname[39m: [32m"[39m[32medit orders[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8983
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m13[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8927
+        [34mid[39m: [35m14[39m,
+        [34mname[39m: [32m"[39m[32mrefund orders[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8984
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m14[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8926
+        [34mid[39m: [35m15[39m,
+        [34mname[39m: [32m"[39m[32mmanage payment gateways[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8986
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m15[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8925
+        [34mid[39m: [35m16[39m,
+        [34mname[39m: [32m"[39m[32mview branch reports[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8975
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m16[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#8924
+        [34mid[39m: [35m17[39m,
+        [34mname[39m: [32m"[39m[32mview region reports[39m[32m"[39m,
+        [34mguard_name[39m: [32m"[39m[32mweb[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-09-27 21:36:33[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8972
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m17[39m,
+        },
+      },
+    ],
+  }
