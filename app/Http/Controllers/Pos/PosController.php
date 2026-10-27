@@ -5,14 +5,10 @@ namespace App\Http\Controllers\Pos;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Pos\Concerns\ResolvesTerminalBranch;
 use App\Http\Requests\Pos\StorePosSaleRequest;
-use App\Models\Category;
 use App\Models\Order;
-use App\Models\Product;
-use App\Models\ProductRegionPrice;
-use App\Models\StockLevel;
 use App\Models\TillSession;
-use App\Models\Warehouse;
 use App\Services\PaymentMethods;
+use App\Services\PosCatalogService;
 use App\Services\PosSaleService;
 use App\Services\TillReportService;
 use Illuminate\Http\JsonResponse;
@@ -28,74 +24,9 @@ class PosController extends Controller
     {
         $branch = $this->terminalBranch($request);
         $region = $branch->region;
-        $warehouseIds = Warehouse::query()->where('branch_id', $branch->id)->pluck('id');
-
-        $till = TillSession::query()
-            ->where('branch_id', $branch->id)
-            ->where('status', 'OPEN')
-            ->latest('opened_at')
-            ->first();
-
-        $stockByVariant = StockLevel::query()
-            ->whereIn('warehouse_id', $warehouseIds)
-            ->selectRaw('product_variant_id, SUM(quantity_on_hand) as quantity')
-            ->groupBy('product_variant_id')
-            ->pluck('quantity', 'product_variant_id');
-
-        $regionPrices = ProductRegionPrice::query()
-            ->where('region_id', $region->id)
-            ->pluck('price_override', 'product_id');
-
-        $products = Product::query()
-            ->where('is_active', true)
-            ->whereHas('variants')
-            ->with([
-                'category:id,name',
-                'images:id,product_id,path,is_primary,sort_order',
-                'variants' => fn ($query) => $query
-                    ->orderBy('variant_name')
-                    ->select(['id', 'product_id', 'variant_name', 'sku_suffix', 'price_delta']),
-            ])
-            ->orderBy('name')
-            ->get()
-            ->map(function (Product $product) use ($stockByVariant, $regionPrices) {
-                $override = $regionPrices->get($product->id);
-
-                $variants = $product->variants->map(function ($variant) use ($product, $override, $stockByVariant) {
-                    $basePrice = $override !== null
-                        ? (float) $override
-                        : (float) $product->base_price;
-                    $price = $basePrice + (float) $variant->price_delta;
-
-                    return [
-                        'id' => $variant->id,
-                        'name' => $variant->variant_name,
-                        'sku' => trim($product->sku.($variant->sku_suffix ?? '')),
-                        'price' => round($price, 2),
-                        'stock' => (int) ($stockByVariant->get($variant->id) ?? 0),
-                    ];
-                })->values();
-
-                return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'sku' => $product->sku,
-                    'category_id' => $product->category_id,
-                    'category' => $product->category->name,
-                    'price' => (float) ($variants->min('price') ?? 0),
-                    'stock' => (int) $variants->sum('stock'),
-                    'image_url' => $product->images->firstWhere('is_primary', true)?->url
-                        ?? $product->images->first()?->url,
-                    'variants' => $variants,
-                ];
-            })
-            ->filter(fn (array $product) => count($product['variants']) > 0)
-            ->values();
-
-        $categories = Category::query()
-            ->whereIn('id', $products->pluck('category_id')->filter()->unique())
-            ->orderBy('name')
-            ->get(['id', 'name']);
+        $catalog = app(PosCatalogService::class)->forBranch($branch);
+        $products = $catalog['products'];
+        $categories = $catalog['categories'];
 
         $dayStart = now($region->timezone)->startOfDay()->utc();
         $dayEnd = now($region->timezone)->endOfDay()->utc();

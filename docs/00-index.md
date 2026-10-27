@@ -15,6 +15,7 @@
 | [06 — Screens: Back-office & Terminal](./06-ui-screens-backoffice-and-terminal.md) | Auth, admin pages, cashier terminal flow, payment sheet, till, offline behavior |
 | [07 — Screens: Storefront, AI & Messages](./07-ui-screens-storefront-and-ai.md) | Public shop, AI chat and insight surfaces, message catalog, error pages, build order, open decisions |
 | [08 — Payments & Fulfilment](./08-payments-and-fulfilment-mvp.md) | M-Pesa deployment decision, reconciliation, pickup workflow and inventory receiving |
+| [09 — Windows POS API v1](./09-windows-pos-api.md) | Auth, API endpoints, Flutter run and current Windows POS scope |
 | [`app.css`](./app.css) | Design tokens: dark-first brand, terminal, receipt, AI, status, gateway |
 
 ## Fixed stack (do not deviate without updating this doc)
