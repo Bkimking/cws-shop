@@ -1036,17 +1036,21 @@ class _MpesaWaitingDialogState extends State<MpesaWaitingDialog> {
       if (!mounted) return;
 
       try {
-        final order = await widget.repository.orderStatus(widget.orderId);
-        final payments = order['payments'] as List? ?? const [];
-        final payment = payments.isEmpty ? null : payments.first as Map?;
-        final status = payment?['status']?.toString();
+        final paymentId = widget.paymentId;
+        if (paymentId == null) {
+          Navigator.pop(context, false);
+          return;
+        }
+
+        final payment = await widget.repository.paymentStatus(paymentId);
+        final status = payment['status']?.toString();
 
         if (status == 'completed' && mounted) {
           Navigator.pop(context, true);
           return;
         }
 
-        if ((status == 'failed' || order['status'] == 'cancelled') && mounted) {
+        if (status == 'failed' && mounted) {
           Navigator.pop(context, false);
           return;
         }

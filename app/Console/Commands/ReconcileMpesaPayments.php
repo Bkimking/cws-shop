@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ReconcileMpesaPaymentJob;
 use App\Models\Payment;
 use App\Services\MpesaPaymentFinalizer;
 use App\Services\MpesaStkService;
@@ -11,7 +12,7 @@ use Throwable;
 
 class ReconcileMpesaPayments extends Command
 {
-    protected $signature = 'mpesa:reconcile {--limit= : Maximum payments to inspect}';
+    protected $signature = 'mpesa:reconcile {--limit= : Maximum payments to inspect} {--queue : Dispatch each payment to the mpesa queue}';
 
     protected $description = 'Query stale pending M-Pesa payments and close or release them safely';
 
@@ -36,6 +37,12 @@ class ReconcileMpesaPayments extends Command
 
         foreach ($payments as $payment) {
             $checked++;
+
+            if ($this->option('queue')) {
+                ReconcileMpesaPaymentJob::dispatch($payment->id);
+
+                continue;
+            }
 
             if (blank($payment->gateway_reference)) {
                 if ($payment->created_at !== null && $payment->created_at->lte(now()->subMinutes($hardTimeout))) {

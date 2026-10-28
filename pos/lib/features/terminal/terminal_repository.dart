@@ -94,12 +94,12 @@ class TerminalRepository {
     return Map<String, dynamic>.from(response['data'] as Map? ?? const {});
   }
 
-  Future<Map<String, dynamic>> orderStatus(int orderId) async {
-    final response = await _api.get('/api/v1/orders/$orderId');
+  Future<Map<String, dynamic>> paymentStatus(int paymentId) async {
+    final response = await _api.get('/api/v1/payments/$paymentId/status');
     final data = Map<String, dynamic>.from(
       response['data'] as Map? ?? const {},
     );
-    return Map<String, dynamic>.from(data['order'] as Map? ?? const {});
+    return Map<String, dynamic>.from(data['payment'] as Map? ?? const {});
   }
 
   Future<void> cancelPayment(int paymentId) async {

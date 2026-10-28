@@ -10,6 +10,7 @@ return [
     'env' => env('MPESA_ENV', 'sandbox'),
     'callback_url' => env('MPESA_CALLBACK_URL'),
     'callback_secret' => env('MPESA_CALLBACK_SECRET'),
+    'queue_callbacks' => env('MPESA_QUEUE_CALLBACKS', false),
     'transaction_type' => env('MPESA_TRANSACTION_TYPE', 'CustomerPayBillOnline'),
     'pending_timeout_minutes' => env('MPESA_PENDING_TIMEOUT_MINUTES', 5),
     'hard_timeout_minutes' => env('MPESA_HARD_TIMEOUT_MINUTES', 30),

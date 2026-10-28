@@ -211,3 +211,14 @@ test('a cashier login lands on the terminal', function () {
         'password' => 'password',
     ])->assertRedirect('/pos');
 });
+
+test('the POS page receives the open till state', function () {
+    $this->actingAs($this->cashier)->post('/pos/till/open', ['opening_cash' => 250])->assertRedirect();
+
+    $this->actingAs($this->cashier)
+        ->get('/pos')
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page
+            ->where('till.status', 'OPEN')
+            ->where('till.opening_cash', 250));
+});

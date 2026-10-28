@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessMpesaCallbackJob;
 use App\Models\Payment;
 use App\Services\MpesaPaymentFinalizer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class MpesaCallbackController extends Controller
 {
@@ -56,6 +58,19 @@ class MpesaCallbackController extends Controller
             if ($callbackAmount + 0.01 < (float) $payment->amount) {
                 $resultCode = 1;
                 $callback['ResultDesc'] = 'Callback amount does not match the expected payment amount.';
+            }
+        }
+
+        if (config('mpesa.queue_callbacks')) {
+            try {
+                ProcessMpesaCallbackJob::dispatch($checkoutId, $resultCode, $callback, $metadata);
+
+                return response()->json(['ResultCode' => 0, 'ResultDesc' => 'Accepted']);
+            } catch (Throwable $exception) {
+                Log::warning('M-Pesa callback queue dispatch failed; processing inline.', [
+                    'checkout_request_id' => $checkoutId,
+                    'message' => $exception->getMessage(),
+                ]);
             }
         }
 

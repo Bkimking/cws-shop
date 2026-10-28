@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Pos\Concerns\ResolvesTerminalBranch;
 use App\Http\Requests\Pos\StorePosSaleRequest;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\TillSession;
+use App\Services\MpesaStatusService;
 use App\Services\PaymentMethods;
 use App\Services\PosCatalogService;
 use App\Services\PosSaleService;
@@ -48,6 +50,12 @@ class PosController extends Controller
                 'created_at' => $order->created_at?->toIso8601String(),
             ]);
 
+        $till = TillSession::query()
+            ->where('branch_id', $branch->id)
+            ->where('status', 'OPEN')
+            ->latest('opened_at')
+            ->first();
+
         return Inertia::render('pos/index', [
             'context' => [
                 'branch' => [
@@ -81,13 +89,20 @@ class PosController extends Controller
         ]);
     }
 
-    public function status(Request $request, Order $order, PosSaleService $sales): JsonResponse
+    public function status(Request $request, Order $order, PosSaleService $sales, MpesaStatusService $statuses): JsonResponse
     {
         $branch = $this->terminalBranch($request);
 
         abort_unless((int) $order->branch_id === (int) $branch->id, 403);
 
-        return response()->json($sales->status($order, $request->user()));
+        /** @var Payment|null $payment */
+        $payment = $order->payments()->latest()->first();
+
+        if ($payment !== null && $payment->status === 'pending' && $payment->gateway === 'mpesa') {
+            $payment = $statuses->refresh($payment);
+        }
+
+        return response()->json($sales->status($order->refresh(), $request->user()));
     }
 
     public function store(StorePosSaleRequest $request, PosSaleService $sales): JsonResponse

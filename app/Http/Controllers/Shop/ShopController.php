@@ -10,7 +10,7 @@ use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Warehouse;
-use App\Services\MpesaPaymentFinalizer;
+use App\Services\MpesaStatusService;
 use App\Services\MpesaStkService;
 use App\Services\NotificationService;
 use App\Services\OrderStockService;
@@ -383,37 +383,13 @@ class ShopController extends Controller
         ]);
     }
 
-    public function refreshStatus(Order $order, MpesaStkService $mpesa, MpesaPaymentFinalizer $finalizer): JsonResponse
+    public function refreshStatus(Order $order, MpesaStatusService $statuses): JsonResponse
     {
         $order->load(['items.productVariant.product', 'branch.region', 'pickupWarehouse', 'payments']);
         $payment = $order->payments->first();
 
         if ($payment !== null && $payment->status === 'pending' && $payment->gateway === 'mpesa') {
-            if (filled($payment->gateway_reference)) {
-                try {
-                    $result = $mpesa->queryStatus((string) $payment->gateway_reference);
-                    $code = (string) ($result['ResultCode'] ?? '');
-                    $payment->update(['last_checked_at' => now()]);
-
-                    if ($code === '0') {
-                        $finalizer->complete($payment, ['reconciliation' => $result]);
-                    } elseif (in_array($code, ['1', '1032', '1037', '2001'], true)) {
-                        $finalizer->fail(
-                            $payment,
-                            (string) ($result['ResultDesc'] ?? 'M-Pesa payment did not complete.'),
-                            ['reconciliation' => $result],
-                        );
-                    }
-                } catch (Throwable $exception) {
-                    $payment->update(['last_checked_at' => now()]);
-
-                    if ($payment->expires_at !== null && $payment->expires_at->isPast()) {
-                        $finalizer->fail($payment, 'M-Pesa did not confirm before the payment expired.');
-                    }
-                }
-            } elseif ($payment->expires_at !== null && $payment->expires_at->isPast()) {
-                $finalizer->fail($payment, 'No M-Pesa checkout request was recorded before the expiry.');
-            }
+            $statuses->refresh($payment);
         }
 
         $order->refresh()->load(['items.productVariant.product', 'branch.region', 'pickupWarehouse', 'payments']);

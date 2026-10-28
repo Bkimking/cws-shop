@@ -8,6 +8,7 @@ use App\Http\Requests\Pos\StorePosSaleRequest;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Services\MpesaPaymentFinalizer;
+use App\Services\MpesaStatusService;
 use App\Services\PaymentMethods;
 use App\Services\PosSaleService;
 use App\Services\TillService;
@@ -94,10 +95,14 @@ class OrderController extends Controller
         ]);
     }
 
-    public function paymentStatus(Request $request, Payment $payment): JsonResponse
+    public function paymentStatus(Request $request, Payment $payment, MpesaStatusService $statuses): JsonResponse
     {
         $branch = $this->terminalBranch($request);
         abort_unless((int) $payment->order->branch_id === (int) $branch->id, 403);
+
+        if ($payment->status === 'pending' && $payment->gateway === 'mpesa') {
+            $payment = $statuses->refresh($payment);
+        }
 
         return response()->json([
             'message' => 'Payment status loaded.',
