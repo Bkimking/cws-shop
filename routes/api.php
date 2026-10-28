@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\CatalogController;
 use App\Http\Controllers\Api\V1\MiscController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\TillController;
+use App\Http\Middleware\EnsureIdempotent;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/payments/mpesa/callback', MpesaCallbackController::class)
@@ -48,7 +49,7 @@ Route::prefix('v1')->group(function () {
             Route::get('today', [OrderController::class, 'today'])->name('today');
             Route::get('{order}', [OrderController::class, 'show'])->name('show');
             Route::post('/', [OrderController::class, 'store'])
-                ->middleware('permission:create orders')
+                ->middleware(['permission:create orders', EnsureIdempotent::class])
                 ->name('store');
         });
 

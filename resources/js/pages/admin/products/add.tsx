@@ -1,5 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEvent, useState } from 'react';
+import { BarcodeLabel } from '@/components/barcode-label';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -52,10 +53,13 @@ export default function AdminProductCreate({ categories, regions }: Props) {
         category_id: '',
         name: '',
         sku: '',
+        barcode: '',
         description: '',
         base_price: '',
         is_active: true,
-        variants: [{ variant_name: '', sku_suffix: '', price_delta: '' }],
+        variants: [
+            { variant_name: '', sku_suffix: '', barcode: '', price_delta: '' },
+        ],
         region_prices: [] as Array<{
             region_id: string;
             price_override: string;
@@ -179,7 +183,7 @@ export default function AdminProductCreate({ categories, regions }: Props) {
     const addVariant = () => {
         setData('variants', [
             ...data.variants,
-            { variant_name: '', sku_suffix: '', price_delta: '' },
+            { variant_name: '', sku_suffix: '', barcode: '', price_delta: '' },
         ]);
         setVariantLocked([...variantLocked, true]);
         setVariantPreview([...variantPreview, '']);
@@ -350,6 +354,29 @@ export default function AdminProductCreate({ categories, regions }: Props) {
                                         </p>
                                     )}
                                 </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="barcode">Product barcode</Label>
+                                <Input
+                                    id="barcode"
+                                    value={data.barcode}
+                                    onChange={(e) =>
+                                        setData('barcode', e.target.value)
+                                    }
+                                    placeholder="Scan or leave blank to generate automatically"
+                                    maxLength={80}
+                                />
+                                {errors.barcode && (
+                                    <p className="text-xs text-destructive">
+                                        {errors.barcode}
+                                    </p>
+                                )}
+                                <BarcodeLabel
+                                    value={data.barcode}
+                                    label={data.name}
+                                    showPrint
+                                />
                             </div>
 
                             <div className="space-y-2">
@@ -655,6 +682,26 @@ export default function AdminProductCreate({ categories, regions }: Props) {
                                                     Generate
                                                 </Button>
                                             )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label
+                                            htmlFor={`variant-barcode-${index}`}
+                                        >
+                                            Variant barcode
+                                        </Label>
+                                        <Input
+                                            id={`variant-barcode-${index}`}
+                                            value={variant.barcode ?? ''}
+                                            onChange={(e) =>
+                                                updateVariant(
+                                                    index,
+                                                    'barcode',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="Scan or auto-generate"
+                                            maxLength={80}
+                                        />
                                     </div>
                                     <div className="space-y-2">
                                         <Label

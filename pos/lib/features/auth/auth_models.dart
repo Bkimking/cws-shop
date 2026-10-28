@@ -17,6 +17,8 @@ class AuthSession {
 
   String get name => (user['name'] ?? 'Cashier').toString();
 
+  bool get twoFactorEnabled => user['two_factor_enabled'] == true;
+
   factory AuthSession.fromLogin(Map<String, dynamic> data) {
     return AuthSession(
       token: (data['token'] ?? '').toString(),

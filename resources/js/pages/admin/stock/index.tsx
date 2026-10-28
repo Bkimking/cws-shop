@@ -52,6 +52,7 @@ interface ProductVariantSimple {
     id: number;
     variant_name: string;
     sku_suffix: string | null;
+    barcode: string | null;
 }
 
 interface Product {
@@ -67,6 +68,7 @@ interface ProductVariant {
     id: number;
     variant_name: string;
     sku_suffix: string | null;
+    barcode: string | null;
     price_delta: number;
     product: {
         id: number;
@@ -199,6 +201,7 @@ export default function StockIndex({
         stockList[0]?.id ?? null,
     );
     const [searchQuery, setSearchQuery] = useState('');
+    const [stockScan, setStockScan] = useState('');
     const [selectedWarehouseFilter, setSelectedWarehouseFilter] =
         useState<string>('all');
     const [selectedStateFilter, setSelectedStateFilter] =
@@ -287,6 +290,29 @@ export default function StockIndex({
         });
     };
 
+    const handleStockScan = (value: string) => {
+        setStockScan(value);
+        const term = value.trim().toLowerCase();
+        if (!term) return;
+
+        for (const product of products) {
+            const variant = product.variants.find(
+                (item) =>
+                    item.barcode?.toLowerCase() === term ||
+                    `${product.sku}${item.sku_suffix ?? ''}`.toLowerCase() ===
+                        term,
+            );
+
+            if (variant) {
+                setSelectedCategoryId(String(product.category_id));
+                setSelectedProductId(String(product.id));
+                setCreateData('product_variant_id', String(variant.id));
+                setStockScan('');
+                return;
+            }
+        }
+    };
+
     const selectedStock =
         stockList.find((s) => s.id === selectedStockId) || stockList[0] || null;
 
@@ -297,6 +323,12 @@ export default function StockIndex({
                 ?.toLowerCase()
                 .includes(searchQuery.toLowerCase()) ||
             s.product_variant?.product?.sku
+                ?.toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+            s.product_variant?.barcode
+                ?.toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+            s.product_variant?.sku_suffix
                 ?.toLowerCase()
                 .includes(searchQuery.toLowerCase());
         const matchesWarehouse =
@@ -556,6 +588,22 @@ export default function StockIndex({
                                 </DialogHeader>
                                 <form onSubmit={submitCreateStockLevel}>
                                     <div className="grid gap-4 py-4">
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="stock_scan">
+                                                Scan barcode
+                                            </Label>
+                                            <Input
+                                                id="stock_scan"
+                                                autoFocus
+                                                value={stockScan}
+                                                onChange={(e) =>
+                                                    handleStockScan(
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                placeholder="Scan a product or variant barcode"
+                                            />
+                                        </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="warehouse_id">
                                                 Warehouse
@@ -830,7 +878,7 @@ export default function StockIndex({
                             <div className="relative">
                                 <Search className="absolute top-2.5 left-2.5 size-4 text-muted-foreground" />
                                 <Input
-                                    placeholder="Search products..."
+                                    placeholder="Scan barcode or search product..."
                                     value={searchQuery}
                                     onChange={(e) =>
                                         setSearchQuery(e.target.value)

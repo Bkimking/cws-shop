@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\BarcodeService;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ use Illuminate\Support\Carbon;
  * @property int $product_id
  * @property string $variant_name
  * @property string|null $sku_suffix
+ * @property string|null $barcode
  * @property string $price_delta
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -24,7 +26,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, OrderItem> $orderItems
  * @property-read Collection<int, CartItem> $cartItems
  */
-#[Fillable(['product_id', 'variant_name', 'sku_suffix', 'price_delta'])]
+#[Fillable(['product_id', 'variant_name', 'sku_suffix', 'barcode', 'price_delta'])]
 
 class ProductVariant extends Model
 {
@@ -60,5 +62,12 @@ class ProductVariant extends Model
     public function cartItems(): HasMany
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function (self $model): void {
+            app(BarcodeService::class)->variant($model);
+        });
     }
 }

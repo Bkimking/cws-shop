@@ -88,19 +88,27 @@ interface RegionsIndexProps {
 function getCountryFlag(code: string): string {
     if (!code || code.length !== 2) return '🌐';
     const offset = 127397;
-    return String.fromCodePoint(...[...code.toUpperCase()].map((c) => c.charCodeAt(0) + offset));
+    return String.fromCodePoint(
+        ...[...code.toUpperCase()].map((c) => c.charCodeAt(0) + offset),
+    );
 }
 
 export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
     const regionList = regions.data || [];
-    const [selectedRegionId, setSelectedRegionId] = useState<number>(regionList[0]?.id ?? 1);
+    const [selectedRegionId, setSelectedRegionId] = useState<number>(
+        regionList[0]?.id ?? 1,
+    );
     const [searchQuery, setSearchQuery] = useState('');
     const [deactivateModalOpen, setDeactivateModalOpen] = useState(false);
-    const [regionToDeactivate, setRegionToDeactivate] = useState<Region | null>(null);
+    const [regionToDeactivate, setRegionToDeactivate] = useState<Region | null>(
+        null,
+    );
     const [confirmRegionName, setConfirmRegionName] = useState('');
 
     // Gateway states per region initialized dynamically from backend
-    const [gatewayStates, setGatewayStates] = useState<Record<number, Record<string, boolean>>>(() => {
+    const [gatewayStates, setGatewayStates] = useState<
+        Record<number, Record<string, boolean>>
+    >(() => {
         const initial: Record<number, Record<string, boolean>> = {};
         regionList.forEach((r) => {
             const configs = r.payment_gateway_configs || [];
@@ -111,8 +119,10 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                 });
                 initial[r.id] = {
                     cash: map['cash'] ?? true,
-                    mpesa: map['mpesa'] ?? (r.country_code.toUpperCase() === 'KE'),
-                    airtel: map['airtel'] ?? (r.country_code.toUpperCase() === 'KE'),
+                    mpesa:
+                        map['mpesa'] ?? r.country_code.toUpperCase() === 'KE',
+                    airtel:
+                        map['airtel'] ?? r.country_code.toUpperCase() === 'KE',
                     card: map['card'] ?? true,
                     paypal: map['paypal'] ?? false,
                 };
@@ -129,7 +139,8 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
         return initial;
     });
 
-    const selectedRegion = regionList.find((r) => r.id === selectedRegionId) || regionList[0];
+    const selectedRegion =
+        regionList.find((r) => r.id === selectedRegionId) || regionList[0];
 
     const toggleGateway = (regionId: number, gw: string) => {
         setGatewayStates((prev) => ({
@@ -145,7 +156,7 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
         (r) =>
             r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             r.country_code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            r.currency_code.toLowerCase().includes(searchQuery.toLowerCase())
+            r.currency_code.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
     return (
@@ -158,10 +169,13 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                     <div>
                         <div className="flex items-center gap-2">
                             <Globe className="size-5 text-primary" />
-                            <h1 className="text-xl font-semibold tracking-tight">Regions</h1>
+                            <h1 className="text-xl font-semibold tracking-tight">
+                                Regions
+                            </h1>
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            Superadmin scope. Currency, tax rules, payment gateways, and branch nesting.
+                            Superadmin scope. Currency, tax rules, payment
+                            gateways, and branch nesting.
                         </p>
                     </div>
                     <div className="flex items-center gap-3">
@@ -180,29 +194,39 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                     <div className="flex w-80 shrink-0 flex-col border-r bg-muted/20">
                         <div className="border-b p-3">
                             <div className="relative">
-                                <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
+                                <Search className="absolute top-2.5 left-2.5 size-4 text-muted-foreground" />
                                 <Input
                                     placeholder="Search regions or currency..."
                                     value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    onChange={(e) =>
+                                        setSearchQuery(e.target.value)
+                                    }
                                     className="h-9 pl-8 text-sm"
                                 />
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto p-2 space-y-1">
+                        <div className="flex-1 space-y-1 overflow-y-auto p-2">
                             {filteredRegions.map((region) => {
-                                const isSelected = region.id === selectedRegion?.id;
-                                const flag = getCountryFlag(region.country_code);
+                                const isSelected =
+                                    region.id === selectedRegion?.id;
+                                const flag = getCountryFlag(
+                                    region.country_code,
+                                );
 
                                 return (
                                     <div
                                         key={region.id}
                                         role="button"
                                         tabIndex={0}
-                                        onClick={() => setSelectedRegionId(region.id)}
+                                        onClick={() =>
+                                            setSelectedRegionId(region.id)
+                                        }
                                         onKeyDown={(e) => {
-                                            if (e.key === 'Enter' || e.key === ' ') {
+                                            if (
+                                                e.key === 'Enter' ||
+                                                e.key === ' '
+                                            ) {
                                                 setSelectedRegionId(region.id);
                                             }
                                         }}
@@ -214,7 +238,9 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                     >
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2">
-                                                <span className="text-base leading-none">{flag}</span>
+                                                <span className="text-base leading-none">
+                                                    {flag}
+                                                </span>
                                                 <span className="text-sm font-semibold tracking-tight">
                                                     {region.name}
                                                 </span>
@@ -227,7 +253,10 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                                             : 'fill-muted-foreground text-muted-foreground'
                                                     }`}
                                                 />
-                                                <Badge variant="outline" className="font-mono text-[10px]">
+                                                <Badge
+                                                    variant="outline"
+                                                    className="font-mono text-[10px]"
+                                                >
                                                     {region.currency_code}
                                                 </Badge>
                                             </div>
@@ -236,7 +265,10 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                                             <span className="flex items-center gap-1">
                                                 <Building2 className="size-3" />
-                                                {region.branches_count} {region.branches_count === 1 ? 'branch' : 'branches'}
+                                                {region.branches_count}{' '}
+                                                {region.branches_count === 1
+                                                    ? 'branch'
+                                                    : 'branches'}
                                             </span>
                                             <span className="font-mono">
                                                 Tax: {region.tax_rate}%
@@ -247,7 +279,8 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                             })}
                             {filteredRegions.length === 0 && (
                                 <div className="p-6 text-center text-sm text-muted-foreground">
-                                    No regions found matching &quot;{searchQuery}&quot;
+                                    No regions found matching &quot;
+                                    {searchQuery}&quot;
                                 </div>
                             )}
                         </div>
@@ -261,7 +294,9 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                 <div className="flex shrink-0 items-center justify-between border-b px-6 py-4">
                                     <div className="flex items-center gap-3">
                                         <div className="flex size-11 items-center justify-center rounded-lg border bg-muted/30 text-2xl shadow-xs">
-                                            {getCountryFlag(selectedRegion.country_code)}
+                                            {getCountryFlag(
+                                                selectedRegion.country_code,
+                                            )}
                                         </div>
                                         <div>
                                             <div className="flex items-center gap-2.5">
@@ -269,25 +304,45 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                                     {selectedRegion.name}
                                                 </h2>
                                                 <Badge
-                                                    variant={selectedRegion.is_active ? 'default' : 'secondary'}
+                                                    variant={
+                                                        selectedRegion.is_active
+                                                            ? 'default'
+                                                            : 'secondary'
+                                                    }
                                                     className="gap-1 text-xs"
                                                 >
                                                     <CircleDot className="size-1.5 fill-current" />
-                                                    {selectedRegion.is_active ? 'Active' : 'Inactive'}
+                                                    {selectedRegion.is_active
+                                                        ? 'Active'
+                                                        : 'Inactive'}
                                                 </Badge>
-                                                <Badge variant="outline" className="font-mono text-xs">
-                                                    {selectedRegion.currency_code}
+                                                <Badge
+                                                    variant="outline"
+                                                    className="font-mono text-xs"
+                                                >
+                                                    {
+                                                        selectedRegion.currency_code
+                                                    }
                                                 </Badge>
                                             </div>
                                             <p className="text-xs text-muted-foreground">
-                                                Country: {selectedRegion.country_code} • Timezone: {selectedRegion.timezone}
+                                                Country:{' '}
+                                                {selectedRegion.country_code} •
+                                                Timezone:{' '}
+                                                {selectedRegion.timezone}
                                             </p>
                                         </div>
                                     </div>
 
                                     {/* Action Toolbar */}
                                     <div className="flex items-center gap-2">
-                                        <Link href={adminregions.edit(selectedRegion.id).url}>
+                                        <Link
+                                            href={
+                                                adminregions.edit(
+                                                    selectedRegion.id,
+                                                ).url
+                                            }
+                                        >
                                             <Button variant="outline" size="sm">
                                                 <Pencil className="mr-1.5 size-3.5" />
                                                 Edit
@@ -299,9 +354,13 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                                 size="sm"
                                                 className="text-destructive hover:bg-destructive/10"
                                                 onClick={() => {
-                                                    setRegionToDeactivate(selectedRegion);
+                                                    setRegionToDeactivate(
+                                                        selectedRegion,
+                                                    );
                                                     setConfirmRegionName('');
-                                                    setDeactivateModalOpen(true);
+                                                    setDeactivateModalOpen(
+                                                        true,
+                                                    );
                                                 }}
                                             >
                                                 <Ban className="mr-1.5 size-3.5" />
@@ -314,13 +373,15 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                                 className="text-emerald-600 hover:bg-emerald-50"
                                                 onClick={() => {
                                                     router.post(
-                                                        adminregions.reactivate(selectedRegion.id).url,
+                                                        adminregions.reactivate(
+                                                            selectedRegion.id,
+                                                        ).url,
                                                         {},
                                                         {
                                                             onSuccess: () => {
                                                                 // Keep current selection after reactivation
                                                             },
-                                                        }
+                                                        },
                                                     );
                                                 }}
                                             >
@@ -333,103 +394,152 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
 
                                 {/* Tabs Navigation */}
                                 <div className="flex-1 overflow-y-auto p-6">
-                                    <Tabs defaultValue="overview" className="space-y-6">
+                                    <Tabs
+                                        defaultValue="overview"
+                                        className="space-y-6"
+                                    >
                                         <TabsList className="bg-muted/60 p-1">
-                                            <TabsTrigger value="overview" className="text-xs">
+                                            <TabsTrigger
+                                                value="overview"
+                                                className="text-xs"
+                                            >
                                                 Overview
                                             </TabsTrigger>
-                                            <TabsTrigger value="gateways" className="text-xs">
+                                            <TabsTrigger
+                                                value="gateways"
+                                                className="text-xs"
+                                            >
                                                 Payment Gateways
                                             </TabsTrigger>
-                                            <TabsTrigger value="branches" className="text-xs">
-                                                Branches ({selectedRegion.branches_count})
+                                            <TabsTrigger
+                                                value="branches"
+                                                className="text-xs"
+                                            >
+                                                Branches (
+                                                {selectedRegion.branches_count})
                                             </TabsTrigger>
-                                            <TabsTrigger value="activity" className="text-xs">
+                                            <TabsTrigger
+                                                value="activity"
+                                                className="text-xs"
+                                            >
                                                 Activity
                                             </TabsTrigger>
                                         </TabsList>
 
                                         {/* Tab 1: Overview */}
-                                        <TabsContent value="overview" className="space-y-6">
+                                        <TabsContent
+                                            value="overview"
+                                            className="space-y-6"
+                                        >
                                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                                                 <Card className="border shadow-xs">
-                                                    <CardContent className="p-4 space-y-1">
+                                                    <CardContent className="space-y-1 p-4">
                                                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                                                             <DollarSign className="size-3.5" />
                                                             Currency
                                                         </div>
                                                         <div className="font-mono text-lg font-bold">
-                                                            {selectedRegion.currency_code}
+                                                            {
+                                                                selectedRegion.currency_code
+                                                            }
                                                         </div>
                                                         <div className="text-[11px] text-muted-foreground">
-                                                            Primary tender currency
+                                                            Primary tender
+                                                            currency
                                                         </div>
                                                     </CardContent>
                                                 </Card>
 
                                                 <Card className="border shadow-xs">
-                                                    <CardContent className="p-4 space-y-1">
+                                                    <CardContent className="space-y-1 p-4">
                                                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                                                             <Percent className="size-3.5" />
                                                             Tax Rate
                                                         </div>
                                                         <div className="font-mono text-lg font-bold">
-                                                            {selectedRegion.tax_rate}%
+                                                            {
+                                                                selectedRegion.tax_rate
+                                                            }
+                                                            %
                                                         </div>
                                                         <div className="text-[11px] text-muted-foreground">
-                                                            {selectedRegion.tax_label || 'Standard VAT'}
+                                                            {selectedRegion.tax_label ||
+                                                                'Standard VAT'}
                                                         </div>
                                                     </CardContent>
                                                 </Card>
 
                                                 <Card className="border shadow-xs">
-                                                    <CardContent className="p-4 space-y-1">
+                                                    <CardContent className="space-y-1 p-4">
                                                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                                                             <Clock className="size-3.5" />
                                                             Timezone
                                                         </div>
-                                                        <div className="text-base font-semibold truncate">
-                                                            {selectedRegion.timezone}
+                                                        <div className="truncate text-base font-semibold">
+                                                            {
+                                                                selectedRegion.timezone
+                                                            }
                                                         </div>
                                                         <div className="text-[11px] text-muted-foreground">
-                                                            Shift & till cutoff times
+                                                            Shift & till cutoff
+                                                            times
                                                         </div>
                                                     </CardContent>
                                                 </Card>
 
                                                 <Card className="border shadow-xs">
-                                                    <CardContent className="p-4 space-y-1">
+                                                    <CardContent className="space-y-1 p-4">
                                                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                                                             <Building2 className="size-3.5" />
                                                             Active Stores
                                                         </div>
                                                         <div className="font-mono text-lg font-bold">
-                                                            {selectedRegion.branches_count}
+                                                            {
+                                                                selectedRegion.branches_count
+                                                            }
                                                         </div>
                                                         <div className="text-[11px] text-muted-foreground">
-                                                            Across this territory
+                                                            Across this
+                                                            territory
                                                         </div>
                                                     </CardContent>
                                                 </Card>
                                             </div>
 
                                             <Card className="border">
-                                                <div className="border-b px-4 py-3 bg-muted/20">
-                                                    <h3 className="text-sm font-semibold">Locale & Taxation Specs</h3>
+                                                <div className="border-b bg-muted/20 px-4 py-3">
+                                                    <h3 className="text-sm font-semibold">
+                                                        Locale & Taxation Specs
+                                                    </h3>
                                                 </div>
-                                                <CardContent className="p-4 divide-y divide-border/60 text-sm">
+                                                <CardContent className="divide-y divide-border/60 p-4 text-sm">
                                                     <div className="flex items-center justify-between py-2">
-                                                        <span className="text-muted-foreground">Country Code</span>
-                                                        <span className="font-mono font-medium">{selectedRegion.country_code}</span>
+                                                        <span className="text-muted-foreground">
+                                                            Country Code
+                                                        </span>
+                                                        <span className="font-mono font-medium">
+                                                            {
+                                                                selectedRegion.country_code
+                                                            }
+                                                        </span>
                                                     </div>
                                                     <div className="flex items-center justify-between py-2">
-                                                        <span className="text-muted-foreground">Tax Identifier Label</span>
-                                                        <span className="font-medium">{selectedRegion.tax_label || 'VAT / Sales Tax'}</span>
+                                                        <span className="text-muted-foreground">
+                                                            Tax Identifier Label
+                                                        </span>
+                                                        <span className="font-medium">
+                                                            {selectedRegion.tax_label ||
+                                                                'VAT / Sales Tax'}
+                                                        </span>
                                                     </div>
                                                     <div className="flex items-center justify-between py-2">
-                                                        <span className="text-muted-foreground">Sales Restriction Status</span>
-                                                        <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-                                                            Operational (New sales permitted)
+                                                        <span className="text-muted-foreground">
+                                                            Sales Restriction
+                                                            Status
+                                                        </span>
+                                                        <span className="font-medium text-emerald-600 dark:text-emerald-400">
+                                                            Operational (New
+                                                            sales permitted)
                                                         </span>
                                                     </div>
                                                 </CardContent>
@@ -437,51 +547,111 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                         </TabsContent>
 
                                         {/* Tab 2: Gateways */}
-                                        <TabsContent value="gateways" className="space-y-4">
+                                        <TabsContent
+                                            value="gateways"
+                                            className="space-y-4"
+                                        >
                                             <div className="rounded-lg border bg-muted/30 p-4 text-xs text-muted-foreground">
-                                                Toggle which payment providers and methods are enabled for cashiers across branches in <strong>{selectedRegion.name}</strong>.
+                                                Toggle which payment providers
+                                                and methods are enabled for
+                                                cashiers across branches in{' '}
+                                                <strong>
+                                                    {selectedRegion.name}
+                                                </strong>
+                                                .
                                             </div>
 
                                             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                                                 {[
-                                                    { key: 'cash', name: 'Cash', icon: Banknote, desc: 'Physical cash till tender & drawer drops' },
-                                                    { key: 'mpesa', name: 'M-Pesa (Daraja)', icon: Smartphone, desc: 'Direct STK push & C2B till confirmation' },
-                                                    { key: 'airtel', name: 'Airtel Money', icon: Smartphone, desc: 'Airtel merchant collection & express USSD' },
-                                                    { key: 'card', name: 'Card Terminal / Pesapal', icon: CreditCard, desc: 'Integrated EFTPOS terminal or Pesapal gateway' },
-                                                    { key: 'paypal', name: 'PayPal', icon: Coins, desc: 'International tourist storefront payments' },
+                                                    {
+                                                        key: 'cash',
+                                                        name: 'Cash',
+                                                        icon: Banknote,
+                                                        desc: 'Physical cash till tender & drawer drops',
+                                                    },
+                                                    {
+                                                        key: 'mpesa',
+                                                        name: 'M-Pesa (Daraja)',
+                                                        icon: Smartphone,
+                                                        desc: 'Direct STK push & C2B till confirmation',
+                                                    },
+                                                    {
+                                                        key: 'airtel',
+                                                        name: 'Airtel Money',
+                                                        icon: Smartphone,
+                                                        desc: 'Airtel merchant collection & express USSD',
+                                                    },
+                                                    {
+                                                        key: 'card',
+                                                        name: 'Card Terminal / Pesapal',
+                                                        icon: CreditCard,
+                                                        desc: 'Integrated EFTPOS terminal or Pesapal gateway',
+                                                    },
+                                                    {
+                                                        key: 'paypal',
+                                                        name: 'PayPal',
+                                                        icon: Coins,
+                                                        desc: 'International tourist storefront payments',
+                                                    },
                                                 ].map((gw) => {
-                                                    const isEnabled = gatewayStates[selectedRegion.id]?.[gw.key] ?? false;
+                                                    const isEnabled =
+                                                        gatewayStates[
+                                                            selectedRegion.id
+                                                        ]?.[gw.key] ?? false;
                                                     const Icon = gw.icon;
 
                                                     return (
                                                         <div
                                                             key={gw.key}
                                                             className={`flex items-center justify-between rounded-lg border p-4 transition-colors ${
-                                                                isEnabled ? 'border-primary/40 bg-primary/5' : 'bg-card'
+                                                                isEnabled
+                                                                    ? 'border-primary/40 bg-primary/5'
+                                                                    : 'bg-card'
                                                             }`}
                                                         >
                                                             <div className="flex items-start gap-3">
-                                                                <div className={`mt-0.5 rounded-md p-2 ${isEnabled ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                                                                <div
+                                                                    className={`mt-0.5 rounded-md p-2 ${isEnabled ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}
+                                                                >
                                                                     <Icon className="size-4" />
                                                                 </div>
                                                                 <div>
                                                                     <div className="flex items-center gap-2">
-                                                                        <h4 className="text-sm font-semibold">{gw.name}</h4>
-                                                                        <CircleDot className={`size-2 ${isEnabled ? 'fill-emerald-500 text-emerald-500' : 'fill-muted-foreground text-muted-foreground'}`} />
+                                                                        <h4 className="text-sm font-semibold">
+                                                                            {
+                                                                                gw.name
+                                                                            }
+                                                                        </h4>
+                                                                        <CircleDot
+                                                                            className={`size-2 ${isEnabled ? 'fill-emerald-500 text-emerald-500' : 'fill-muted-foreground text-muted-foreground'}`}
+                                                                        />
                                                                     </div>
-                                                                    <p className="text-xs text-muted-foreground mt-0.5">
-                                                                        {gw.desc}
+                                                                    <p className="mt-0.5 text-xs text-muted-foreground">
+                                                                        {
+                                                                            gw.desc
+                                                                        }
                                                                     </p>
                                                                 </div>
                                                             </div>
 
                                                             <Button
-                                                                variant={isEnabled ? 'default' : 'outline'}
+                                                                variant={
+                                                                    isEnabled
+                                                                        ? 'default'
+                                                                        : 'outline'
+                                                                }
                                                                 size="sm"
-                                                                onClick={() => toggleGateway(selectedRegion.id, gw.key)}
+                                                                onClick={() =>
+                                                                    toggleGateway(
+                                                                        selectedRegion.id,
+                                                                        gw.key,
+                                                                    )
+                                                                }
                                                                 className="h-8 text-xs"
                                                             >
-                                                                {isEnabled ? 'Enabled' : 'Disabled'}
+                                                                {isEnabled
+                                                                    ? 'Enabled'
+                                                                    : 'Disabled'}
                                                             </Button>
                                                         </div>
                                                     );
@@ -490,11 +660,25 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                         </TabsContent>
 
                                         {/* Tab 3: Branches Table */}
-                                        <TabsContent value="branches" className="space-y-4">
+                                        <TabsContent
+                                            value="branches"
+                                            className="space-y-4"
+                                        >
                                             <div className="flex items-center justify-between">
-                                                <h3 className="text-sm font-semibold">Registered Stores in {selectedRegion.name}</h3>
-                                                <Link href={adminregions.create().url}>
-                                                    <Button size="sm" variant="outline">
+                                                <h3 className="text-sm font-semibold">
+                                                    Registered Stores in{' '}
+                                                    {selectedRegion.name}
+                                                </h3>
+                                                <Link
+                                                    href={
+                                                        adminregions.create()
+                                                            .url
+                                                    }
+                                                >
+                                                    <Button
+                                                        size="sm"
+                                                        variant="outline"
+                                                    >
                                                         <Plus className="mr-1.5 size-3.5" />
                                                         Add Store to Region
                                                     </Button>
@@ -505,48 +689,97 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                                                 <Table>
                                                     <TableHeader>
                                                         <TableRow className="bg-muted/50">
-                                                            <TableHead>Store Name</TableHead>
-                                                            <TableHead>Contact Phone</TableHead>
-                                                            <TableHead>Staff Assigned</TableHead>
-                                                            <TableHead>Till Status</TableHead>
-                                                            <TableHead className="text-right">Action</TableHead>
+                                                            <TableHead>
+                                                                Store Name
+                                                            </TableHead>
+                                                            <TableHead>
+                                                                Contact Phone
+                                                            </TableHead>
+                                                            <TableHead>
+                                                                Staff Assigned
+                                                            </TableHead>
+                                                            <TableHead>
+                                                                Till Status
+                                                            </TableHead>
+                                                            <TableHead className="text-right">
+                                                                Action
+                                                            </TableHead>
                                                         </TableRow>
                                                     </TableHeader>
                                                     <TableBody>
-                                                        {selectedRegion.branches && selectedRegion.branches.length > 0 ? (
-                                                            selectedRegion.branches.map((b) => (
-                                                                <TableRow key={b.id}>
-                                                                    <TableCell className="font-medium">
-                                                                        <div className="flex items-center gap-2">
-                                                                            <Store className="size-4 text-muted-foreground" />
-                                                                            <span>{b.name}</span>
-                                                                        </div>
-                                                                    </TableCell>
-                                                                    <TableCell className="text-xs text-muted-foreground">
-                                                                        {b.phone || '—'}
-                                                                    </TableCell>
-                                                                    <TableCell className="text-xs">
-                                                                        {b.users ? b.users.length : (b.users_count ?? 0)} staff
-                                                                    </TableCell>
-                                                                    <TableCell>
-                                                                        <Badge variant="outline" className="gap-1 text-[11px]">
-                                                                            <CircleDot className={`size-1.5 ${b.is_active !== false ? 'fill-emerald-500 text-emerald-500' : 'fill-muted-foreground text-muted-foreground'}`} />
-                                                                            {b.is_active !== false ? 'Active' : 'Inactive'}
-                                                                        </Badge>
-                                                                    </TableCell>
-                                                                    <TableCell className="text-right">
-                                                                        <Link href={`/admin/branches`}>
-                                                                            <Button variant="ghost" size="sm" className="h-7 text-xs">
-                                                                                View
-                                                                            </Button>
-                                                                        </Link>
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                            ))
+                                                        {selectedRegion.branches &&
+                                                        selectedRegion.branches
+                                                            .length > 0 ? (
+                                                            selectedRegion.branches.map(
+                                                                (b) => (
+                                                                    <TableRow
+                                                                        key={
+                                                                            b.id
+                                                                        }
+                                                                    >
+                                                                        <TableCell className="font-medium">
+                                                                            <div className="flex items-center gap-2">
+                                                                                <Store className="size-4 text-muted-foreground" />
+                                                                                <span>
+                                                                                    {
+                                                                                        b.name
+                                                                                    }
+                                                                                </span>
+                                                                            </div>
+                                                                        </TableCell>
+                                                                        <TableCell className="text-xs text-muted-foreground">
+                                                                            {b.phone ||
+                                                                                '—'}
+                                                                        </TableCell>
+                                                                        <TableCell className="text-xs">
+                                                                            {b.users
+                                                                                ? b
+                                                                                      .users
+                                                                                      .length
+                                                                                : (b.users_count ??
+                                                                                  0)}{' '}
+                                                                            staff
+                                                                        </TableCell>
+                                                                        <TableCell>
+                                                                            <Badge
+                                                                                variant="outline"
+                                                                                className="gap-1 text-[11px]"
+                                                                            >
+                                                                                <CircleDot
+                                                                                    className={`size-1.5 ${b.is_active !== false ? 'fill-emerald-500 text-emerald-500' : 'fill-muted-foreground text-muted-foreground'}`}
+                                                                                />
+                                                                                {b.is_active !==
+                                                                                false
+                                                                                    ? 'Active'
+                                                                                    : 'Inactive'}
+                                                                            </Badge>
+                                                                        </TableCell>
+                                                                        <TableCell className="text-right">
+                                                                            <Link
+                                                                                href={`/admin/branches`}
+                                                                            >
+                                                                                <Button
+                                                                                    variant="ghost"
+                                                                                    size="sm"
+                                                                                    className="h-7 text-xs"
+                                                                                >
+                                                                                    View
+                                                                                </Button>
+                                                                            </Link>
+                                                                        </TableCell>
+                                                                    </TableRow>
+                                                                ),
+                                                            )
                                                         ) : (
                                                             <TableRow>
-                                                                <TableCell colSpan={5} className="h-24 text-center text-xs text-muted-foreground">
-                                                                    No branches registered in this region yet.
+                                                                <TableCell
+                                                                    colSpan={5}
+                                                                    className="h-24 text-center text-xs text-muted-foreground"
+                                                                >
+                                                                    No branches
+                                                                    registered
+                                                                    in this
+                                                                    region yet.
                                                                 </TableCell>
                                                             </TableRow>
                                                         )}
@@ -557,9 +790,15 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
 
                                         {/* Tab 4: Activity Log */}
                                         <TabsContent value="activity">
-                                            <ActivityTimeline 
-                                                fetchUrl={adminactivity.region({ region: selectedRegion.id }).url}
-                                                subjectLabel={selectedRegion.name}
+                                            <ActivityTimeline
+                                                fetchUrl={
+                                                    adminactivity.region({
+                                                        region: selectedRegion.id,
+                                                    }).url
+                                                }
+                                                subjectLabel={
+                                                    selectedRegion.name
+                                                }
                                             />
                                         </TabsContent>
                                     </Tabs>
@@ -575,19 +814,32 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
             </div>
 
             {/* Typed ConfirmDialog for Region Deactivation (per doc 06) */}
-            <Dialog open={deactivateModalOpen} onOpenChange={setDeactivateModalOpen}>
+            <Dialog
+                open={deactivateModalOpen}
+                onOpenChange={setDeactivateModalOpen}
+            >
                 <DialogContent>
                     <DialogHeader>
                         <div className="flex items-center gap-2 text-destructive">
                             <AlertTriangle className="size-5" />
-                            <DialogTitle>Deactivate Region &ldquo;{regionToDeactivate?.name}&rdquo;</DialogTitle>
+                            <DialogTitle>
+                                Deactivate Region &ldquo;
+                                {regionToDeactivate?.name}&rdquo;
+                            </DialogTitle>
                         </div>
                         <DialogDescription className="space-y-2 pt-2 text-sm">
                             <span className="block font-medium text-foreground">
-                                Deactivating {regionToDeactivate?.name} hides it from switchers and stops new sales in its branches. Existing orders stay.
+                                Deactivating {regionToDeactivate?.name} hides it
+                                from switchers and stops new sales in its
+                                branches. Existing orders stay.
                             </span>
                             <span className="block text-muted-foreground">
-                                To confirm deactivation, please type the region name <strong className="text-foreground">{regionToDeactivate?.name}</strong> below:
+                                To confirm deactivation, please type the region
+                                name{' '}
+                                <strong className="text-foreground">
+                                    {regionToDeactivate?.name}
+                                </strong>{' '}
+                                below:
                             </span>
                         </DialogDescription>
                     </DialogHeader>
@@ -596,28 +848,50 @@ export default function AdminRegionsIndex({ regions }: RegionsIndexProps) {
                         <Input
                             placeholder="Type region name to confirm"
                             value={confirmRegionName}
-                            onChange={(e) => setConfirmRegionName(e.target.value)}
+                            onChange={(e) =>
+                                setConfirmRegionName(e.target.value)
+                            }
                             className="font-mono text-sm"
                         />
                     </div>
 
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDeactivateModalOpen(false)}>
+                        <Button
+                            variant="outline"
+                            onClick={() => setDeactivateModalOpen(false)}
+                        >
                             Cancel
                         </Button>
                         <Button
                             variant="destructive"
-                            disabled={confirmRegionName !== regionToDeactivate?.name}
+                            disabled={
+                                confirmRegionName !== regionToDeactivate?.name
+                            }
                             onClick={() => {
+                                const regionId = regionToDeactivate?.id;
+                                if (!regionId) return;
                                 setDeactivateModalOpen(false);
-                                router.delete(adminregions.destroy(regionToDeactivate?.id).url, {
-                                    onSuccess: (page) => {
-                                        const updatedRegions = page.props.regions?.data || [];
-                                        // Select first available region after deletion
-                                        const nextRegion = updatedRegions[0];
-                                        setSelectedRegionId(nextRegion?.id ?? 0);
+                                router.delete(
+                                    adminregions.destroy(regionId).url,
+                                    {
+                                        onSuccess: (page) => {
+                                            const updatedRegions =
+                                                (
+                                                    page.props as {
+                                                        regions?: {
+                                                            data?: Region[];
+                                                        };
+                                                    }
+                                                ).regions?.data ?? [];
+                                            // Select first available region after deletion
+                                            const nextRegion =
+                                                updatedRegions[0];
+                                            setSelectedRegionId(
+                                                nextRegion?.id ?? 0,
+                                            );
+                                        },
                                     },
-                                });
+                                );
                             }}
                         >
                             Deactivate Region

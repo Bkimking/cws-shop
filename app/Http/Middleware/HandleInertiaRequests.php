@@ -79,6 +79,27 @@ class HandleInertiaRequests extends Middleware
                 'skipped_at' => $user?->tour_skipped_at?->toIso8601String(),
                 'guide_url' => $user?->can('access admin panel') ? route('admin.guide.index') : null,
             ],
+            'security' => [
+                'two_factor_enabled' => $user?->two_factor_confirmed_at !== null,
+                'security_url' => $user?->can('access admin panel') ? route('security.edit') : null,
+            ],
+            'notifications' => [
+                'unread' => $user?->unreadNotifications()->count() ?? 0,
+                'recent' => $user !== null
+                    ? $user->notifications()
+                        ->latest()
+                        ->limit(5)
+                        ->get()
+                        ->map(fn ($notification) => [
+                            'id' => $notification->id,
+                            'data' => $notification->data,
+                            'read_at' => $notification->read_at?->toIso8601String(),
+                            'created_at' => $notification->created_at?->toIso8601String(),
+                        ])
+                        ->values()
+                        ->all()
+                    : [],
+            ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'ai' => [
                 'enabled' => $user ? $aiSettings->enabledFor('admin_chat', $user->region) : false,

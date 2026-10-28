@@ -1,7 +1,14 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEvent } from 'react';
+import { BarcodeLabel } from '@/components/barcode-label';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import admincategories from '@/routes/admin/categories';
@@ -10,6 +17,7 @@ import { ArrowLeft, Tag, Folder } from 'lucide-react';
 interface Category {
     id: number;
     name: string;
+    barcode: string | null;
 }
 
 interface Props {
@@ -22,6 +30,7 @@ const selectClass =
 export default function AdminCategoryCreate({ categories }: Props) {
     const { data, setData, post, processing, errors } = useForm({
         name: '',
+        barcode: '',
         parent_id: '',
     });
 
@@ -35,7 +44,7 @@ export default function AdminCategoryCreate({ categories }: Props) {
             <Head title="Add Category" />
             <div className="mx-auto w-full max-w-2xl p-6">
                 <Link href={admincategories.index().url}>
-                    <Button variant="ghost" size="sm" className="-ml-3 mb-4">
+                    <Button variant="ghost" size="sm" className="mb-4 -ml-3">
                         <ArrowLeft className="mr-1.5 size-4" />
                         Back to categories
                     </Button>
@@ -46,7 +55,9 @@ export default function AdminCategoryCreate({ categories }: Props) {
                         <Tag className="size-5 text-primary" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-semibold tracking-tight">Add Category</h1>
+                        <h1 className="text-xl font-semibold tracking-tight">
+                            Add Category
+                        </h1>
                         <p className="text-sm text-muted-foreground">
                             Create a new product category.
                         </p>
@@ -70,22 +81,58 @@ export default function AdminCategoryCreate({ categories }: Props) {
                                 <Input
                                     id="name"
                                     value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('name', e.target.value)
+                                    }
                                     placeholder="e.g. Electronics"
                                     maxLength={255}
                                 />
-                                {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
+                                {errors.name && (
+                                    <p className="text-xs text-destructive">
+                                        {errors.name}
+                                    </p>
+                                )}
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="parent_id">Parent category (optional)</Label>
+                                <Label htmlFor="barcode">
+                                    Category barcode
+                                </Label>
+                                <Input
+                                    id="barcode"
+                                    value={data.barcode}
+                                    onChange={(e) =>
+                                        setData('barcode', e.target.value)
+                                    }
+                                    placeholder="Leave blank to generate automatically"
+                                    maxLength={80}
+                                />
+                                {errors.barcode && (
+                                    <p className="text-xs text-destructive">
+                                        {errors.barcode}
+                                    </p>
+                                )}
+                                <BarcodeLabel
+                                    value={data.barcode}
+                                    label={data.name}
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="parent_id">
+                                    Parent category (optional)
+                                </Label>
                                 <select
                                     id="parent_id"
                                     className={selectClass}
                                     value={data.parent_id}
-                                    onChange={(e) => setData('parent_id', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('parent_id', e.target.value)
+                                    }
                                 >
-                                    <option value="">No parent (top-level category)</option>
+                                    <option value="">
+                                        No parent (top-level category)
+                                    </option>
                                     {categories.map((cat) => (
                                         <option key={cat.id} value={cat.id}>
                                             {cat.name}
@@ -93,7 +140,9 @@ export default function AdminCategoryCreate({ categories }: Props) {
                                     ))}
                                 </select>
                                 {errors.parent_id && (
-                                    <p className="text-xs text-destructive">{errors.parent_id}</p>
+                                    <p className="text-xs text-destructive">
+                                        {errors.parent_id}
+                                    </p>
                                 )}
                             </div>
                         </CardContent>

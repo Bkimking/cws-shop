@@ -24,7 +24,7 @@ class StockController extends Controller
         $query = StockLevel::with([
             'warehouse:id,name,branch_id',
             'warehouse.branch:id,name,region_id',
-            'productVariant:id,product_id,variant_name,sku_suffix,price_delta',
+            'productVariant:id,product_id,variant_name,sku_suffix,barcode,price_delta',
             'productVariant.product:id,name,sku,category_id',
             'productVariant.product.category:id,name',
         ]);
@@ -67,7 +67,7 @@ class StockController extends Controller
                 ->when($scopedBranchId, fn ($q) => $q->where('branch_id', $scopedBranchId))
                 ->get(['id', 'name', 'branch_id']),
             'categories' => Category::all(['id', 'name']),
-            'products' => Product::with(['category:id,name', 'variants:id,product_id,variant_name,sku_suffix'])
+            'products' => Product::with(['category:id,name', 'variants:id,product_id,variant_name,sku_suffix,barcode'])
                 ->where('is_active', true)
                 ->get(['id', 'name', 'sku', 'category_id']),
         ]);
@@ -80,7 +80,7 @@ class StockController extends Controller
         $stockLevel->load([
             'warehouse:id,name,branch_id',
             'warehouse.branch:id,name,region_id',
-            'productVariant:id,product_id,variant_name,sku_suffix,price_delta',
+            'productVariant:id,product_id,variant_name,sku_suffix,barcode,price_delta',
             'productVariant.product:id,name,sku,category_id',
             'productVariant.product.category:id,name',
         ]);

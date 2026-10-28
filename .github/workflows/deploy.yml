@@ -50,6 +50,7 @@ jobs:
             --exclude='storage/logs' \
             --exclude='node_modules' \
             --exclude='storage/framework/sessions' \
+            --exclude='pos' \
             -e "ssh -p ${{ secrets.SSH_PORT }}" \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/cws.shop.codewithsky.co.ke/
 

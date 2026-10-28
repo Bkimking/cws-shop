@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Services\BarcodeService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -39,13 +40,15 @@ class CategoryController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'barcode' => 'nullable|string|max:80|unique:categories,barcode',
             'parent_id' => 'nullable|exists:categories,id',
         ]);
 
-        Category::create([
+        $category = Category::create([
             'name' => $validated['name'],
             'parent_id' => $validated['parent_id'] ?? null,
         ]);
+        app(BarcodeService::class)->category($category);
 
         ToastHelper::success('Category created successfully!');
 
@@ -72,13 +75,16 @@ class CategoryController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'barcode' => 'nullable|string|max:80|unique:categories,barcode,'.$category->id,
             'parent_id' => 'nullable|exists:categories,id|not_in:'.$category->id,
         ]);
 
         $category->update([
             'name' => $validated['name'],
+            'barcode' => $validated['barcode'] ?? null,
             'parent_id' => $validated['parent_id'] ?? null,
         ]);
+        app(BarcodeService::class)->category($category);
 
         ToastHelper::success('Category updated successfully!');
 

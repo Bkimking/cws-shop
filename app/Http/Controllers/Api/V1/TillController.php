@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Pos\Concerns\ResolvesTerminalBranch;
+use App\Models\TillSession;
+use App\Services\NotificationService;
 use App\Services\TillService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,7 +34,9 @@ class TillController extends Controller
         ]);
 
         $branch = $this->terminalBranch($request);
+        /** @var TillSession $till */
         $till = $tills->open($branch, $request->user(), (float) $validated['opening_cash']);
+        app(NotificationService::class)->till($till, 'opened', $request->user());
 
         return response()->json([
             'message' => 'Till opened.',
@@ -53,6 +57,11 @@ class TillController extends Controller
             (float) $validated['closing_cash'],
             $validated['variance_reason'] ?? null,
         );
+        /** @var TillSession|null $closedTill */
+        $closedTill = TillSession::query()->find($summary['id']);
+        if ($closedTill !== null) {
+            app(NotificationService::class)->till($closedTill, 'closed', $request->user());
+        }
 
         return response()->json([
             'message' => 'Till closed.',

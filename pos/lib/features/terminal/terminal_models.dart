@@ -65,6 +65,7 @@ class PosProduct {
   PosProduct({
     required this.id,
     required this.name,
+    required this.barcode,
     required this.categoryId,
     required this.category,
     required this.stock,
@@ -75,6 +76,7 @@ class PosProduct {
 
   final int id;
   final String name;
+  final String? barcode;
   final int categoryId;
   final String category;
   final int stock;
@@ -88,6 +90,7 @@ class PosProduct {
     return PosProduct(
       id: (json['id'] as num).toInt(),
       name: (json['name'] ?? '').toString(),
+      barcode: json['barcode']?.toString(),
       categoryId: (json['category_id'] as num?)?.toInt() ?? 0,
       category: (json['category'] ?? '').toString(),
       stock: (json['stock'] as num?)?.toInt() ?? 0,
@@ -109,18 +112,21 @@ class PosVariant {
   PosVariant({
     required this.id,
     required this.name,
+    required this.barcode,
     required this.priceMinor,
     required this.stock,
   });
 
   final int id;
   final String name;
+  final String? barcode;
   final int priceMinor;
   final int stock;
 
   factory PosVariant.fromJson(Map<String, dynamic> json) => PosVariant(
     id: (json['id'] as num).toInt(),
     name: (json['name'] ?? '').toString(),
+    barcode: json['barcode']?.toString(),
     priceMinor: (((json['price'] as num?)?.toDouble() ?? 0) * 100).round(),
     stock: (json['stock'] as num?)?.toInt() ?? 0,
   );

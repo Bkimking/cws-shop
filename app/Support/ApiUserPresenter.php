@@ -26,6 +26,7 @@ class ApiUserPresenter
                 'email' => $user->email,
                 'roles' => $user->getRoleNames()->values()->all(),
                 'permissions' => $user->getAllPermissions()->pluck('name')->values()->all(),
+                'two_factor_enabled' => $user->two_factor_confirmed_at !== null,
             ],
             'branch' => $branch !== null ? [
                 'id' => $branch->id,

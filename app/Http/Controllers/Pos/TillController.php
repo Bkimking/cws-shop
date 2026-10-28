@@ -6,6 +6,7 @@ use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Pos\Concerns\ResolvesTerminalBranch;
 use App\Models\TillSession;
+use App\Services\NotificationService;
 use App\Services\TillReportService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class TillController extends Controller
             return back();
         }
 
-        TillSession::create([
+        $till = TillSession::create([
             'branch_id' => $branch->id,
             'user_id' => $request->user()->id,
             'opened_at' => now(),
@@ -43,6 +44,8 @@ class TillController extends Controller
             'closing_cash' => 0,
             'status' => 'OPEN',
         ]);
+
+        app(NotificationService::class)->till($till, 'opened', $request->user());
 
         ToastHelper::success('Till opened. You can start selling.');
 
@@ -86,6 +89,8 @@ class TillController extends Controller
             'status' => 'CLOSED',
             'variance_reason' => $validated['variance_reason'] ?? null,
         ]);
+
+        app(NotificationService::class)->till($till->fresh(), 'closed', $request->user());
 
         session()->flash('z_report', $reports->summary($till->fresh()));
 

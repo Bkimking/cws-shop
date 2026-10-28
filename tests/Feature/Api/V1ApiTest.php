@@ -123,4 +123,20 @@ test('a cashier can open a till and create a cash order through the API', functi
         ->assertJsonPath('data.order.total', 400);
 
     expect(Order::query()->where('branch_id', $this->branch->id)->count())->toBe(1);
+
+    $this->withHeaders([...$headers, 'Idempotency-Key' => 'test-sale-1'])
+        ->postJson('/api/v1/orders', [
+            'items' => [['product_variant_id' => $this->variant->id, 'quantity' => 1]],
+            'tendered' => 200,
+            'payment_method' => 'cash',
+        ])->assertCreated();
+
+    $this->withHeaders([...$headers, 'Idempotency-Key' => 'test-sale-1'])
+        ->postJson('/api/v1/orders', [
+            'items' => [['product_variant_id' => $this->variant->id, 'quantity' => 1]],
+            'tendered' => 200,
+            'payment_method' => 'cash',
+        ])->assertCreated();
+
+    expect(Order::query()->where('branch_id', $this->branch->id)->count())->toBe(2);
 });

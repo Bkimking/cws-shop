@@ -159,10 +159,12 @@ export default function PosIndex() {
             return (
                 product.name.toLowerCase().includes(term) ||
                 product.sku.toLowerCase().includes(term) ||
+                (product.barcode ?? '').toLowerCase().includes(term) ||
                 product.variants.some(
                     (variant) =>
                         variant.name.toLowerCase().includes(term) ||
-                        variant.sku.toLowerCase().includes(term),
+                        variant.sku.toLowerCase().includes(term) ||
+                        (variant.barcode ?? '').toLowerCase().includes(term),
                 )
             );
         });
@@ -228,6 +230,7 @@ export default function PosIndex() {
                     name: product.name,
                     variant: variant.name,
                     sku: variant.sku,
+                    barcode: variant.barcode,
                     price: variant.price,
                     quantity: 1,
                     stock: variant.stock,
@@ -271,7 +274,11 @@ export default function PosIndex() {
             .flatMap((product) =>
                 product.variants.map((variant) => ({ product, variant })),
             )
-            .find(({ variant }) => variant.sku.toLowerCase() === term);
+            .find(
+                ({ variant }) =>
+                    variant.sku.toLowerCase() === term ||
+                    (variant.barcode ?? '').toLowerCase() === term,
+            );
 
         if (exactVariant) {
             addVariant(exactVariant.product, exactVariant.variant);
@@ -281,7 +288,9 @@ export default function PosIndex() {
         }
 
         const exactProduct = productState.find(
-            (product) => product.sku.toLowerCase() === term,
+            (product) =>
+                product.sku.toLowerCase() === term ||
+                (product.barcode ?? '').toLowerCase() === term,
         );
 
         if (exactProduct) {

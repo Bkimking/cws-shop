@@ -30,7 +30,7 @@ class PosSaleService
      */
     public function createSale(Branch $branch, TillSession $till, User $cashier, array $payload): array
     {
-        return DB::transaction(function () use ($branch, $till, $cashier, $payload) {
+        $result = DB::transaction(function () use ($branch, $till, $cashier, $payload) {
             $till = TillSession::query()
                 ->whereKey($till->getKey())
                 ->lockForUpdate()
@@ -262,6 +262,15 @@ class PosSaleService
                 'checkout_request_id' => $checkoutId,
             ];
         });
+
+        /** @var Order|null $order */
+        $order = Order::query()->find($result['order']['id']);
+
+        if ($order !== null) {
+            app(NotificationService::class)->newOrder($order);
+        }
+
+        return $result;
     }
 
     /**
@@ -329,6 +338,7 @@ class PosSaleService
                 ),
             ])->all(),
             'payment' => [
+                'id' => $order->payments->first()?->id,
                 'gateway' => $paymentMethod,
                 'amount' => (float) $order->total,
                 'status' => $order->payments->first()?->status,

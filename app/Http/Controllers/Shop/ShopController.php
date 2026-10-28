@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Warehouse;
 use App\Services\MpesaPaymentFinalizer;
 use App\Services\MpesaStkService;
+use App\Services\NotificationService;
 use App\Services\OrderStockService;
 use App\Services\PaymentMethods;
 use App\Services\ShopCartService;
@@ -56,6 +57,7 @@ class ShopController extends Controller
             ->when($search !== '', fn ($items) => $items->filter(
                 fn (array $product) => str_contains(strtolower($product['name']), strtolower($search))
                     || str_contains(strtolower((string) $product['sku']), strtolower($search))
+                    || str_contains(strtolower((string) ($product['barcode'] ?? '')), strtolower($search))
             ))
             ->values();
 
@@ -259,6 +261,7 @@ class ShopController extends Controller
             ]);
         }
 
+        app(NotificationService::class)->newOrder($order);
         $cart->clear();
         $request->session()->put('shop_pickup_warehouse_id', $pickup->id);
 

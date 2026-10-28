@@ -21,9 +21,59 @@ class TerminalRepository {
     return Map<String, dynamic>.from(response['data'] as Map? ?? const {});
   }
 
+  Future<Map<String, dynamic>> closeTill(
+    double closingCash,
+    String? varianceReason,
+  ) async {
+    final response = await _api.post(
+      '/api/v1/till/close',
+      data: {'closing_cash': closingCash, 'variance_reason': varianceReason},
+    );
+    return Map<String, dynamic>.from(response['data'] as Map? ?? const {});
+  }
+
   Future<Map<String, dynamic>> cashSale({
     required List<CartLine> lines,
     required int tenderedMinor,
+    String? idempotencyKey,
+  }) {
+    return cashSaleItems(
+      items: lines
+          .map(
+            (line) => {
+              'product_variant_id': line.variant.id,
+              'quantity': line.quantity,
+            },
+          )
+          .toList(),
+      tenderedMinor: tenderedMinor,
+      idempotencyKey: idempotencyKey,
+    );
+  }
+
+  Future<Map<String, dynamic>> cashSaleItems({
+    required List<Map<String, dynamic>> items,
+    required int tenderedMinor,
+    String? idempotencyKey,
+  }) async {
+    final response = await _api.post(
+      '/api/v1/orders',
+      data: {
+        'items': items,
+        'payment_method': 'cash',
+        'tendered': tenderedMinor / 100,
+      },
+      headers: idempotencyKey == null
+          ? null
+          : {'Idempotency-Key': idempotencyKey},
+    );
+
+    return Map<String, dynamic>.from(response['data'] as Map? ?? const {});
+  }
+
+  Future<Map<String, dynamic>> mpesaSale({
+    required List<CartLine> lines,
+    required String phone,
   }) async {
     final response = await _api.post(
       '/api/v1/orders',
@@ -36,11 +86,23 @@ class TerminalRepository {
               },
             )
             .toList(),
-        'payment_method': 'cash',
-        'tendered': tenderedMinor / 100,
+        'payment_method': 'mpesa',
+        'phone': phone,
       },
     );
 
     return Map<String, dynamic>.from(response['data'] as Map? ?? const {});
+  }
+
+  Future<Map<String, dynamic>> orderStatus(int orderId) async {
+    final response = await _api.get('/api/v1/orders/$orderId');
+    final data = Map<String, dynamic>.from(
+      response['data'] as Map? ?? const {},
+    );
+    return Map<String, dynamic>.from(data['order'] as Map? ?? const {});
+  }
+
+  Future<void> cancelPayment(int paymentId) async {
+    await _api.post('/api/v1/payments/$paymentId/cancel');
   }
 }

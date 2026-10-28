@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\BarcodeService;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ use Spatie\Activitylog\Support\LogOptions;
 /**
  * @property int $id
  * @property string $name
+ * @property string|null $barcode
  * @property int|null $parent_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -22,7 +24,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property-read Collection<int, Category> $children
  * @property-read Collection<int, Product> $products
  */
-#[Fillable(['name', 'parent_id'])]
+#[Fillable(['name', 'barcode', 'parent_id'])]
 
 class Category extends Model
 {
@@ -48,5 +50,12 @@ class Category extends Model
         return LogOptions::defaults()
             ->logFillable()
             ->logOnlyDirty();
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function (self $model): void {
+            app(BarcodeService::class)->category($model);
+        });
     }
 }

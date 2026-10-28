@@ -1,5 +1,6 @@
 import { Head, Link, router, useForm, useHttp } from '@inertiajs/react';
 import { FormEvent, useState } from 'react';
+import { BarcodeLabel } from '@/components/barcode-label';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -34,6 +35,7 @@ interface ProductVariant {
     id?: number;
     variant_name: string;
     sku_suffix: string | null;
+    barcode: string | null;
     price_delta: number;
 }
 
@@ -60,6 +62,7 @@ interface Product {
     category_id: number;
     name: string;
     sku: string;
+    barcode: string | null;
     description: string | null;
     base_price: number;
     is_active: boolean;
@@ -100,6 +103,7 @@ export default function AdminProductEdit({
         category_id: String(product.category_id),
         name: product.name,
         sku: product.sku,
+        barcode: product.barcode ?? '',
         description: product.description ?? '',
         base_price: String(product.base_price),
         is_active: product.is_active,
@@ -107,6 +111,7 @@ export default function AdminProductEdit({
             id: v.id,
             variant_name: v.variant_name,
             sku_suffix: v.sku_suffix ?? '',
+            barcode: v.barcode ?? '',
             price_delta: String(v.price_delta),
         })),
         images: [] as File[],
@@ -241,6 +246,7 @@ export default function AdminProductEdit({
                 id: undefined,
                 variant_name: '',
                 sku_suffix: '',
+                barcode: '',
                 price_delta: '',
             },
         ]);
@@ -410,6 +416,29 @@ export default function AdminProductEdit({
                                         </p>
                                     )}
                                 </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="barcode">Product barcode</Label>
+                                <Input
+                                    id="barcode"
+                                    value={data.barcode}
+                                    onChange={(e) =>
+                                        setData('barcode', e.target.value)
+                                    }
+                                    placeholder="Scan or leave blank to generate automatically"
+                                    maxLength={80}
+                                />
+                                {errors.barcode && (
+                                    <p className="text-xs text-destructive">
+                                        {errors.barcode}
+                                    </p>
+                                )}
+                                <BarcodeLabel
+                                    value={data.barcode}
+                                    label={data.name}
+                                    showPrint
+                                />
                             </div>
 
                             <div className="space-y-2">
@@ -719,6 +748,26 @@ export default function AdminProductEdit({
                                                     Generate
                                                 </Button>
                                             )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label
+                                            htmlFor={`variant-barcode-${index}`}
+                                        >
+                                            Variant barcode
+                                        </Label>
+                                        <Input
+                                            id={`variant-barcode-${index}`}
+                                            value={variant.barcode ?? ''}
+                                            onChange={(e) =>
+                                                updateVariant(
+                                                    index,
+                                                    'barcode',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="Scan or auto-generate"
+                                            maxLength={80}
+                                        />
                                     </div>
                                     <div className="space-y-2">
                                         <Label

@@ -10,6 +10,7 @@ use App\Models\ProductImage;
 use App\Models\ProductRegionPrice;
 use App\Models\ProductVariant;
 use App\Models\Region;
+use App\Services\BarcodeService;
 use App\Services\ProductImageService;
 use App\Services\SkuGenerator;
 use Illuminate\Http\JsonResponse;
@@ -57,6 +58,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'sku' => 'nullable|string|max:100|unique:products,sku',
+            'barcode' => 'nullable|string|max:80|unique:products,barcode',
             'description' => 'nullable|string',
             'base_price' => 'required|numeric|min:0',
             'is_active' => 'boolean',
@@ -65,6 +67,7 @@ class ProductController extends Controller
             'variants' => 'array',
             'variants.*.variant_name' => 'required|string|max:255',
             'variants.*.sku_suffix' => 'nullable|string|max:50',
+            'variants.*.barcode' => 'nullable|string|max:80|distinct',
             'variants.*.price_delta' => 'nullable|numeric',
             'region_prices' => 'array',
             'region_prices.*.region_id' => 'required|exists:regions,id',
@@ -89,8 +92,10 @@ class ProductController extends Controller
             'sku' => $sku,
             'description' => $validated['description'] ?? null,
             'base_price' => $validated['base_price'],
+            'barcode' => $validated['barcode'] ?? null,
             'is_active' => $validated['is_active'] ?? true,
         ]);
+        app(BarcodeService::class)->product($product);
 
         // Update SKU with actual product ID
         if (empty($validated['sku'])) {
@@ -110,12 +115,14 @@ class ProductController extends Controller
                     $skuSuffix = $skuGenerator->generateVariantSuffix($variant['variant_name']);
                 }
 
-                ProductVariant::create([
+                $productVariant = ProductVariant::create([
                     'product_id' => $product->id,
                     'variant_name' => $variant['variant_name'],
                     'sku_suffix' => $skuSuffix,
+                    'barcode' => $variant['barcode'] ?? null,
                     'price_delta' => $variant['price_delta'] ?? 0,
                 ]);
+                app(BarcodeService::class)->variant($productVariant);
             }
         }
 
@@ -166,6 +173,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'sku' => 'nullable|string|max:100|unique:products,sku,'.$product->id,
+            'barcode' => 'nullable|string|max:80|unique:products,barcode,'.$product->id,
             'description' => 'nullable|string',
             'base_price' => 'required|numeric|min:0',
             'is_active' => 'boolean',
@@ -176,6 +184,7 @@ class ProductController extends Controller
             'variants.*.id' => 'nullable|exists:product_variants,id',
             'variants.*.variant_name' => 'required|string|max:255',
             'variants.*.sku_suffix' => 'nullable|string|max:50',
+            'variants.*.barcode' => 'nullable|string|max:80|distinct',
             'variants.*.price_delta' => 'nullable|numeric',
             'region_prices' => 'array',
             'region_prices.*.id' => 'nullable|exists:product_region_prices,id',
@@ -226,10 +235,12 @@ class ProductController extends Controller
             'category_id' => $validated['category_id'],
             'name' => $validated['name'],
             'sku' => $sku,
+            'barcode' => $validated['barcode'] ?? null,
             'description' => $validated['description'] ?? null,
             'base_price' => $validated['base_price'],
             'is_active' => $validated['is_active'] ?? true,
         ]);
+        app(BarcodeService::class)->product($product);
 
         // Sync variants
         if (isset($validated['variants']) && is_array($validated['variants'])) {
@@ -251,15 +262,21 @@ class ProductController extends Controller
                     ProductVariant::where('id', $variant['id'])->update([
                         'variant_name' => $variant['variant_name'],
                         'sku_suffix' => $skuSuffix,
+                        'barcode' => $variant['barcode'] ?? null,
                         'price_delta' => $variant['price_delta'] ?? 0,
                     ]);
+                    /** @var ProductVariant $updatedVariant */
+                    $updatedVariant = ProductVariant::findOrFail($variant['id']);
+                    app(BarcodeService::class)->variant($updatedVariant);
                 } else {
                     $newVariant = ProductVariant::create([
                         'product_id' => $product->id,
                         'variant_name' => $variant['variant_name'],
                         'sku_suffix' => $skuSuffix,
+                        'barcode' => $variant['barcode'] ?? null,
                         'price_delta' => $variant['price_delta'] ?? 0,
                     ]);
+                    app(BarcodeService::class)->variant($newVariant);
                     $existingVariantIds[] = $newVariant->id;
                 }
             }

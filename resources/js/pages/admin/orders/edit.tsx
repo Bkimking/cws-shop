@@ -1,7 +1,13 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEvent, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import adminorders from '@/routes/admin/orders';
@@ -75,7 +81,7 @@ export default function OrderEdit({ order, branches, customers }: Props) {
             unit_price: item.unit_price,
             discount: item.discount,
             product_variant: item.product_variant,
-        }))
+        })),
     );
 
     const { data, setData, put, processing, errors } = useForm({
@@ -94,7 +100,15 @@ export default function OrderEdit({ order, branches, customers }: Props) {
     }, [items]);
 
     const addItem = () => {
-        const newItems = [...items, { product_variant_id: '', quantity: '1', unit_price: '0', discount: '0' }];
+        const newItems = [
+            ...items,
+            {
+                product_variant_id: '',
+                quantity: '1',
+                unit_price: '0',
+                discount: '0',
+            },
+        ];
         setItems(newItems);
     };
 
@@ -103,9 +117,13 @@ export default function OrderEdit({ order, branches, customers }: Props) {
         setItems(newItems);
     };
 
-    const updateItem = (index: number, field: keyof OrderItem, value: string) => {
+    const updateItem = (
+        index: number,
+        field: keyof OrderItem,
+        value: string,
+    ) => {
         const newItems = [...items];
-        newItems[index][field] = value;
+        newItems[index] = { ...newItems[index], [field]: value } as OrderItem;
         setItems(newItems);
         calculateTotals(newItems);
     };
@@ -115,7 +133,7 @@ export default function OrderEdit({ order, branches, customers }: Props) {
             const qty = parseFloat(item.quantity) || 0;
             const price = parseFloat(item.unit_price) || 0;
             const discount = parseFloat(item.discount) || 0;
-            return sum + (qty * price) - discount;
+            return sum + qty * price - discount;
         }, 0);
 
         const tax = subtotal * 0.16;
@@ -133,10 +151,12 @@ export default function OrderEdit({ order, branches, customers }: Props) {
 
     return (
         <>
-            <Head title={`Edit Order #${order.id.toString().padStart(6, '0')}`} />
+            <Head
+                title={`Edit Order #${order.id.toString().padStart(6, '0')}`}
+            />
             <div className="mx-auto w-full max-w-5xl p-6">
                 <Link href={adminorders.show(order.id).url}>
-                    <Button variant="ghost" size="sm" className="-ml-3 mb-4">
+                    <Button variant="ghost" size="sm" className="mb-4 -ml-3">
                         <ArrowLeft className="mr-1.5 size-4" />
                         Back to order
                     </Button>
@@ -149,14 +169,18 @@ export default function OrderEdit({ order, branches, customers }: Props) {
                         </div>
                         <div>
                             <div className="flex items-center gap-2.5">
-                                <h1 className="text-xl font-semibold tracking-tight font-mono">
-                                    Edit Order #{order.id.toString().padStart(6, '0')}
+                                <h1 className="font-mono text-xl font-semibold tracking-tight">
+                                    Edit Order #
+                                    {order.id.toString().padStart(6, '0')}
                                 </h1>
-                                <Badge variant="outline" className={statusColors[order.status]}>
+                                <Badge
+                                    variant="outline"
+                                    className={statusColors[order.status]}
+                                >
                                     {order.status}
                                 </Badge>
                             </div>
-                            <p className="text-sm text-muted-foreground mt-0.5">
+                            <p className="mt-0.5 text-sm text-muted-foreground">
                                 Update order details, items, and status.
                             </p>
                         </div>
@@ -166,7 +190,9 @@ export default function OrderEdit({ order, branches, customers }: Props) {
                 <form onSubmit={submit} className="space-y-6">
                     <Card>
                         <CardHeader className="border-b bg-muted/20">
-                            <CardTitle className="text-sm">Order details</CardTitle>
+                            <CardTitle className="text-sm">
+                                Order details
+                            </CardTitle>
                             <CardDescription className="text-xs">
                                 Branch, customer, and order status.
                             </CardDescription>
@@ -174,88 +200,135 @@ export default function OrderEdit({ order, branches, customers }: Props) {
                         <CardContent className="space-y-4 p-6">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <label htmlFor="branch_id" className="text-sm font-medium">
+                                    <label
+                                        htmlFor="branch_id"
+                                        className="text-sm font-medium"
+                                    >
                                         Branch
                                     </label>
                                     <select
                                         id="branch_id"
                                         className={selectClass}
                                         value={data.branch_id}
-                                        onChange={(e) => setData('branch_id', e.target.value)}
+                                        onChange={(e) =>
+                                            setData('branch_id', e.target.value)
+                                        }
                                         disabled
                                     >
-                                        <option value="">Select a branch</option>
+                                        <option value="">
+                                            Select a branch
+                                        </option>
                                         {branches.map((branch) => (
-                                            <option key={branch.id} value={branch.id}>
+                                            <option
+                                                key={branch.id}
+                                                value={branch.id}
+                                            >
                                                 {branch.name}
                                             </option>
                                         ))}
                                     </select>
                                     {errors.branch_id && (
-                                        <p className="text-xs text-destructive">{errors.branch_id}</p>
+                                        <p className="text-xs text-destructive">
+                                            {errors.branch_id}
+                                        </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label htmlFor="customer_id" className="text-sm font-medium">
+                                    <label
+                                        htmlFor="customer_id"
+                                        className="text-sm font-medium"
+                                    >
                                         Customer
                                     </label>
                                     <select
                                         id="customer_id"
                                         className={selectClass}
                                         value={data.customer_id}
-                                        onChange={(e) => setData('customer_id', e.target.value)}
+                                        onChange={(e) =>
+                                            setData(
+                                                'customer_id',
+                                                e.target.value,
+                                            )
+                                        }
                                         disabled
                                     >
-                                        <option value="">Select a customer (optional)</option>
+                                        <option value="">
+                                            Select a customer (optional)
+                                        </option>
                                         {customers.map((customer) => (
-                                            <option key={customer.id} value={customer.id}>
+                                            <option
+                                                key={customer.id}
+                                                value={customer.id}
+                                            >
                                                 {customer.name}
                                             </option>
                                         ))}
                                     </select>
                                     {errors.customer_id && (
-                                        <p className="text-xs text-destructive">{errors.customer_id}</p>
+                                        <p className="text-xs text-destructive">
+                                            {errors.customer_id}
+                                        </p>
                                     )}
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <label htmlFor="source" className="text-sm font-medium">
+                                    <label
+                                        htmlFor="source"
+                                        className="text-sm font-medium"
+                                    >
                                         Source
                                     </label>
                                     <select
                                         id="source"
                                         className={selectClass}
                                         value={data.source}
-                                        onChange={(e) => setData('source', e.target.value)}
+                                        onChange={(e) =>
+                                            setData('source', e.target.value)
+                                        }
                                         disabled
                                     >
                                         <option value="pos">POS</option>
-                                        <option value="storefront">Storefront</option>
+                                        <option value="storefront">
+                                            Storefront
+                                        </option>
                                     </select>
                                     {errors.source && (
-                                        <p className="text-xs text-destructive">{errors.source}</p>
+                                        <p className="text-xs text-destructive">
+                                            {errors.source}
+                                        </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label htmlFor="status" className="text-sm font-medium">
+                                    <label
+                                        htmlFor="status"
+                                        className="text-sm font-medium"
+                                    >
                                         Status
                                     </label>
                                     <select
                                         id="status"
                                         className={selectClass}
                                         value={data.status}
-                                        onChange={(e) => setData('status', e.target.value)}
+                                        onChange={(e) =>
+                                            setData('status', e.target.value)
+                                        }
                                     >
                                         <option value="pending">Pending</option>
-                                        <option value="completed">Completed</option>
-                                        <option value="cancelled">Cancelled</option>
+                                        <option value="completed">
+                                            Completed
+                                        </option>
+                                        <option value="cancelled">
+                                            Cancelled
+                                        </option>
                                     </select>
                                     {errors.status && (
-                                        <p className="text-xs text-destructive">{errors.status}</p>
+                                        <p className="text-xs text-destructive">
+                                            {errors.status}
+                                        </p>
                                     )}
                                 </div>
                             </div>
@@ -266,12 +339,19 @@ export default function OrderEdit({ order, branches, customers }: Props) {
                         <CardHeader className="border-b bg-muted/20">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <CardTitle className="text-sm">Order items</CardTitle>
+                                    <CardTitle className="text-sm">
+                                        Order items
+                                    </CardTitle>
                                     <CardDescription className="text-xs">
                                         Update products in the order.
                                     </CardDescription>
                                 </div>
-                                <Button type="button" variant="outline" size="sm" onClick={addItem}>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={addItem}
+                                >
                                     <Plus className="mr-1.5 size-3.5" />
                                     Add item
                                 </Button>
@@ -279,61 +359,132 @@ export default function OrderEdit({ order, branches, customers }: Props) {
                         </CardHeader>
                         <CardContent className="space-y-4 p-6">
                             {items.map((item, index) => (
-                                <div key={index} className="grid grid-cols-12 gap-2 items-end">
+                                <div
+                                    key={index}
+                                    className="grid grid-cols-12 items-end gap-2"
+                                >
                                     <div className="col-span-4 space-y-2">
-                                        <label className="text-xs font-medium">Product variant ID</label>
+                                        <label className="text-xs font-medium">
+                                            Product variant ID
+                                        </label>
                                         <Input
                                             type="number"
                                             value={item.product_variant_id}
-                                            onChange={(e) => updateItem(index, 'product_variant_id', e.target.value)}
+                                            onChange={(e) =>
+                                                updateItem(
+                                                    index,
+                                                    'product_variant_id',
+                                                    e.target.value,
+                                                )
+                                            }
                                             placeholder="ID"
                                         />
                                         {item.product_variant && (
                                             <p className="text-xs text-muted-foreground">
-                                                {item.product_variant.product.name} - {item.product_variant.variant_name}
+                                                {
+                                                    item.product_variant.product
+                                                        .name
+                                                }{' '}
+                                                -{' '}
+                                                {
+                                                    item.product_variant
+                                                        .variant_name
+                                                }
                                             </p>
                                         )}
-                                        {errors[`items.${index}.product_variant_id`] && (
-                                            <p className="text-xs text-destructive">{errors[`items.${index}.product_variant_id`]}</p>
+                                        {errors[
+                                            `items.${index}.product_variant_id`
+                                        ] && (
+                                            <p className="text-xs text-destructive">
+                                                {
+                                                    errors[
+                                                        `items.${index}.product_variant_id`
+                                                    ]
+                                                }
+                                            </p>
                                         )}
                                     </div>
                                     <div className="col-span-2 space-y-2">
-                                        <label className="text-xs font-medium">Quantity</label>
+                                        <label className="text-xs font-medium">
+                                            Quantity
+                                        </label>
                                         <Input
                                             type="number"
                                             min="1"
                                             value={item.quantity}
-                                            onChange={(e) => updateItem(index, 'quantity', e.target.value)}
+                                            onChange={(e) =>
+                                                updateItem(
+                                                    index,
+                                                    'quantity',
+                                                    e.target.value,
+                                                )
+                                            }
                                             placeholder="1"
                                         />
                                         {errors[`items.${index}.quantity`] && (
-                                            <p className="text-xs text-destructive">{errors[`items.${index}.quantity`]}</p>
+                                            <p className="text-xs text-destructive">
+                                                {
+                                                    errors[
+                                                        `items.${index}.quantity`
+                                                    ]
+                                                }
+                                            </p>
                                         )}
                                     </div>
                                     <div className="col-span-2 space-y-2">
-                                        <label className="text-xs font-medium">Unit price</label>
+                                        <label className="text-xs font-medium">
+                                            Unit price
+                                        </label>
                                         <Input
                                             type="number"
                                             step="0.01"
                                             value={item.unit_price}
-                                            onChange={(e) => updateItem(index, 'unit_price', e.target.value)}
+                                            onChange={(e) =>
+                                                updateItem(
+                                                    index,
+                                                    'unit_price',
+                                                    e.target.value,
+                                                )
+                                            }
                                             placeholder="0.00"
                                         />
-                                        {errors[`items.${index}.unit_price`] && (
-                                            <p className="text-xs text-destructive">{errors[`items.${index}.unit_price`]}</p>
+                                        {errors[
+                                            `items.${index}.unit_price`
+                                        ] && (
+                                            <p className="text-xs text-destructive">
+                                                {
+                                                    errors[
+                                                        `items.${index}.unit_price`
+                                                    ]
+                                                }
+                                            </p>
                                         )}
                                     </div>
                                     <div className="col-span-2 space-y-2">
-                                        <label className="text-xs font-medium">Discount</label>
+                                        <label className="text-xs font-medium">
+                                            Discount
+                                        </label>
                                         <Input
                                             type="number"
                                             step="0.01"
                                             value={item.discount}
-                                            onChange={(e) => updateItem(index, 'discount', e.target.value)}
+                                            onChange={(e) =>
+                                                updateItem(
+                                                    index,
+                                                    'discount',
+                                                    e.target.value,
+                                                )
+                                            }
                                             placeholder="0.00"
                                         />
                                         {errors[`items.${index}.discount`] && (
-                                            <p className="text-xs text-destructive">{errors[`items.${index}.discount`]}</p>
+                                            <p className="text-xs text-destructive">
+                                                {
+                                                    errors[
+                                                        `items.${index}.discount`
+                                                    ]
+                                                }
+                                            </p>
                                         )}
                                     </div>
                                     <div className="col-span-2">
@@ -351,27 +502,41 @@ export default function OrderEdit({ order, branches, customers }: Props) {
                                 </div>
                             ))}
                             {errors.items && (
-                                <p className="text-xs text-destructive">{errors.items}</p>
+                                <p className="text-xs text-destructive">
+                                    {errors.items}
+                                </p>
                             )}
                         </CardContent>
                     </Card>
 
                     <Card>
                         <CardHeader className="border-b bg-muted/20">
-                            <CardTitle className="text-sm">Order totals</CardTitle>
+                            <CardTitle className="text-sm">
+                                Order totals
+                            </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3 p-6">
                             <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">Subtotal</span>
-                                <span className="font-medium">{order.currency_code} {data.subtotal}</span>
+                                <span className="text-muted-foreground">
+                                    Subtotal
+                                </span>
+                                <span className="font-medium">
+                                    {order.currency_code} {data.subtotal}
+                                </span>
                             </div>
                             <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">Tax (16%)</span>
-                                <span className="font-medium">{order.currency_code} {data.tax}</span>
+                                <span className="text-muted-foreground">
+                                    Tax (16%)
+                                </span>
+                                <span className="font-medium">
+                                    {order.currency_code} {data.tax}
+                                </span>
                             </div>
-                            <div className="flex justify-between text-lg font-semibold border-t pt-3">
+                            <div className="flex justify-between border-t pt-3 text-lg font-semibold">
                                 <span>Total</span>
-                                <span>{order.currency_code} {data.total}</span>
+                                <span>
+                                    {order.currency_code} {data.total}
+                                </span>
                             </div>
                         </CardContent>
                     </Card>
@@ -396,7 +561,10 @@ export default function OrderEdit({ order, branches, customers }: Props) {
 OrderEdit.layout = {
     breadcrumbs: [
         { title: 'Orders', href: adminorders.index().url },
-        { title: `Order #${(props: Props) => props.order.id.toString().padStart(6, '0')}`, href: (props: Props) => adminorders.show(props.order.id).url },
+        {
+            title: `Order #${(props: Props) => props.order.id.toString().padStart(6, '0')}`,
+            href: (props: Props) => adminorders.show(props.order.id).url,
+        },
         { title: 'Edit', href: '' },
     ],
 };

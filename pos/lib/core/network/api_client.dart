@@ -30,8 +30,18 @@ class ApiClient {
     return _request(() => _dio.get(path, queryParameters: query));
   }
 
-  Future<Map<String, dynamic>> post(String path, {Object? data}) async {
-    return _request(() => _dio.post(path, data: data));
+  Future<Map<String, dynamic>> post(
+    String path, {
+    Object? data,
+    Map<String, String>? headers,
+  }) async {
+    return _request(
+      () => _dio.post(
+        path,
+        data: data,
+        options: Options(headers: headers),
+      ),
+    );
   }
 
   Future<Map<String, dynamic>> _request(

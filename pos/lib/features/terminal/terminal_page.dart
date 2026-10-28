@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
+import '../../core/config/env.dart';
 import '../../core/network/api_exception.dart';
+import '../../core/offline/offline_outbox.dart';
+import '../../core/printing/receipt_printer.dart';
 import '../auth/auth_controller.dart';
 import 'terminal_models.dart';
 import 'terminal_repository.dart';
@@ -22,6 +27,8 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
   bool _loading = true;
   final List<CartLine> _cart = [];
   final _search = TextEditingController();
+  final _printer = ReceiptPrinter();
+  final _outbox = OfflineOutbox();
   int? _categoryId;
 
   TerminalRepository get _repository =>
@@ -48,6 +55,7 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
     try {
       final data = await _repository.bootstrap();
       if (mounted) setState(() => _bootstrap = data);
+      await _syncOutbox();
     } on ApiException catch (exception) {
       if (mounted) setState(() => _error = exception.message);
     } finally {
@@ -79,6 +87,43 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
   String _moneyText(int minor, String currency) =>
       '$currency ${_money.format(minor / 100)}';
 
+  void _scanSubmit() {
+    final term = _search.text.trim().toLowerCase();
+    if (term.isEmpty) return;
+
+    for (final product in _bootstrap?.products ?? const <PosProduct>[]) {
+      if ((product.barcode ?? '').toLowerCase() == term) {
+        _add(product);
+        _search.clear();
+        setState(() {});
+        return;
+      }
+
+      for (final variant in product.variants) {
+        if ((variant.barcode ?? '').toLowerCase() == term ||
+            '${product.name} ${variant.name}'.toLowerCase() == term) {
+          _addVariant(product, variant);
+          _search.clear();
+          setState(() {});
+          return;
+        }
+      }
+    }
+  }
+
+  void _addVariant(PosProduct product, PosVariant variant) {
+    final matching = _cart
+        .where((line) => line.variant.id == variant.id)
+        .toList();
+    setState(() {
+      if (matching.isNotEmpty) {
+        matching.first.quantity++;
+      } else {
+        _cart.add(CartLine(product: product, variant: variant));
+      }
+    });
+  }
+
   void _add(PosProduct product) {
     final available = product.variants.where((item) => item.stock > 0).toList();
     final variant = available.isEmpty ? null : available.first;
@@ -95,6 +140,27 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
         _cart.add(CartLine(product: product, variant: variant));
       }
     });
+  }
+
+  Future<void> _syncOutbox() async {
+    final pending = await _outbox.all();
+
+    for (final sale in pending) {
+      try {
+        await _repository.cashSaleItems(
+          items: sale.items,
+          tenderedMinor: sale.tenderedMinor,
+          idempotencyKey: sale.key,
+        );
+        await _outbox.remove(sale.key);
+      } on ApiException catch (exception) {
+        if (exception.statusCode != null && exception.statusCode! < 500) {
+          await _outbox.remove(sale.key);
+        } else {
+          break;
+        }
+      }
+    }
   }
 
   Future<void> _openTill() async {
@@ -135,6 +201,215 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
     }
   }
 
+  Future<void> _closeTill() async {
+    final data = _bootstrap;
+    if (data == null) return;
+
+    final expected = ((data.till?['expected_cash'] as num?)?.toDouble() ?? 0);
+    final cashController = TextEditingController(
+      text: expected.toStringAsFixed(2),
+    );
+    final reasonController = TextEditingController();
+    final close = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Close the till'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Expected cash: ${_moneyText((expected * 100).round(), data.currency)}',
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: cashController,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              decoration: const InputDecoration(labelText: 'Closing cash'),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: reasonController,
+              decoration: const InputDecoration(
+                labelText: 'Variance reason (if any)',
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Close till'),
+          ),
+        ],
+      ),
+    );
+
+    if (close != true) return;
+
+    try {
+      final result = await _repository.closeTill(
+        double.tryParse(cashController.text) ?? expected,
+        reasonController.text.trim().isEmpty
+            ? null
+            : reasonController.text.trim(),
+      );
+      if (!mounted) return;
+      final till = result['till'] as Map? ?? const {};
+      await showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Till closed'),
+          content: Text(
+            'Gross: ${_moneyText((((till['gross'] as num?)?.toDouble() ?? 0) * 100).round(), data.currency)}\n'
+            'Expected cash: ${_moneyText((((till['expected_cash'] as num?)?.toDouble() ?? 0) * 100).round(), data.currency)}\n'
+            'Variance: ${_moneyText((((till['variance'] as num?)?.toDouble() ?? 0) * 100).round(), data.currency)}',
+          ),
+          actions: [
+            FilledButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Done'),
+            ),
+          ],
+        ),
+      );
+      await _load();
+    } on ApiException catch (exception) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(exception.message)));
+      }
+    }
+  }
+
+  Future<void> _openOffice() async {
+    final opened = await launchUrl(
+      Uri.parse(ApiEnv.webUrl),
+      mode: LaunchMode.externalApplication,
+    );
+
+    if (!opened && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open the office web app.')),
+      );
+    }
+  }
+
+  Future<void> _openSecurity() async {
+    final opened = await launchUrl(
+      Uri.parse('${ApiEnv.webUrl}/settings/security'),
+      mode: LaunchMode.externalApplication,
+    );
+
+    if (!opened && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open the security page.')),
+      );
+    }
+  }
+
+  Future<void> _chargeMpesa() async {
+    final data = _bootstrap;
+    if (data == null || _cart.isEmpty) return;
+
+    final phone = TextEditingController(text: '07');
+    final submitted = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('M-Pesa · ${_moneyText(_totalMinor, data.currency)}'),
+        content: TextField(
+          controller: phone,
+          keyboardType: TextInputType.phone,
+          decoration: const InputDecoration(
+            labelText: 'Customer phone',
+            hintText: '0712 345 678',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Send STK'),
+          ),
+        ],
+      ),
+    );
+
+    if (submitted != true) return;
+
+    try {
+      final result = await _repository.mpesaSale(
+        lines: _cart,
+        phone: phone.text.trim(),
+      );
+      final order = Map<String, dynamic>.from(
+        result['order'] as Map? ?? const {},
+      );
+      final payment = order['payment'] as Map? ?? const {};
+
+      if (order['status'] == 'completed') {
+        setState(() => _cart.clear());
+        await _load();
+        return;
+      }
+
+      if (!mounted) return;
+
+      final paid = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => MpesaWaitingDialog(
+          orderId: (order['id'] as num).toInt(),
+          paymentId: (payment['id'] as num?)?.toInt(),
+          repository: _repository,
+          amount: _moneyText(_totalMinor, data.currency),
+          currency: data.currency,
+        ),
+      );
+
+      if (paid == true) {
+        setState(() => _cart.clear());
+        await _load();
+        if (!mounted) return;
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('M-Pesa payment confirmed'),
+            content: Text('Order ${order['number'] ?? ''} is paid.'),
+            actions: [
+              TextButton(
+                onPressed: () =>
+                    _printer.printOrder(order, branch: data.branchName),
+                child: const Text('Print receipt'),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('New sale'),
+              ),
+            ],
+          ),
+        );
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('M-Pesa payment did not complete.')),
+        );
+      }
+    } on ApiException catch (exception) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(exception.message)));
+      }
+    }
+  }
+
   Future<void> _chargeCash() async {
     final data = _bootstrap;
     if (data == null || _cart.isEmpty) return;
@@ -167,16 +442,21 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
 
     if (tendered == null) return;
 
+    final saleKey = const Uuid().v4();
+
     try {
       final result = await _repository.cashSale(
         lines: _cart,
         tenderedMinor: (tendered * 100).round(),
+        idempotencyKey: saleKey,
       );
       if (!mounted) return;
       setState(() => _cart.clear());
       await _load();
       if (!mounted) return;
-      final order = result['order'] as Map? ?? const {};
+      final order = Map<String, dynamic>.from(
+        result['order'] as Map? ?? const {},
+      );
       await showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
@@ -185,6 +465,11 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
             'Order ${order['number'] ?? ''}\n${_moneyText((((order['total'] as num?)?.toDouble() ?? 0) * 100).round(), data.currency)}',
           ),
           actions: [
+            TextButton(
+              onPressed: () =>
+                  _printer.printOrder(order, branch: data.branchName),
+              child: const Text('Print receipt'),
+            ),
             FilledButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('New sale'),
@@ -193,7 +478,33 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
         ),
       );
     } on ApiException catch (exception) {
-      if (mounted) {
+      if (exception.statusCode == null) {
+        await _outbox.enqueue(
+          PendingSale(
+            key: saleKey,
+            items: _cart
+                .map(
+                  (line) => {
+                    'product_variant_id': line.variant.id,
+                    'quantity': line.quantity,
+                  },
+                )
+                .toList(),
+            tenderedMinor: (tendered * 100).round(),
+            createdAt: DateTime.now(),
+          ),
+        );
+        if (mounted) {
+          setState(() => _cart.clear());
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Server unreachable. Sale saved offline and will sync automatically.',
+              ),
+            ),
+          );
+        }
+      } else if (mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(exception.message)));
       }
@@ -227,6 +538,10 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
 
     final data = _bootstrap!;
     final open = data.till?['status'] == 'OPEN';
+    final session = ref.watch(authControllerProvider).session;
+    final canOffice =
+        session?.permissions.contains('access admin panel') ?? false;
+    final needsTwoFactor = session != null && !session.twoFactorEnabled;
 
     return Scaffold(
       body: Column(
@@ -234,6 +549,11 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
           _TopBar(
             data: data,
             open: open,
+            canOffice: canOffice,
+            needsTwoFactor: needsTwoFactor,
+            onOffice: _openOffice,
+            onSecurity: _openSecurity,
+            onCloseTill: _closeTill,
             onRefresh: _load,
             onLogout: () => ref.read(authControllerProvider).logout(),
           ),
@@ -288,8 +608,9 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
                 child: TextField(
                   controller: _search,
                   onChanged: (_) => setState(() {}),
+                  onSubmitted: (_) => _scanSubmit(),
                   decoration: const InputDecoration(
-                    hintText: 'Search products…',
+                    hintText: 'Scan barcode or search products…',
                     prefixIcon: Icon(Icons.search),
                     isDense: true,
                   ),
@@ -536,9 +857,22 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
                     label: const Text('Charge · Cash'),
                   ),
                 ),
+                if ((data.paymentMethods['mpesa'] as Map?)?['available'] ==
+                    true) ...[
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 44,
+                    child: OutlinedButton.icon(
+                      onPressed: open && _cart.isNotEmpty ? _chargeMpesa : null,
+                      icon: const Icon(Icons.phone_android, size: 18),
+                      label: const Text('Charge · M-Pesa STK'),
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 8),
                 const Text(
-                  'M-Pesa is enabled by the API but its Windows flow is the next UI phase.',
+                  'Payment details stay on the server; the cashier never asks for an M-Pesa PIN.',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white24, fontSize: 9),
                 ),
@@ -555,12 +889,22 @@ class _TopBar extends StatelessWidget {
   const _TopBar({
     required this.data,
     required this.open,
+    required this.canOffice,
+    required this.needsTwoFactor,
+    required this.onOffice,
+    required this.onSecurity,
+    required this.onCloseTill,
     required this.onRefresh,
     required this.onLogout,
   });
 
   final TerminalBootstrap data;
   final bool open;
+  final bool canOffice;
+  final bool needsTwoFactor;
+  final VoidCallback onOffice;
+  final VoidCallback onSecurity;
+  final VoidCallback onCloseTill;
   final VoidCallback onRefresh;
   final VoidCallback onLogout;
 
@@ -623,6 +967,24 @@ class _TopBar extends StatelessWidget {
               ),
             ),
           ),
+          if (canOffice)
+            TextButton.icon(
+              onPressed: onOffice,
+              icon: const Icon(Icons.open_in_new, size: 15),
+              label: const Text('Office'),
+            ),
+          if (needsTwoFactor)
+            TextButton.icon(
+              onPressed: onSecurity,
+              icon: const Icon(Icons.security, size: 15),
+              label: const Text('Enable 2FA'),
+            ),
+          if (open)
+            TextButton.icon(
+              onPressed: onCloseTill,
+              icon: const Icon(Icons.lock_outline, size: 15),
+              label: const Text('Close till'),
+            ),
           IconButton(
             onPressed: onRefresh,
             tooltip: 'Refresh',
@@ -635,6 +997,109 @@ class _TopBar extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class MpesaWaitingDialog extends StatefulWidget {
+  const MpesaWaitingDialog({
+    super.key,
+    required this.orderId,
+    required this.paymentId,
+    required this.repository,
+    required this.amount,
+    required this.currency,
+  });
+
+  final int orderId;
+  final int? paymentId;
+  final TerminalRepository repository;
+  final String amount;
+  final String currency;
+
+  @override
+  State<MpesaWaitingDialog> createState() => _MpesaWaitingDialogState();
+}
+
+class _MpesaWaitingDialogState extends State<MpesaWaitingDialog> {
+  String _message = 'Approve the M-Pesa prompt on the customer phone.';
+
+  @override
+  void initState() {
+    super.initState();
+    _poll();
+  }
+
+  Future<void> _poll() async {
+    for (var attempt = 0; attempt < 40; attempt++) {
+      await Future<void>.delayed(const Duration(seconds: 3));
+      if (!mounted) return;
+
+      try {
+        final order = await widget.repository.orderStatus(widget.orderId);
+        final payments = order['payments'] as List? ?? const [];
+        final payment = payments.isEmpty ? null : payments.first as Map?;
+        final status = payment?['status']?.toString();
+
+        if (status == 'completed' && mounted) {
+          Navigator.pop(context, true);
+          return;
+        }
+
+        if ((status == 'failed' || order['status'] == 'cancelled') && mounted) {
+          Navigator.pop(context, false);
+          return;
+        }
+
+        if (mounted) {
+          setState(() => _message = 'Still waiting for M-Pesa confirmation…');
+        }
+      } catch (_) {
+        if (mounted) setState(() => _message = 'Checking payment status…');
+      }
+    }
+
+    if (mounted) Navigator.pop(context, false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Waiting for M-Pesa'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(height: 18),
+          Text(
+            widget.amount,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            _message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.white54, fontSize: 12),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () async {
+            if (widget.paymentId != null) {
+              try {
+                await widget.repository.cancelPayment(widget.paymentId!);
+              } catch (_) {}
+            }
+            if (context.mounted) Navigator.pop(context, false);
+          },
+          child: const Text('Cancel payment'),
+        ),
+      ],
     );
   }
 }

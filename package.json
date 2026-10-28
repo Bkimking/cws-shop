@@ -38,6 +38,7 @@
         "cn": "^0.4.0",
         "concurrently": "^10.0.3",
         "input-otp": "^1.4.2",
+        "jsbarcode": "^3.12.3",
         "laravel-vite-plugin": "^3.0.0",
         "lucide-react": "^0.475.0",
         "radix-ui": "^1.6.7",

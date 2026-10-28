@@ -2,6 +2,7 @@ export type PosVariant = {
     id: number;
     name: string;
     sku: string;
+    barcode: string | null;
     price: number;
     stock: number;
 };
@@ -10,6 +11,7 @@ export type PosProduct = {
     id: number;
     name: string;
     sku: string;
+    barcode: string | null;
     category_id: number | null;
     category: string | null;
     price: number;
@@ -113,6 +115,7 @@ export type CartLine = {
     name: string;
     variant: string;
     sku: string;
+    barcode: string | null;
     price: number;
     quantity: number;
     stock: number;

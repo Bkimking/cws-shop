@@ -36,7 +36,7 @@ class PosCatalogService
                 'images:id,product_id,path,alt_text,sort_order,is_primary',
                 'variants' => fn ($query) => $query
                     ->orderBy('variant_name')
-                    ->select(['id', 'product_id', 'variant_name', 'sku_suffix', 'price_delta']),
+                    ->select(['id', 'product_id', 'variant_name', 'sku_suffix', 'barcode', 'price_delta']),
             ])
             ->orderBy('name')
             ->get()
@@ -53,6 +53,7 @@ class PosCatalogService
                         'id' => $variant->id,
                         'name' => $variant->variant_name,
                         'sku' => trim($product->sku.($variant->sku_suffix ?? '')),
+                        'barcode' => $variant->barcode,
                         'price' => round($price, 2),
                         'stock' => (int) ($stockByVariant->get($variant->id) ?? 0),
                     ];
@@ -62,6 +63,7 @@ class PosCatalogService
                     'id' => $product->id,
                     'name' => $product->name,
                     'sku' => $product->sku,
+                    'barcode' => $product->barcode,
                     'category_id' => $product->category_id,
                     'category' => $product->category->name,
                     'price' => (float) ($variants->min('price') ?? 0),

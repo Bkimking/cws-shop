@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GuideController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentGatewayController;
 use App\Http\Controllers\Admin\ProductController;
@@ -30,6 +31,10 @@ Route::middleware(['auth', 'verified', 'admin', 'region.scope', 'branch.scope'])
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('guide', [GuideController::class, 'index'])->name('guide.index');
+
+        Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::post('notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
+        Route::post('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
         Route::post('guide/step', [GuideController::class, 'step'])->name('guide.step');
         Route::post('guide/complete', [GuideController::class, 'complete'])->name('guide.complete');
         Route::post('guide/skip', [GuideController::class, 'skip'])->name('guide.skip');

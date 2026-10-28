@@ -46,7 +46,7 @@ class ShopCatalogService
                 'images:id,product_id,path,alt_text,sort_order,is_primary',
                 'variants' => fn ($query) => $query
                     ->orderBy('variant_name')
-                    ->select(['id', 'product_id', 'variant_name', 'sku_suffix', 'price_delta']),
+                    ->select(['id', 'product_id', 'variant_name', 'sku_suffix', 'barcode', 'price_delta']),
             ])
             ->orderBy('name')
             ->get()
@@ -120,6 +120,7 @@ class ShopCatalogService
                 'id' => $variant->id,
                 'name' => $variant->variant_name,
                 'sku' => trim($product->sku.($variant->sku_suffix ?? '')),
+                'barcode' => $variant->barcode,
                 'price' => $price,
                 'stock' => $stock,
                 'available' => $stock > 0,
@@ -130,6 +131,7 @@ class ShopCatalogService
             'id' => $product->id,
             'name' => $product->name,
             'sku' => $product->sku,
+            'barcode' => $product->barcode,
             'description' => $withDescription ? $product->description : null,
             'category' => $product->category->name,
             'category_id' => $product->category_id,
