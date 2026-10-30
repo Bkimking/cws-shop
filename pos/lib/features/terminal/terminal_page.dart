@@ -639,18 +639,20 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
 
     if (_error != null || _bootstrap == null) {
       return Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(_error ?? 'Could not load the terminal.'),
-              const SizedBox(height: 12),
-              FilledButton(onPressed: _load, child: const Text('Retry')),
-              TextButton(
-                onPressed: () => ref.read(authControllerProvider).logout(),
-                child: const Text('Sign out'),
-              ),
-            ],
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(_error ?? 'Could not load the terminal.'),
+                const SizedBox(height: 12),
+                FilledButton(onPressed: _load, child: const Text('Retry')),
+                TextButton(
+                  onPressed: () => ref.read(authControllerProvider).logout(),
+                  child: const Text('Sign out'),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -728,7 +730,7 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(padding, 16, padding, 8),
+          padding: EdgeInsets.fromLTRB(padding, 12, padding, 8),
           child: Row(
             children: [
               Expanded(
@@ -804,6 +806,17 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
     final fontSize = _isMobilePhone ? 11.0 : 12.0;
     final priceFontSize = _isMobilePhone ? 11.0 : 12.0;
 
+    Widget letterTile() => Container(
+          width: imageSize,
+          height: imageSize,
+          color: const Color(0xFF263036),
+          alignment: Alignment.center,
+          child: Text(
+            product.name.substring(0, 1).toUpperCase(),
+            style: TextStyle(fontSize: _isMobilePhone ? 14 : 16),
+          ),
+        );
+
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
@@ -819,27 +832,13 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: product.imageUrl == null
-                          ? Container(
-                              width: imageSize,
-                              height: imageSize,
-                              color: const Color(0xFF263036),
-                              alignment: Alignment.center,
-                              child: Text(
-                                product.name.substring(0, 1).toUpperCase(),
-                                style: TextStyle(
-                                  fontSize: _isMobilePhone ? 14 : 16,
-                                ),
-                              ),
-                            )
+                          ? letterTile()
                           : Image.network(
                               product.imageUrl!,
                               width: imageSize,
                               height: imageSize,
                               fit: BoxFit.cover,
-                              errorBuilder: (_, error, stack) => const Icon(
-                                Icons.broken_image_outlined,
-                                size: 20,
-                              ),
+                              errorBuilder: (_, error, stack) => letterTile(),
                             ),
                     ),
                     const Spacer(),
@@ -1264,100 +1263,284 @@ class _TopBar extends StatelessWidget {
   final VoidCallback onRefresh;
   final VoidCallback onLogout;
 
+  static const _accent = Color(0xFF5BBFE6);
+  static const _green = Color(0xFF4FCE8A);
+  static const _red = Color(0xFFFF6B6B);
+
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
+    final isMobile = media.size.width < 600;
+    final statusColor = open ? _green : _red;
+    final userName = (data.user['name'] ?? '').toString();
+    final currency = (data.region?['currency_code'] ?? 'KES').toString();
+
+    final subtitleParts = <String>[
+      if (userName.isNotEmpty) userName,
+      if (!isMobile) currency,
+    ];
+
+    // The header paints under the status bar, so push content below it.
     return Container(
-      height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.only(top: media.padding.top),
       decoration: const BoxDecoration(
         color: Color(0xFF12181C),
         border: Border(bottom: BorderSide(color: Color(0xFF263036))),
       ),
-      child: Row(
-        children: [
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: const Color(0xFF5BBFE6).withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(9),
-            ),
-            child: const Icon(
-              Icons.point_of_sale,
-              color: Color(0xFF5BBFE6),
-              size: 18,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: SizedBox(
+        height: isMobile ? 60 : 68,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 20),
+          child: Row(
             children: [
-              Text(
-                data.branchName,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
+              Container(
+                width: isMobile ? 38 : 42,
+                height: isMobile ? 38 : 42,
+                decoration: BoxDecoration(
+                  color: _accent.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: _accent.withValues(alpha: 0.25)),
+                ),
+                child: Icon(
+                  Icons.point_of_sale,
+                  color: _accent,
+                  size: isMobile ? 20 : 22,
                 ),
               ),
-              Text(
-                '${data.user['name']} · ${(data.region?['currency_code'] ?? 'KES')}',
-                style: const TextStyle(fontSize: 10, color: Colors.white38),
+              SizedBox(width: isMobile ? 10 : 12),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.branchName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: isMobile ? 15 : 16,
+                        fontWeight: FontWeight.w700,
+                        height: 1.15,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Row(
+                      children: [
+                        Container(
+                          width: 7,
+                          height: 7,
+                          decoration: BoxDecoration(
+                            color: statusColor,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: statusColor.withValues(alpha: 0.5),
+                                blurRadius: 6,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          open ? 'Till open' : 'Till closed',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: statusColor,
+                          ),
+                        ),
+                        if (subtitleParts.isNotEmpty)
+                          Flexible(
+                            child: Text(
+                              '  ·  ${subtitleParts.join(' · ')}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: Colors.white54,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
+              if (!isMobile) ...[
+                if (canOffice)
+                  TextButton.icon(
+                    onPressed: onOffice,
+                    icon: const Icon(Icons.open_in_new, size: 15),
+                    label: const Text('Office'),
+                  ),
+                if (needsTwoFactor)
+                  TextButton.icon(
+                    onPressed: onSecurity,
+                    icon: const Icon(Icons.security, size: 15),
+                    label: const Text('Enable 2FA'),
+                  ),
+                if (open)
+                  TextButton.icon(
+                    onPressed: onCloseTill,
+                    icon: const Icon(Icons.lock_outline, size: 15),
+                    label: const Text('Close till'),
+                  ),
+                IconButton(
+                  onPressed: onPrinter,
+                  tooltip: 'Receipt printer',
+                  icon: const Icon(Icons.print_outlined, size: 18),
+                ),
+                IconButton(
+                  onPressed: onRefresh,
+                  tooltip: 'Refresh',
+                  icon: const Icon(Icons.refresh, size: 18),
+                ),
+                IconButton(
+                  onPressed: onLogout,
+                  tooltip: 'Sign out',
+                  icon: const Icon(Icons.logout, size: 18),
+                ),
+              ] else ...[
+                IconButton(
+                  onPressed: onRefresh,
+                  tooltip: 'Refresh',
+                  visualDensity: VisualDensity.compact,
+                  icon: const Icon(Icons.refresh, size: 20),
+                ),
+                _MobileMenuButton(
+                  open: open,
+                  canOffice: canOffice,
+                  needsTwoFactor: needsTwoFactor,
+                  onOffice: onOffice,
+                  onSecurity: onSecurity,
+                  onPrinter: onPrinter,
+                  onCloseTill: onCloseTill,
+                  onRefresh: onRefresh,
+                  onLogout: onLogout,
+                ),
+              ],
             ],
           ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(
-              color: open ? const Color(0xFF1B3A2A) : const Color(0xFF3A2424),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              open ? 'TILL OPEN' : 'TILL CLOSED',
-              style: TextStyle(
-                fontSize: 9,
-                fontWeight: FontWeight.w700,
-                color: open ? const Color(0xFF4FCE8A) : const Color(0xFFFF6B6B),
-                letterSpacing: 1,
-              ),
-            ),
-          ),
-          if (canOffice)
-            TextButton.icon(
-              onPressed: onOffice,
-              icon: const Icon(Icons.open_in_new, size: 15),
-              label: const Text('Office'),
-            ),
-          if (needsTwoFactor)
-            TextButton.icon(
-              onPressed: onSecurity,
-              icon: const Icon(Icons.security, size: 15),
-              label: const Text('Enable 2FA'),
-            ),
-          if (open)
-            TextButton.icon(
-              onPressed: onCloseTill,
-              icon: const Icon(Icons.lock_outline, size: 15),
-              label: const Text('Close till'),
-            ),
-          IconButton(
-            onPressed: onPrinter,
-            tooltip: 'Receipt printer',
-            icon: const Icon(Icons.print_outlined, size: 18),
-          ),
-          IconButton(
-            onPressed: onRefresh,
-            tooltip: 'Refresh',
-            icon: const Icon(Icons.refresh, size: 18),
-          ),
-          IconButton(
-            onPressed: onLogout,
-            tooltip: 'Sign out',
-            icon: const Icon(Icons.logout, size: 18),
-          ),
-        ],
+        ),
       ),
+    );
+  }
+}
+
+class _MobileMenuButton extends StatelessWidget {
+  const _MobileMenuButton({
+    required this.open,
+    required this.canOffice,
+    required this.needsTwoFactor,
+    required this.onOffice,
+    required this.onSecurity,
+    required this.onPrinter,
+    required this.onCloseTill,
+    required this.onRefresh,
+    required this.onLogout,
+  });
+
+  final bool open;
+  final bool canOffice;
+  final bool needsTwoFactor;
+  final VoidCallback onOffice;
+  final VoidCallback onSecurity;
+  final VoidCallback onPrinter;
+  final VoidCallback onCloseTill;
+  final VoidCallback onRefresh;
+  final VoidCallback onLogout;
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<String>(
+      icon: const Icon(Icons.more_vert),
+      onSelected: (value) {
+        switch (value) {
+          case 'office':
+            onOffice();
+            break;
+          case 'security':
+            onSecurity();
+            break;
+          case 'printer':
+            onPrinter();
+            break;
+          case 'close_till':
+            onCloseTill();
+            break;
+          case 'refresh':
+            onRefresh();
+            break;
+          case 'logout':
+            onLogout();
+            break;
+        }
+      },
+      itemBuilder: (context) => [
+        if (canOffice)
+          const PopupMenuItem(
+            value: 'office',
+            child: Row(
+              children: [
+                Icon(Icons.open_in_new, size: 18),
+                SizedBox(width: 12),
+                Text('Office'),
+              ],
+            ),
+          ),
+        if (needsTwoFactor)
+          const PopupMenuItem(
+            value: 'security',
+            child: Row(
+              children: [
+                Icon(Icons.security, size: 18),
+                SizedBox(width: 12),
+                Text('Enable 2FA'),
+              ],
+            ),
+          ),
+        const PopupMenuItem(
+          value: 'printer',
+          child: Row(
+            children: [
+              Icon(Icons.print_outlined, size: 18),
+              SizedBox(width: 12),
+              Text('Receipt printer'),
+            ],
+          ),
+        ),
+        if (open)
+          const PopupMenuItem(
+            value: 'close_till',
+            child: Row(
+              children: [
+                Icon(Icons.lock_outline, size: 18),
+                SizedBox(width: 12),
+                Text('Close till'),
+              ],
+            ),
+          ),
+        const PopupMenuItem(
+          value: 'refresh',
+          child: Row(
+            children: [
+              Icon(Icons.refresh, size: 18),
+              SizedBox(width: 12),
+              Text('Refresh'),
+            ],
+          ),
+        ),
+        const PopupMenuItem(
+          value: 'logout',
+          child: Row(
+            children: [
+              Icon(Icons.logout, size: 18),
+              SizedBox(width: 12),
+              Text('Sign out'),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
