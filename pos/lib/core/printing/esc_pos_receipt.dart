@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
-import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:intl/intl.dart';
 
 import 'printer_exception.dart';
@@ -109,9 +109,9 @@ class EscPosPrinter {
     String branch,
     PrinterSettings settings,
   ) async {
-    if (!Platform.isAndroid && !Platform.isIOS) {
+    if (!Platform.isAndroid && !Platform.isIOS && !Platform.isWindows) {
       throw PrinterException(
-        'Bluetooth printing is available on Android and iOS. Use network or system print on Windows.',
+        'Bluetooth printing is available on Android, iOS and Windows. Use network or system print on this device.',
       );
     }
 
@@ -120,21 +120,27 @@ class EscPosPrinter {
     }
 
     final bytes = await _receipt.build(order, branch);
-    BluetoothConnection? connection;
 
     try {
-      connection = await BluetoothConnection.toAddress(
-        settings.bluetoothAddress,
+      final connected = await PrintBluetoothThermal.connect(
+        macPrinterAddress: settings.bluetoothAddress.trim(),
       );
-      connection.output.add(Uint8List.fromList(bytes));
-      await connection.output.allSent;
-    } catch (_) {
-      throw PrinterException(
-        'Could not send the receipt to the Bluetooth printer. Pair it in Android settings and try again.',
-      );
+
+      if (!connected) {
+        throw PrinterException(
+          'Could not connect to the Bluetooth printer. Pair it in system Bluetooth settings and try again.',
+        );
+      }
+
+      final sent = await PrintBluetoothThermal.writeBytes(bytes);
+
+      if (!sent) {
+        throw PrinterException(
+          'The Bluetooth printer did not accept the receipt bytes.',
+        );
+      }
     } finally {
-      await connection?.close();
-      connection?.dispose();
+      await PrintBluetoothThermal.disconnect;
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'printer_settings.dart';
@@ -18,11 +18,12 @@ class _PrinterSettingsDialogState extends State<PrinterSettingsDialog> {
   final _host = TextEditingController();
   final _port = TextEditingController(text: '9100');
   PrinterSettings _settings = const PrinterSettings();
-  List<BluetoothDevice> _devices = const [];
+  List<BluetoothInfo> _devices = const [];
   bool _loading = true;
   bool _saving = false;
 
-  bool get _supportsBluetooth => Platform.isAndroid || Platform.isIOS;
+  bool get _supportsBluetooth =>
+      Platform.isAndroid || Platform.isIOS || Platform.isWindows;
 
   @override
   void initState() {
@@ -34,16 +35,18 @@ class _PrinterSettingsDialogState extends State<PrinterSettingsDialog> {
     final settings = await _store.load();
     _host.text = settings.networkHost;
     _port.text = settings.networkPort.toString();
-    List<BluetoothDevice> devices = const [];
+    List<BluetoothInfo> devices = const [];
 
     if (_supportsBluetooth) {
       try {
-        await <Permission>[
-          Permission.bluetoothConnect,
-          Permission.bluetoothScan,
-          Permission.locationWhenInUse,
-        ].request();
-        devices = await FlutterBluetoothSerial.instance.getBondedDevices();
+        if (Platform.isAndroid || Platform.isIOS) {
+          await <Permission>[
+            Permission.bluetoothConnect,
+            Permission.bluetoothScan,
+            Permission.locationWhenInUse,
+          ].request();
+        }
+        devices = await PrintBluetoothThermal.pairedBluetooths;
       } catch (_) {
         devices = const [];
       }
@@ -154,9 +157,9 @@ class _PrinterSettingsDialogState extends State<PrinterSettingsDialog> {
                         items: _devices
                             .map(
                               (device) => DropdownMenuItem(
-                                value: device.address,
+                                value: device.macAdress,
                                 child: Text(
-                                  '${device.name ?? 'Bluetooth device'} · ${device.address}',
+                                  '${device.name} · ${device.macAdress}',
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -165,7 +168,7 @@ class _PrinterSettingsDialogState extends State<PrinterSettingsDialog> {
                         onChanged: (address) {
                           if (address == null) return;
                           final device = _devices
-                              .where((item) => item.address == address)
+                              .where((item) => item.macAdress == address)
                               .firstOrNull;
                           setState(
                             () => _settings = _settings.copyWith(
@@ -176,20 +179,27 @@ class _PrinterSettingsDialogState extends State<PrinterSettingsDialog> {
                         },
                       ),
                       if (_devices.isEmpty)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 6),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 6),
                           child: Text(
-                            'No paired devices. Pair the printer in Android Bluetooth settings first.',
-                            style: TextStyle(
+                            Platform.isWindows
+                                ? 'No paired printers. Pair one in Windows Bluetooth settings first.'
+                                : 'No paired devices. Pair the printer in Android Bluetooth settings first.',
+                            style: const TextStyle(
                               fontSize: 10,
                               color: Colors.white38,
                             ),
                           ),
                         ),
                       const SizedBox(height: 6),
-                      const Text(
-                        'Android requires Location permission for Bluetooth discovery on older versions.',
-                        style: TextStyle(fontSize: 10, color: Colors.white38),
+                      Text(
+                        Platform.isWindows
+                            ? 'Pair the printer in Windows Bluetooth settings first. BLE printers are supported.'
+                            : 'Android requires Location permission for Bluetooth discovery on older versions.',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Colors.white38,
+                        ),
                       ),
                     ],
                     if (_settings.mode == PrinterMode.system)

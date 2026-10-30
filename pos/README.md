@@ -48,3 +48,15 @@ GET  /api/v1/catalog/products
 POST /api/v1/till/open
 POST /api/v1/orders
 ```
+
+## Mobile barcode and printer support
+
+Android/iOS can use the camera barcode button in the POS search field. Windows keeps the hardware/keyboard scanner path.
+
+Receipt printer modes (printer icon in the terminal top bar):
+
+- **System print** — Windows/Android print dialog
+- **Network ESC/POS** — printer IP + port (normally `9100`)
+- **Bluetooth ESC/POS** — paired printer, using `print_bluetooth_thermal`
+
+Android permissions include camera, Bluetooth connect/scan, and legacy Bluetooth/location access. Pair the printer in Android/Windows Bluetooth settings before selecting it in the app.
