@@ -3,8 +3,33 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
+import 'esc_pos_receipt.dart';
+import 'printer_settings.dart';
+
 class ReceiptPrinter {
+  final _store = PrinterSettingsStore();
+  final _escPos = EscPosPrinter();
+
   Future<void> printOrder(
+    Map<String, dynamic> order, {
+    required String branch,
+  }) async {
+    final settings = await _store.load();
+
+    if (settings.mode == PrinterMode.network) {
+      await _escPos.printNetwork(order, branch, settings);
+      return;
+    }
+
+    if (settings.mode == PrinterMode.bluetooth) {
+      await _escPos.printBluetooth(order, branch, settings);
+      return;
+    }
+
+    await _printSystemPdf(order, branch: branch);
+  }
+
+  Future<void> _printSystemPdf(
     Map<String, dynamic> order, {
     required String branch,
   }) async {

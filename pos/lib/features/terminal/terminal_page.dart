@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/config/env.dart';
 import '../../core/network/api_exception.dart';
 import '../../core/offline/offline_outbox.dart';
+import '../../core/printing/printer_settings_dialog.dart';
 import '../../core/printing/receipt_printer.dart';
 import '../auth/auth_controller.dart';
 import 'terminal_models.dart';
@@ -30,6 +35,7 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
   final _printer = ReceiptPrinter();
   final _outbox = OfflineOutbox();
   int? _categoryId;
+  bool _isCartVisible = false;
 
   TerminalRepository get _repository =>
       TerminalRepository(ref.read(apiClientProvider));
@@ -74,8 +80,11 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
       final search =
           query.isEmpty ||
           product.name.toLowerCase().contains(query) ||
+          (product.barcode ?? '').toLowerCase().contains(query) ||
           product.variants.any(
-            (variant) => variant.name.toLowerCase().contains(query),
+            (variant) =>
+                variant.name.toLowerCase().contains(query) ||
+                (variant.barcode ?? '').toLowerCase().contains(query),
           );
       return category && search;
     }).toList();
@@ -87,8 +96,112 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
   String _moneyText(int minor, String currency) =>
       '$currency ${_money.format(minor / 100)}';
 
+  bool get _isMobilePhone {
+    if (!mounted) return false;
+    final screenWidth = MediaQuery.of(context).size.width;
+    return screenWidth < 600; // Phones are less than 600dp
+  }
+
+  Future<void> _openCameraScanner() async {
+    final permission = await Permission.camera.request();
+    if (!permission.isGranted) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Camera permission is required to scan barcodes.'),
+          ),
+        );
+      }
+      return;
+    }
+
+    if (!mounted) return;
+
+    final controller = MobileScannerController(
+      formats: const [
+        BarcodeFormat.code128,
+        BarcodeFormat.code39,
+        BarcodeFormat.ean13,
+        BarcodeFormat.qrCode,
+      ],
+      detectionSpeed: DetectionSpeed.noDuplicates,
+    );
+
+    final code = await showModalBottomSheet<String>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.black,
+      builder: (context) => SafeArea(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.72,
+          child: Stack(
+            children: [
+              MobileScanner(
+                controller: controller,
+                onDetect: (capture) {
+                  final values = capture.barcodes
+                      .map((barcode) => barcode.rawValue)
+                      .whereType<String>()
+                      .toList();
+                  if (values.isNotEmpty && values.first.isNotEmpty) {
+                    Navigator.pop(context, values.first);
+                  }
+                },
+              ),
+              Positioned(
+                top: 12,
+                left: 16,
+                right: 16,
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        'Scan a product barcode',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.close, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              Center(
+                child: Container(
+                  width: 250,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xFF5BBFE6),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    await controller.dispose();
+
+    if (code != null && mounted) {
+      _handleScan(code);
+    }
+  }
+
   void _scanSubmit() {
-    final term = _search.text.trim().toLowerCase();
+    _handleScan(_search.text);
+  }
+
+  void _handleScan(String value) {
+    final term = value.trim().toLowerCase();
     if (term.isEmpty) return;
 
     for (final product in _bootstrap?.products ?? const <PosProduct>[]) {
@@ -285,6 +398,13 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
             .showSnackBar(SnackBar(content: Text(exception.message)));
       }
     }
+  }
+
+  Future<void> _openPrinterSettings() async {
+    await showDialog<void>(
+      context: context,
+      builder: (context) => const PrinterSettingsDialog(),
+    );
   }
 
   Future<void> _openOffice() async {
@@ -553,6 +673,7 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
             needsTwoFactor: needsTwoFactor,
             onOffice: _openOffice,
             onSecurity: _openSecurity,
+            onPrinter: _openPrinterSettings,
             onCloseTill: _closeTill,
             onRefresh: _load,
             onLogout: () => ref.read(authControllerProvider).logout(),
@@ -584,13 +705,15 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
               ),
             ),
           Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(child: _catalog(data)),
-                _cartPanel(data, open),
-              ],
-            ),
+            child: _isMobilePhone
+                ? _mobileLayout(data, open)
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(child: _catalog(data)),
+                      _cartPanel(data, open),
+                    ],
+                  ),
           ),
         ],
       ),
@@ -598,10 +721,14 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
   }
 
   Widget _catalog(TerminalBootstrap data) {
+    final crossAxisCount = _isMobilePhone ? 2 : 4;
+    final mainAxisExtent = _isMobilePhone ? 130.0 : 150.0;
+    final padding = _isMobilePhone ? 12.0 : 20.0;
+
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+          padding: EdgeInsets.fromLTRB(padding, 16, padding, 8),
           child: Row(
             children: [
               Expanded(
@@ -609,10 +736,17 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
                   controller: _search,
                   onChanged: (_) => setState(() {}),
                   onSubmitted: (_) => _scanSubmit(),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Scan barcode or search products…',
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     isDense: true,
+                    suffixIcon: (Platform.isAndroid || Platform.isIOS)
+                        ? IconButton(
+                            onPressed: _openCameraScanner,
+                            tooltip: 'Camera scan',
+                            icon: const Icon(Icons.qr_code_scanner, size: 19),
+                          )
+                        : null,
                   ),
                 ),
               ),
@@ -622,7 +756,7 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
         SizedBox(
           height: 40,
           child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: padding),
             scrollDirection: Axis.horizontal,
             children: [
               _categoryChip(null, 'All'),
@@ -634,10 +768,10 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
         ),
         Expanded(
           child: GridView.builder(
-            padding: const EdgeInsets.all(20),
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 220,
-              mainAxisExtent: 150,
+            padding: EdgeInsets.all(padding),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              mainAxisExtent: mainAxisExtent,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
             ),
@@ -666,12 +800,16 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
 
   Widget _productTile(PosProduct product, String currency) {
     final disabled = product.stock <= 0;
+    final imageSize = _isMobilePhone ? 36.0 : 42.0;
+    final fontSize = _isMobilePhone ? 11.0 : 12.0;
+    final priceFontSize = _isMobilePhone ? 11.0 : 12.0;
+
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: disabled ? null : () => _add(product),
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(_isMobilePhone ? 8 : 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -682,18 +820,21 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: product.imageUrl == null
                           ? Container(
-                              width: 42,
-                              height: 42,
+                              width: imageSize,
+                              height: imageSize,
                               color: const Color(0xFF263036),
                               alignment: Alignment.center,
                               child: Text(
                                 product.name.substring(0, 1).toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: _isMobilePhone ? 14 : 16,
+                                ),
                               ),
                             )
                           : Image.network(
                               product.imageUrl!,
-                              width: 42,
-                              height: 42,
+                              width: imageSize,
+                              height: imageSize,
                               fit: BoxFit.cover,
                               errorBuilder: (_, error, stack) => const Icon(
                                 Icons.broken_image_outlined,
@@ -708,29 +849,29 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
                         color: disabled
                             ? const Color(0xFFFF6B6B)
                             : const Color(0xFF4FCE8A),
-                        fontSize: 10,
+                        fontSize: _isMobilePhone ? 9 : 10,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: _isMobilePhone ? 6 : 8),
               Text(
                 product.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 12,
+                style: TextStyle(
+                  fontSize: fontSize,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const Spacer(),
               Text(
                 _moneyText(product.priceMinor, currency),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'monospace',
-                  fontSize: 12,
+                  fontSize: priceFontSize,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -883,6 +1024,219 @@ class _TerminalPageState extends ConsumerState<TerminalPage> {
       ),
     );
   }
+
+  Widget _mobileLayout(TerminalBootstrap data, bool open) {
+    return Stack(
+      children: [
+        _catalog(data),
+        if (_cart.isNotEmpty)
+          Positioned(
+            bottom: 16,
+            left: 16,
+            right: 16,
+            child: FloatingActionButton.extended(
+              onPressed: () => setState(() => _isCartVisible = true),
+              icon: const Icon(Icons.shopping_cart),
+              label: Text(
+                '${_cart.fold(0, (sum, line) => sum + line.quantity)} items',
+              ),
+              backgroundColor: const Color(0xFF5BBFE6),
+            ),
+          ),
+        if (_isCartVisible)
+          GestureDetector(
+            onTap: () => setState(() => _isCartVisible = false),
+            child: Container(
+              color: Colors.black54,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF12181C),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
+                      constraints: const BoxConstraints(maxHeight: 500),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 12),
+                            width: 40,
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: Colors.white24,
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.receipt_long_outlined,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 8),
+                                const Text(
+                                  'Current sale',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  '${_cart.fold(0, (sum, line) => sum + line.quantity)} items',
+                                  style: const TextStyle(
+                                    color: Colors.white38,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(color: Color(0xFF263036)),
+                          Expanded(
+                            child: ListView.separated(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
+                              itemCount: _cart.length,
+                              separatorBuilder: (_, index) => const Divider(
+                                height: 1,
+                                color: Color(0xFF202A2F),
+                              ),
+                              itemBuilder: (context, index) {
+                                final line = _cart[index];
+                                return ListTile(
+                                  dense: true,
+                                  title: Text(
+                                    line.product.name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  subtitle: Text(
+                                    line.variant.name,
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () => setState(() {
+                                          if (line.quantity <= 1) {
+                                            _cart.removeAt(index);
+                                          } else {
+                                            line.quantity--;
+                                          }
+                                        }),
+                                        icon: const Icon(
+                                          Icons.remove,
+                                          size: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${line.quantity}',
+                                        style: const TextStyle(
+                                          fontFamily: 'monospace',
+                                        ),
+                                      ),
+                                      IconButton(
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () =>
+                                            setState(() => line.quantity++),
+                                        icon: const Icon(Icons.add, size: 16),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: Color(0xFF263036)),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Total',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      _moneyText(_totalMinor, data.currency),
+                                      style: const TextStyle(
+                                        fontFamily: 'monospace',
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 50,
+                                  child: FilledButton.icon(
+                                    onPressed: open && _cart.isNotEmpty
+                                        ? _chargeCash
+                                        : null,
+                                    icon: const Icon(Icons.payments_outlined),
+                                    label: const Text('Charge · Cash'),
+                                  ),
+                                ),
+                                if ((data.paymentMethods['mpesa']
+                                        as Map?)?['available'] ==
+                                    true) ...[
+                                  const SizedBox(height: 8),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 44,
+                                    child: OutlinedButton.icon(
+                                      onPressed: open && _cart.isNotEmpty
+                                          ? _chargeMpesa
+                                          : null,
+                                      icon: const Icon(
+                                        Icons.phone_android,
+                                        size: 18,
+                                      ),
+                                      label: const Text('Charge · M-Pesa STK'),
+                                    ),
+                                  ),
+                                ],
+                                const SizedBox(height: 8),
+                                const Text(
+                                  'Payment details stay on the server; the cashier never asks for an M-Pesa PIN.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white24,
+                                    fontSize: 9,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      ],
+    );
+  }
 }
 
 class _TopBar extends StatelessWidget {
@@ -893,6 +1247,7 @@ class _TopBar extends StatelessWidget {
     required this.needsTwoFactor,
     required this.onOffice,
     required this.onSecurity,
+    required this.onPrinter,
     required this.onCloseTill,
     required this.onRefresh,
     required this.onLogout,
@@ -904,6 +1259,7 @@ class _TopBar extends StatelessWidget {
   final bool needsTwoFactor;
   final VoidCallback onOffice;
   final VoidCallback onSecurity;
+  final VoidCallback onPrinter;
   final VoidCallback onCloseTill;
   final VoidCallback onRefresh;
   final VoidCallback onLogout;
@@ -985,6 +1341,11 @@ class _TopBar extends StatelessWidget {
               icon: const Icon(Icons.lock_outline, size: 15),
               label: const Text('Close till'),
             ),
+          IconButton(
+            onPressed: onPrinter,
+            tooltip: 'Receipt printer',
+            icon: const Icon(Icons.print_outlined, size: 18),
+          ),
           IconButton(
             onPressed: onRefresh,
             tooltip: 'Refresh',
