@@ -138,7 +138,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ),
                   const SizedBox(height: 14),
                   const Text(
-                    'Windows POS · API v1',
+                    'POS. v1.0.0',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white24,
