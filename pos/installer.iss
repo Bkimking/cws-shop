@@ -1,7 +1,7 @@
 [Setup]
 AppId={{B7E4C1A2-5D3F-4E8A-9C61-2F0A7D9E4B15}
 AppName=CWS POS
-AppVersion=1.0.0
+AppVersion=1.0.1
 AppPublisher=CodeWithSky
 DefaultDirName={autopf}\CWS POS
 DefaultGroupName=CWS POS
