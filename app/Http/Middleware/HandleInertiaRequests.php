@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Ai\AiSettings;
 use App\Services\MpesaStkService;
+use App\Services\Portal\EntitlementService;
 use App\Services\ShopCartService;
 use App\Tour\TourService;
 use Illuminate\Http\Request;
@@ -59,6 +60,14 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'roles' => $request->user()?->getRoleNames()->all() ?? [],
                 'permissions' => $request->user()?->getAllPermissions()->pluck('name')->all() ?? [],
+            ],
+            'portal' => [
+                'enabled' => (bool) config('portal.enabled'),
+                'url' => rtrim((string) config('portal.url'), '/'),
+                'is_superadmin' => $request->user()?->getRoleNames()->contains('Superadmin') ?? false,
+                'entitlement' => $request->user() !== null
+                    ? app(EntitlementService::class)->frontend()
+                    : null,
             ],
             'shop' => [
                 'cart_count' => app(ShopCartService::class)->count(),

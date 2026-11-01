@@ -1,5 +1,7 @@
 <?php
 
+use Inertia\Inertia;
+
 require __DIR__.'/shop.php';
 
 // Admin routes
@@ -9,3 +11,5 @@ require __DIR__.'/admin.php';
 require __DIR__.'/pos.php';
 
 require __DIR__.'/settings.php';
+
+Route::middleware(['auth'])->get('/system/suspended', fn () => Inertia::render('system/suspended'))->name('system.suspended');

@@ -13,4 +13,5 @@ export type NavItem = {
     isActive?: boolean;
     permission?: string;
     group?: string;
+    external?: boolean;
 };

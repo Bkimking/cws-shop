@@ -14,9 +14,9 @@ Route::prefix('shop')->name('shop.')->group(function () {
     Route::patch('cart/{variant}', [ShopController::class, 'update'])->name('cart.update');
     Route::delete('cart/{variant}', [ShopController::class, 'remove'])->name('cart.remove');
     Route::get('checkout', [ShopController::class, 'checkout'])->name('checkout');
-    Route::post('checkout', [ShopController::class, 'placeOrder'])->name('checkout.store');
+    Route::post('checkout', [ShopController::class, 'placeOrder'])->middleware('portal.entitlement')->name('checkout.store');
     Route::get('orders/{order:public_token}', [ShopController::class, 'order'])->name('order');
-    Route::post('orders/{order:public_token}/retry', [ShopController::class, 'retry'])->name('order.retry');
+    Route::post('orders/{order:public_token}/retry', [ShopController::class, 'retry'])->middleware('portal.entitlement')->name('order.retry');
     Route::post('orders/{order:public_token}/refresh', [ShopController::class, 'refreshStatus'])->name('order.refresh');
     Route::post('orders/{order:public_token}/email', [ShopController::class, 'emailReceipt'])->name('order.email');
     Route::get('orders/{order:public_token}/status', [ShopController::class, 'orderStatus'])->name('order.status');

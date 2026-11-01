@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\BranchScopeMiddleware;
+use App\Http\Middleware\EnsurePortalEntitlement;
 use App\Http\Middleware\EnsureUserIsActive;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
@@ -35,6 +36,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => PermissionMiddleware::class,
             'region.scope' => RegionScopeMiddleware::class,
             'branch.scope' => BranchScopeMiddleware::class,
+            'portal.entitlement' => EnsurePortalEntitlement::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

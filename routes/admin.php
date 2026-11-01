@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\Ai\AiChatController;
 use App\Http\Controllers\Admin\Ai\AiConversationController;
 use App\Http\Controllers\Admin\Ai\AiFeedbackController;
 use App\Http\Controllers\Admin\Ai\AiSettingsController;
+use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\BillingController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -18,12 +20,13 @@ use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\WorkspaceController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified', 'admin', 'region.scope', 'branch.scope'])
+Route::middleware(['auth', 'verified', 'admin', 'region.scope', 'branch.scope', 'portal.entitlement'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
@@ -31,6 +34,15 @@ Route::middleware(['auth', 'verified', 'admin', 'region.scope', 'branch.scope'])
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('guide', [GuideController::class, 'index'])->name('guide.index');
+
+        Route::get('support', [SupportController::class, 'index'])->name('support.index');
+
+        Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+
+        Route::get('billing', [BillingController::class, 'index'])->name('billing.index');
+        Route::post('announcements/{announcement}/read', [AnnouncementController::class, 'read'])->name('announcements.read');
+        Route::post('support', [SupportController::class, 'store'])->name('support.store');
+        Route::post('support/{ticket}/reply', [SupportController::class, 'reply'])->name('support.reply');
 
         Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
         Route::post('notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
