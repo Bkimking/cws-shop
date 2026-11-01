@@ -190,23 +190,34 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Support',
-        href: '',
-        icon: HelpCircle,
-    },
-    {
-        title: 'Updates',
-        href: '',
-        icon: Bell,
-    },
-];
-
 export function AppSidebar() {
     const page = usePage();
-    const { auth, ai } = page.props as { auth: Auth; ai?: AiShared };
+    const { auth, ai, portal } = page.props as {
+        auth: Auth;
+        ai?: AiShared;
+        portal?: { enabled: boolean; url: string; is_superadmin: boolean };
+    };
     const permissions = auth.permissions ?? [];
+    const roles = auth.roles ?? [];
+    const isSuperadmin =
+        roles.includes('Superadmin') || portal?.is_superadmin === true;
+    const portalFooterItems: NavItem[] = [
+        {
+            title: 'Support',
+            href: '/admin/support',
+            icon: HelpCircle,
+        },
+        {
+            title: 'Announcements',
+            href: '/admin/announcements',
+            icon: Bell,
+        },
+        {
+            title: 'Billing',
+            href: '/admin/billing',
+            icon: CreditCard,
+        },
+    ];
     const visibleNavItems = mainNavItems.filter(
         (item) =>
             (!item.permission || permissions.includes(item.permission)) &&
@@ -232,7 +243,9 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                {isSuperadmin && portal?.enabled !== false && (
+                    <NavFooter items={portalFooterItems} className="mt-auto" />
+                )}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

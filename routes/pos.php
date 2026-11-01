@@ -11,7 +11,7 @@ Route::middleware(['auth', 'verified', 'permission:use pos terminal'])
         Route::get('/', [PosController::class, 'index'])->name('index');
 
         Route::post('sales', [PosController::class, 'store'])
-            ->middleware('permission:create orders')
+            ->middleware(['permission:create orders', 'portal.entitlement'])
             ->name('sales.store');
 
         Route::get('sales/{order}/status', [PosController::class, 'status'])
@@ -19,7 +19,7 @@ Route::middleware(['auth', 'verified', 'permission:use pos terminal'])
             ->name('sales.status');
 
         Route::post('till/open', [TillController::class, 'open'])
-            ->middleware('permission:manage till')
+            ->middleware(['permission:manage till', 'portal.entitlement'])
             ->name('till.open');
 
         Route::post('till/close', [TillController::class, 'close'])

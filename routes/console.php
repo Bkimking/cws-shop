@@ -10,3 +10,5 @@ Artisan::command('inspire', function () {
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::command('mpesa:reconcile')->everyMinute()->withoutOverlapping();
+
+Schedule::command('portal:sync')->everyFiveMinutes()->withoutOverlapping();
